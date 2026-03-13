@@ -290,7 +290,12 @@
                 <div class="greeting">Ready for adventure?</div>
                 <h1 class="title">Where to next?</h1>
             </div>
-            <a href="search.html" class="search-button" aria-label="Search">🔍</a>
+            <div style="display: flex; align-items: center;">
+                <a href="search.html" class="search-button" aria-label="Search">🔍</a>
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+                    <span id="theme-icon">🌙</span>
+                </button>
+            </div>
         </div>
 
         <!-- PRIMARY ACTIONS (Always Visible - Max 4 items) -->
@@ -487,6 +492,41 @@
                     console.log('Service Worker registration failed:', error);
                 });
         }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            const currentTheme = html.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                html.setAttribute('data-theme', 'light');
+                icon.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const icon = document.getElementById('theme-icon');
+            
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                icon.textContent = '☀️';
+            } else if (savedTheme === 'light') {
+                document.documentElement.setAttribute('data-theme', 'light');
+                icon.textContent = '🌙';
+            }
+            // If no saved preference, respect system preference (handled by CSS)
+        }
+
+        // Load theme on page load
+        loadTheme();
     </script>
 </body>
 </html>

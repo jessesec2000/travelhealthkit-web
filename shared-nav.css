@@ -1,5 +1,30 @@
 /* Shared Navigation Styles - Include in all pages */
 
+/* Dark Mode Variables */
+:root {
+    --bg-color: #FAFAFA;
+    --text-color: #1A1A1A;
+    --card-bg: #FFFFFF;
+    --border-color: #E5E7EB;
+    --muted-text: #6B7280;
+    --nav-bg: #FFFFFF;
+}
+
+[data-theme="dark"] {
+    --bg-color: #0F0F0F;
+    --text-color: #FFFFFF;
+    --card-bg: #1A1A1A;
+    --border-color: #27272A;
+    --muted-text: #A1A1AA;
+    --nav-bg: #1A1A1A;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
 /* Medical Disclaimer Banner */
 .medical-disclaimer {
     background: #FEF3C7;
@@ -154,4 +179,73 @@ body.has-bottom-nav {
 /* Emergency float button - adjusted to not conflict with bottom nav */
 .emergency-float {
     bottom: 88px !important; /* Above bottom nav */
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: 8px;
+}
+
+.theme-toggle:hover {
+    border-color: #FF6B35;
+    transform: scale(1.05);
+}
+
+/* Dark mode card styles */
+[data-theme="dark"] .category-card,
+[data-theme="dark"] .info-section,
+[data-theme="dark"] .trip-info,
+[data-theme="dark"] .result-card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .power-item,
+[data-theme="dark"] .emergency-item,
+[data-theme="dark"] .embassy-item {
+    background-color: #27272A;
+}
+
+[data-theme="dark"] .section-header {
+    background-color: #27272A;
+    color: #E4E4E7;
+}
+
+[data-theme="dark"] .category-item:hover,
+[data-theme="dark"] .result-card:hover {
+    background-color: #27272A;
+}
+
+[data-theme="dark"] .bottom-nav {
+    background-color: var(--nav-bg);
+    border-color: #27272A;
+}
+
+[data-theme="dark"] .search-button,
+[data-theme="dark"] .theme-toggle {
+    background-color: #27272A;
+    border-color: #3F3F46;
+}
+
+/* Apply theme based on system preference */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg-color: #0F0F0F;
+        --text-color: #FFFFFF;
+        --card-bg: #1A1A1A;
+        --border-color: #27272A;
+        --muted-text: #A1A1AA;
+        --nav-bg: #1A1A1A;
+    }
 }
