@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your Kit - TravelHealthKit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #6B7280;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .header {
+            margin-bottom: 24px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #6B7280;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: #FEF3C7;
+            border-left: 4px solid #F59E0B;
+            padding: 16px;
+            margin-bottom: 24px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .disclaimer-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #92400E;
+            margin-bottom: 4px;
+        }
+
+        .disclaimer-text {
+            font-size: 13px;
+            color: #92400E;
+        }
+
+        /* Trip Info */
+        .trip-info {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .trip-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #9CA3AF;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .trip-destination {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1A1A1A;
+        }
+
+        .trip-meta {
+            font-size: 14px;
+            color: #6B7280;
+            margin-top: 4px;
+        }
+
+        /* Progress */
+        .progress-section {
+            margin-bottom: 24px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .progress-percent {
+            font-size: 14px;
+            font-weight: 700;
+            color: #FF6B35;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #E5E7EB;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B35, #FF8E53);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        /* Category Cards */
+        .category {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .category-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .category-count {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .item-list {
+            padding: 8px 0;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid #F3F4F6;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item:hover {
+            background: #FAFAFA;
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #D1D5DB;
+            border-radius: 6px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .checkbox.checked {
+            background: #FF6B35;
+            border-color: #FF6B35;
+        }
+
+        .checkbox.checked::after {
+            content: "✓";
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .item-text {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #1A1A1A;
+        }
+
+        .item-name.checked {
+            text-decoration: line-through;
+            color: #9CA3AF;
+        }
+
+        .item-quantity {
+            font-size: 13px;
+            color: #6B7280;
+            margin-top: 2px;
+        }
+
+        .priority-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .priority-essential {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .priority-recommended {
+            background: #DBEAFE;
+            color: #2563EB;
+        }
+
+        .priority-optional {
+            background: #F3F4F6;
+            color: #6B7280;
+        }
+
+        /* Export Button */
+        .export-section {
+            margin-top: 32px;
+            padding: 24px;
+            background: white;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .export-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .export-text {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 16px;
+        }
+
+        .export-button {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .export-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Doctor Note */
+        .doctor-note {
+            background: #DBEAFE;
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .doctor-note-text {
+            font-size: 14px;
+            color: #1E40AF;
+            line-height: 1.5;
+        }
+
+        /* Bottom Space */
+        .bottom-space {
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <a href="index.html" class="back-button">← Back to Home</a>
+
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Build Your Kit</h1>
+            <p class="subtitle">Personalized checklist for your Nepal trek</p>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <div class="disclaimer-title">⚠️ Important Notice</div>
+            <div class="disclaimer-text">
+                This checklist is for planning purposes only. Review with your healthcare provider 
+                to ensure it meets your specific needs. Always carry emergency medications prescribed by your doctor.
+            </div>
+        </div>
+
+        <!-- Trip Info -->
+        <div class="trip-info">
+            <div class="trip-label">YOUR TRIP</div>
+            <div class="trip-destination">🏔️ Nepal - Everest Base Camp</div>
+            <div class="trip-meta">14 days • High altitude trekking • Level 2 Adventure</div>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <span class="progress-label">Packing Progress</span>
+                <span class="progress-percent" id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Prescription Medications Category -->
+        <div class="category">
+            <div class="category-header">
+                <span class="category-title">💊 Prescription Medications</span>
+                <span class="category-count" id="count-prescription">0/4</span>
+            </div>
+            <div class="item-list">
+                <div class="item" onclick="toggleItem(this, 'prescription')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Diamox (Acetazolamide)</div>
+                        <div class="item-quantity">125-250mg, twice daily - for altitude</div>
+                    </div>
+                    <span class="priority-badge priority-essential">Essential</span>
+                </div>
+                <div class="item" onclick="toggleItem(this, 'prescription')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Azithromycin</div>
+                        <div class="item-quantity">For travelers diarrhea - discuss with doctor</div>
+                    </div>
+                    <span class="priority-badge priority-recommended">Recommended</span>
+                </div>
+                <div class="item" onclick="toggleItem(this, 'prescription')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Personal prescriptions</div>
+                        <div class="item-quantity">Bring extra 3-day supply in carry-on</div>
+                    </div>
+                    <span class="priority-badge priority-essential">Essential</span>
+                </div>
+                <div class="item" onclick="toggleItem(this, 'prescription')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Prescription copies</div>
+                        <div class="item-quantity">Photos of all labels + doctor's letter</div>
+                    </div>
+                    <span class="priority-badge priority-essential">Essential</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- First Aid Category -->
+        <div class="category">
+            <div class="category-header">
+                <span class="category-title">🩹 First Aid Supplies</span>
+                <span class="category-count" id="count-firstaid">0/6</span>
+            </div>
+            <div class="item-list">
+                <div class="item" onclick="toggleItem(this, 'firstaid')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Blister kit</div>
+                        <div class="item-quantity">Moleskin, Compeed pads, blister cushions</div>
+                    </div>
+                    <span class="priority-badge priority-essential">Essential</span>
+                </div>
+                <div class="item" onclick="toggleItem(this, 'firstaid')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Wound care supplies</div>
+                        <div class="item-quantity">Gauze pads, tape, antiseptic wipes, bandages</div>
+                    </div>
+                    <span class="priority-badge priority-essential">Essential</span>
+                </div>
+                <div class="item" onclick="toggleItem(this, 'firstaid')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">SAM Splint</div>
+                        <div class="item-quantity">Lightweight moldable splint for fractures</div>
+                    </div>
+                    <span class="priority-badge priority-recommended">Recommended</span>
+                </div>
+                <div class="item" onclick="toggleItem(this, 'firstaid')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Tweezers & scissors</div>
+                        <div class="item-quantity">Fine point for splinters/ticks</div>
+                    </div>
+                    <span class="priority-badge priority-essential">Essential</span>
+                </div>
+                <div class="item" onclick="toggleItem(this, 'firstaid')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Elastic bandages</div>
+                        <div class="item-quantity">3-inch and 4-inch for sprains</div>
+                    </div>
+                    <span class="priority-badge priority-recommended">Recommended</span>
+                </div>
+                <div class="item" onclick="toggleItem(this, 'firstaid')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Emergency blanket</div>
+                        <div class="item-quantity">Mylar space blanket (2-3)</div>
+                    </div>
+                    <span class="priority-badge priority-essential">Essential</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Altitude Specific Category -->
+        <div class="category">
+            <div class="category-header">
+                <span class="category-title">🏔️ Altitude Specific</span>
+                <span class="category-count" id="count-altitude">0/4</span>
+            </div>
+            <div class="item-list">
+                <div class="item" onclick="toggleItem(this, 'altitude')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Pulse oximeter</div>
+                        <div class="item-quantity">Monitor oxygen saturation at altitude</div>
+                    </div>
+                    <span class="priority-badge priority-recommended">Recommended</span>
+                </div>
+                <div class="item" onclick="toggleItem(this, 'altitude')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Electrolyte supplements</div>
+                        <div class="item-quantity">Nuun tablets, oral rehydration salts</div>
+                    </div>
+                    <span class="priority-badge priority-essential">Essential</span>
+                </div>
+                <div class="item" onclick="toggleItem(this, 'altitude')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Altitude sickness guide</div>
+                        <div class="item-quantity">Laminated card with symptoms & treatment</div>
+                    </div>
+                    <span class="priority-badge priority-essential">Essential</span>
+                </div>
+                <div class="item" onclick="toggleItem(this, 'altitude')">
+                    <div class="checkbox"></div>
+                    <div class="item-text">
+                        <div class="item-name">Glucometer (if diabetic)</div>
+                        <div class="item-quantity">Altitude affects blood sugar</div>
+                    </div>
+                    <span class="priority-badge priority-optional">If needed</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export Section -->
+        <div class="export-section">
+            <div class="export-title">📱 Save or Share</div>
+            <div class="export-text">
+                Download your checklist as PDF to bring to your doctor appointment
+            </div>
+            <button class="export-button" onclick="exportKit()">
+                Export Checklist
+            </button>
+        </div>
+
+        <!-- Doctor Note -->
+        <div class="doctor-note">
+            <div class="doctor-note-text">
+                ⚕️ <strong>Next step:</strong> Take this checklist to your travel medicine appointment. 
+                Your doctor can verify medications are appropriate for your health profile.
+            </div>
+        </div>
+
+        <div class="bottom-space"></div>
+    </div>
+
+    <script>
+        const counts = {
+            prescription: { total: 4, checked: 0 },
+            firstaid: { total: 6, checked: 0 },
+            altitude: { total: 4, checked: 0 }
+        };
+
+        function toggleItem(element, category) {
+            const checkbox = element.querySelector('.checkbox');
+            const itemName = element.querySelector('.item-name');
+            
+            if (checkbox.classList.contains('checked')) {
+                checkbox.classList.remove('checked');
+                itemName.classList.remove('checked');
+                counts[category].checked--;
+            } else {
+                checkbox.classList.add('checked');
+                itemName.classList.add('checked');
+                counts[category].checked++;
+            }
+            
+            updateCount(category);
+            updateProgress();
+        }
+
+        function updateCount(category) {
+            document.getElementById(`count-${category}`).textContent = 
+                `${counts[category].checked}/${counts[category].total}`;
+        }
+
+        function updateProgress() {
+            let totalItems = 0;
+            let totalChecked = 0;
+            
+            for (let cat in counts) {
+                totalItems += counts[cat].total;
+                totalChecked += counts[cat].checked;
+            }
+            
+            const percent = Math.round((totalChecked / totalItems) * 100);
+            document.getElementById('progressPercent').textContent = `${percent}%`;
+            document.getElementById('progressFill').style.width = `${percent}%`;
+        }
+
+        function exportKit() {
+            alert('In the full app, this would generate a PDF of your checklist with all checked items for your doctor appointment.');
+        }
+    </script>
+</body>
+</html>
