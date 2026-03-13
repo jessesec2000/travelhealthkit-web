@@ -286,32 +286,32 @@
         <!-- PRIMARY ACTIONS (Always Visible - Max 4 items) -->
         <div class="section-label">Start Here</div>
         
-        <div class="primary-card" onclick="selectAdventureLevel()">
+        <a href="adventure-levels.html" class="primary-card" style="text-decoration: none; color: inherit;">
             <div class="primary-icon">🎯</div>
             <div class="primary-content">
                 <div class="primary-title">Find Your Adventure Level</div>
                 <div class="primary-desc">4 levels from extreme to family-friendly</div>
             </div>
             <div class="primary-arrow">›</div>
-        </div>
+        </a>
 
-        <div class="primary-card" onclick="planTrip()">
+        <a href="destination-health.html" class="primary-card" style="text-decoration: none; color: inherit;">
             <div class="primary-icon">✈️</div>
             <div class="primary-content">
                 <div class="primary-title">Plan a Trip</div>
-                <div class="primary-desc">Build your personalized health kit</div>
+                <div class="primary-desc">Destination health information</div>
             </div>
             <div class="primary-arrow">›</div>
-        </div>
+        </a>
 
-        <div class="primary-card" onclick="buildKit()">
+        <a href="kit-builder.html" class="primary-card" style="text-decoration: none; color: inherit;">
             <div class="primary-icon">🎒</div>
             <div class="primary-content">
                 <div class="primary-title">Build Your Kit</div>
                 <div class="primary-desc">View and customize your packing list</div>
             </div>
             <div class="primary-arrow">›</div>
-        </div>
+        </a>
 
         <!-- CONTEXTUAL BANNER - Appears after user selects adventure level -->
         <div class="context-banner" id="contextBanner">
@@ -327,27 +327,34 @@
             <div class="category-header">
                 📋 Before Your Trip
             </div>
-            <div class="category-item" onclick="showPreTravel()">
+            <a href="pre-travel.html" class="category-item" style="text-decoration: none; color: inherit;">
                 <div class="category-icon">🏥</div>
                 <div class="category-text">
                     <div class="category-title">Pre-Travel Doctor Visit</div>
                     <div class="category-desc">Checklist for your appointment</div>
                 </div>
-            </div>
-            <div class="category-item" onclick="showDrugChecker()">
-                <div class="category-icon">💊</div>
+            </a>
+            <a href="infectious-diseases.html" class="category-item" style="text-decoration: none; color: inherit;">
+                <div class="category-icon">🦠</div>
                 <div class="category-text">
-                    <div class="category-title">Drug Interaction Checker</div>
-                    <div class="category-desc">Check medications before travel</div>
+                    <div class="category-title">Infectious Disease Guide</div>
+                    <div class="category-desc">Protection methods & risks</div>
                 </div>
-            </div>
-            <div class="category-item" onclick="showAllergyCards()">
+            </a>
+            <a href="allergy-cards.html" class="category-item" style="text-decoration: none; color: inherit;">
                 <div class="category-icon">🚨</div>
                 <div class="category-text">
                     <div class="category-title">Allergy Translation Cards</div>
                     <div class="category-desc">For restaurants abroad</div>
                 </div>
-            </div>
+            </a>
+            <a href="food-water-safety.html" class="category-item" style="text-decoration: none; color: inherit;">
+                <div class="category-icon">🍽️</div>
+                <div class="category-text">
+                    <div class="category-title">Food & Water Safety</div>
+                    <div class="category-desc">Avoid travelers diarrhea</div>
+                </div>
+            </a>
         </div>
 
         <!-- Family & Special Groups -->
@@ -355,13 +362,13 @@
             <div class="category-header">
                 👨‍👩‍👧‍👦 Family & Special Groups
             </div>
-            <div class="category-item" onclick="showPediatric()">
+            <a href="pediatric.html" class="category-item" style="text-decoration: none; color: inherit;">
                 <div class="category-icon">👶</div>
                 <div class="category-text">
                     <div class="category-title">Traveling with Children</div>
                     <div class="category-desc">Age-specific health guidance</div>
                 </div>
-            </div>
+            </a>
         </div>
 
         <!-- EXPANDABLE SECTION - More Tools -->
@@ -378,33 +385,47 @@
                 <div class="category-header">
                     🧭 Remote & Extreme
                 </div>
-                <div class="category-item" onclick="showSatelliteComms()">
+                <a href="satellite-guide.html" class="category-item" style="text-decoration: none; color: inherit;">
                     <div class="category-icon">📡</div>
                     <div class="category-text">
                         <div class="category-title">Satellite Communicators</div>
                         <div class="category-desc">Essential for remote adventures</div>
                     </div>
-                </div>
-                <div class="category-item" onclick="showDetailedKit()">
+                </a>
+                <a href="kit-builder.html" class="category-item" style="text-decoration: none; color: inherit;">
                     <div class="category-icon">🧰</div>
                     <div class="category-text">
                         <div class="category-title">Detailed First Aid Kit</div>
                         <div class="category-desc">Specific items with quantities</div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="category-card">
                 <div class="category-header">
                     🚨 Emergency
                 </div>
-                <div class="category-item" onclick="showEmergencyProtocols()">
+                <a href="emergency-protocols.html" class="category-item" style="text-decoration: none; color: inherit;">
                     <div class="category-icon">⚕️</div>
                     <div class="category-text">
                         <div class="category-title">Emergency Protocols</div>
                         <div class="category-desc">Step-by-step emergency guidance</div>
                     </div>
-                </div>
+                </a>
+                <a href="environmental-risks.html" class="category-item" style="text-decoration: none; color: inherit;">
+                    <div class="category-icon">🏔️</div>
+                    <div class="category-text">
+                        <div class="category-title">Environmental Risks</div>
+                        <div class="category-desc">Altitude, heat, cold, wildlife</div>
+                    </div>
+                </a>
+                <a href="country-utilities.html" class="category-item" style="text-decoration: none; color: inherit;">
+                    <div class="category-icon">🔌</div>
+                    <div class="category-text">
+                        <div class="category-title">Country Utilities</div>
+                        <div class="category-desc">Adapters, emergency numbers</div>
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -413,25 +434,11 @@
     </div>
 
     <!-- Emergency Button - Always accessible -->
-    <div class="emergency-float" onclick="showEmergency()">
+    <a href="emergency-protocols.html" class="emergency-float" style="text-decoration: none;">
         🆘 Emergency
-    </div>
+    </a>
 
     <script>
-        function selectAdventureLevel() {
-            alert('Opens Adventure Levels (Level 1-4 selection)');
-            // After user selects Level 1 or 2, show contextual banner
-            document.getElementById('contextBanner').classList.add('show');
-        }
-
-        function planTrip() {
-            alert('Opens Trip Planner - destination, dates, activities');
-        }
-
-        function buildKit() {
-            alert('Opens Kit Builder - personalized packing list');
-        }
-
         function toggleMore() {
             const moreTools = document.getElementById('moreTools');
             const toggleText = document.getElementById('toggleText');
@@ -443,39 +450,6 @@
                 moreTools.classList.add('show');
                 toggleText.textContent = 'Show Less';
             }
-        }
-
-        // Individual tool functions
-        function showPreTravel() {
-            alert('Opens Pre-Travel Consultation checklist');
-        }
-
-        function showDrugChecker() {
-            alert('Opens Drug Interaction Checker');
-        }
-
-        function showAllergyCards() {
-            alert('Opens Allergy Translation Cards');
-        }
-
-        function showPediatric() {
-            alert('Opens Pediatric Travel Medicine');
-        }
-
-        function showSatelliteComms() {
-            alert('Opens Satellite Communicator Guide');
-        }
-
-        function showDetailedKit() {
-            alert('Opens Detailed First Aid Kit');
-        }
-
-        function showEmergencyProtocols() {
-            alert('Opens Emergency Protocols');
-        }
-
-        function showEmergency() {
-            alert('🚨 Opens Emergency Protocols immediately');
         }
     </script>
 </body>
