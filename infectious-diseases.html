@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infectious Disease Guide - TravelHealthKit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Back Button */
+        .back-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #FF6B35;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .back-nav:hover {
+            color: #E55A2B;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 24px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #6B7280;
+        }
+
+        /* Alert Box */
+        .alert-box {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .alert-icon {
+            font-size: 24px;
+        }
+
+        .alert-text {
+            font-size: 14px;
+            color: #92400E;
+            flex: 1;
+        }
+
+        .alert-text strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Section Labels */
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #9CA3AF;
+            margin: 32px 0 16px 0;
+            text-transform: uppercase;
+        }
+
+        /* Disease Cards */
+        .disease-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .disease-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .disease-icon {
+            font-size: 32px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .disease-title {
+            flex: 1;
+        }
+
+        .disease-title h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .disease-title .disease-tag {
+            font-size: 11px;
+            font-weight: 600;
+            color: #FF6B35;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .disease-content {
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .disease-content p {
+            margin-bottom: 12px;
+        }
+
+        .disease-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .info-item {
+            background: #F9FAFB;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .info-item-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .info-item-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        .info-item-value.yes {
+            color: #059669;
+        }
+
+        .info-item-value.no {
+            color: #DC2626;
+        }
+
+        /* Vaccine Badge */
+        .vaccine-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #D1FAE5;
+            color: #065F46;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .vaccine-badge.no-vaccine {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        /* Prevention Section */
+        .prevention-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .prevention-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .prevention-list {
+            list-style: none;
+        }
+
+        .prevention-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #F3F4F6;
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .prevention-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .prevention-list li:first-child {
+            padding-top: 0;
+        }
+
+        .prevention-check {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        /* High Risk Destinations */
+        .region-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .region-card:hover {
+            border-color: #FF6B35;
+            transform: translateY(-2px);
+        }
+
+        .region-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .region-name {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .region-arrow {
+            color: #9CA3AF;
+            font-size: 20px;
+        }
+
+        .region-diseases {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .disease-tag-small {
+            background: #FEF3C7;
+            color: #92400E;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .disease-tag-small.high-risk {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .disease-tag-small.vector {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+
+        /* DEET Info Box */
+        .deet-box {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 24px 0;
+            color: white;
+        }
+
+        .deet-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .deet-content {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .deet-content strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .deet-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .deet-item {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .deet-item-value {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .deet-item-label {
+            font-size: 11px;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #FEE2E2;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .warning-icon {
+            font-size: 20px;
+        }
+
+        .warning-text {
+            font-size: 13px;
+            color: #991B1B;
+            flex: 1;
+        }
+
+        .warning-text strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Expandable Details */
+        .details-toggle {
+            background: #F3F4F6;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 16px;
+            width: 100%;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 16px;
+        }
+
+        .details-toggle:hover {
+            background: #E5E7EB;
+        }
+
+        .details-content {
+            display: none;
+            padding-top: 16px;
+        }
+
+        .details-content.show {
+            display: block;
+        }
+
+        /* Bottom spacer */
+        .bottom-spacer {
+            height: 40px;
+        }
+
+        /* Category divider */
+        .category-divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 32px 0 20px 0;
+        }
+
+        .category-divider-line {
+            flex: 1;
+            height: 1px;
+            background: #E5E7EB;
+        }
+
+        .category-divider-text {
+            font-size: 12px;
+            font-weight: 700;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <a href="index.html" class="back-nav">
+            <span>←</span> Back to Home
+        </a>
+
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Infectious Disease Guide</h1>
+            <p class="subtitle">Know the risks, protect yourself</p>
+        </div>
+
+        <!-- Alert Box -->
+        <div class="alert-box">
+            <span class="alert-icon">⚠️</span>
+            <div class="alert-text">
+                <strong>Consult a travel medicine specialist</strong>
+                Visit a travel clinic 4-6 weeks before departure. Some vaccines require multiple doses.
+            </div>
+        </div>
+
+        <!-- Mosquito-Borne Diseases -->
+        <div class="section-label">🦟 Mosquito-Borne Diseases</div>
+
+        <!-- Malaria -->
+        <div class="disease-card">
+            <div class="disease-header">
+                <div class="disease-icon">🦟</div>
+                <div class="disease-title">
+                    <h3>Malaria</h3>
+                    <span class="disease-tag">High Priority</span>
+                </div>
+            </div>
+            <div class="disease-content">
+                <p>Caused by <em>Plasmodium</em> parasites transmitted through infected mosquito bites. One of the most serious travel-related infections.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-label">Symptoms</div>
+                        <div class="info-item-value">Fever, chills, headache</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Onset</div>
+                        <div class="info-item-value">7 days - 1 year</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Vaccine</div>
+                        <div class="info-item-value no">RTS,S limited</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Prophylaxis</div>
+                        <div class="info-item-value yes">Available</div>
+                    </div>
+                </div>
+
+                <button class="details-toggle" onclick="toggleDetails(this)">
+                    Prophylaxis Options <span>▼</span>
+                </button>
+                <div class="details-content">
+                    <div class="disease-content" style="margin-top: 12px;">
+                        <p><strong>Atovaquone-Proguanil (Malarone):</strong> Daily, start 1-2 days before, continue 7 days after. Least side effects.</p>
+                        <p><strong>Doxycycline:</strong> Daily, start 1-2 days before, continue 4 weeks after. Photosensitivity common.</p>
+                        <p><strong>Mefloquine (Lariam):</strong> Weekly, start 2 weeks before, continue 4 weeks after. Neuropsychiatric side effects possible.</p>
+                        <p><strong>Tafenoquine:</strong> Single dose or weekly. G6PD test required. Long half-life.</p>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <span class="warning-icon">🚨</span>
+                    <div class="warning-text">
+                        <strong>Medical Emergency</strong>
+                        Malaria can be fatal. Seek immediate care if fever develops during or after travel to endemic areas.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dengue -->
+        <div class="disease-card">
+            <div class="disease-header">
+                <div class="disease-icon">🌡️</div>
+                <div class="disease-title">
+                    <h3>Dengue Fever</h3>
+                    <span class="disease-tag">Common</span>
+                </div>
+            </div>
+            <div class="disease-content">
+                <p>Viral infection transmitted by Aedes mosquitoes. Found in tropical and subtropical regions worldwide. Increasing global spread.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-label">Symptoms</div>
+                        <div class="info-item-value">High fever, severe pain</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Onset</div>
+                        <div class="info-item-value">4-10 days</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Vaccine</div>
+                        <div class="info-item-value">Dengvaxia (limited)</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Treatment</div>
+                        <div class="info-item-value">Supportive only</div>
+                    </div>
+                </div>
+
+                <div class="vaccine-badge no-vaccine">
+                    ⚠️ No widely available vaccine for travelers
+                </div>
+            </div>
+        </div>
+
+        <!-- Zika -->
+        <div class="disease-card">
+            <div class="disease-header">
+                <div class="disease-icon">⚠️</div>
+                <div class="disease-title">
+                    <h3>Zika Virus</h3>
+                    <span class="disease-tag">Pregnancy Risk</span>
+                </div>
+            </div>
+            <div class="disease-content">
+                <p>Flavivirus spread by Aedes mosquitoes. Can cause birth defects if contracted during pregnancy.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-label">Symptoms</div>
+                        <div class="info-item-value">Mild fever, rash</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Transmission</div>
+                        <div class="info-item-value">Mosquito, sexual</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Vaccine</div>
+                        <div class="info-item-value no">None</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Treatment</div>
+                        <div class="info-item-value">Supportive</div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <span class="warning-icon">🤰</span>
+                    <div class="warning-text">
+                        <strong>Pregnancy Warning</strong>
+                        Can cause microcephaly in fetuses. Pregnant women should avoid endemic areas. Partners of pregnant women should use protection for 3 months after return.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Yellow Fever -->
+        <div class="disease-card">
+            <div class="disease-header">
+                <div class="disease-icon">💉</div>
+                <div class="disease-title">
+                    <h3>Yellow Fever</h3>
+                    <span class="disease-tag">Required Vaccine</span>
+                </div>
+            </div>
+            <div class="disease-content">
+                <p>Serious viral hemorrhagic disease. Many countries require proof of vaccination for entry.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-label">Symptoms</div>
+                        <div class="info-item-value">Fever, jaundice, bleeding</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Case Fatality</div>
+                        <div class="info-item-value high-risk">20-60%</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Vaccine</div>
+                        <div class="info-item-value yes">Required</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Duration</div>
+                        <div class="info-item-value">Lifetime</div>
+                    </div>
+                </div>
+
+                <div class="vaccine-badge">
+                    ✅ Vaccine required for entry to many countries
+                </div>
+            </div>
+        </div>
+
+        <!-- Japanese Encephalitis -->
+        <div class="disease-card">
+            <div class="disease-header">
+                <div class="disease-icon">🧠</div>
+                <div class="disease-title">
+                    <h3>Japanese Encephalitis</h3>
+                    <span class="disease-tag">Rural Asia</span>
+                </div>
+            </div>
+            <div class="disease-content">
+                <p>Viral brain infection transmitted by Culex mosquitoes. Found in rural agricultural areas of Asia and Western Pacific.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-label">Symptoms</div>
+                        <div class="info-item-value">Encephalitis, seizures</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Case Fatality</div>
+                        <div class="info-item-value high-risk">~30%</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Vaccine</div>
+                        <div class="info-item-value yes">IXIARO available</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Risk Areas</div>
+                        <div class="info-item-value">Rural Asia</div>
+                    </div>
+                </div>
+
+                <button class="details-toggle" onclick="toggleDetails(this)">
+                    Who Should Get Vaccine <span>▼</span>
+                </button>
+                <div class="details-content">
+                    <div class="disease-content" style="margin-top: 12px;">
+                        <p><strong>Recommended for:</strong></p>
+                        <p>• Travelers spending >1 month in endemic areas during transmission season</p>
+                        <p>• Short-term travelers to rural areas with outdoor exposure</p>
+                        <p>• Travelers to areas with current outbreaks</p>
+                        <p>• Lab workers with potential exposure</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chikungunya -->
+        <div class="disease-card">
+            <div class="disease-header">
+                <div class="disease-icon">🔥</div>
+                <div class="disease-title">
+                    <h3>Chikungunya</h3>
+                    <span class="disease-tag">Debilitating Pain</span>
+                </div>
+            </div>
+            <div class="disease-content">
+                <p>Viral disease causing severe joint pain. Transmitted by Aedes mosquitoes. Found in Africa, Asia, Americas.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-label">Symptoms</div>
+                        <div class="info-item-value">Severe joint pain, fever</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Duration</div>
+                        <div class="info-item-value">Weeks to years</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Vaccine</div>
+                        <div class="info-item-value">Ixchiq (new)</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Treatment</div>
+                        <div class="info-item-value">Pain management</div>
+                    </div>
+                </div>
+
+                <div class="vaccine-badge">
+                    ✅ Ixchiq vaccine now available (18+ years)
+                </div>
+            </div>
+        </div>
+
+        <!-- DEET Guidance Box -->
+        <div class="deet-box">
+            <div class="deet-title">
+                🧴 DEET Repellent Guide
+            </div>
+            <div class="deet-content">
+                <strong>Gold standard for mosquito protection</strong>
+                Higher concentration = longer protection, not stronger repellent.
+            </div>
+            <div class="deet-grid">
+                <div class="deet-item">
+                    <div class="deet-item-value">20%</div>
+                    <div class="deet-item-label">~4 hours</div>
+                </div>
+                <div class="deet-item">
+                    <div class="deet-item-value">30%</div>
+                    <div class="deet-item-label">~6 hours</div>
+                </div>
+                <div class="deet-item">
+                    <div class="deet-item-value">50%</div>
+                    <div class="deet-item-label">~8 hours</div>
+                </div>
+            </div>
+            <div class="deet-content" style="margin-top: 16px; font-size: 12px; opacity: 0.9;">
+                <strong>Note:</strong> Use 20-30% for most travel. 50% for high-risk areas. Safe for children >2 months when used as directed.
+            </div>
+        </div>
+
+        <!-- Prevention Methods -->
+        <div class="prevention-card">
+            <div class="prevention-title">
+                🛡️ Mosquito Prevention Methods
+            </div>
+            <ul class="prevention-list">
+                <li>
+                    <span class="prevention-check">✓</span>
+                    <div>
+                        <strong>DEET 20-50%</strong><br>
+                        Apply to exposed skin. Reapply after swimming/sweating. Safe for pregnant women and children >2 months.
+                    </div>
+                </li>
+                <li>
+                    <span class="prevention-check">✓</span>
+                    <div>
+                        <strong>Permethrin-Treated Clothing</strong><br>
+                        Treat clothes, bed nets, and gear. Kills mosquitoes on contact. Do not apply to skin.
+                    </div>
+                </li>
+                <li>
+                    <span class="prevention-check">✓</span>
+                    <div>
+                        <strong>Insecticide-Treated Bed Nets</strong><br>
+                        Essential for malaria zones. Ensure no holes. Tuck under mattress.
+                    </div>
+                </li>
+                <li>
+                    <span class="prevention-check">✓</span>
+                    <div>
+                        <strong>Peak Hours Awareness</strong><br>
+                        <em>Anopheles</em> (malaria): Dusk to dawn<br>
+                        <em>Aedes</em> (dengue/Zika): Daytime
+                    </div>
+                </li>
+                <li>
+                    <span class="prevention-check">✓</span>
+                    <div>
+                        <strong>Protective Clothing</strong><br>
+                        Long sleeves, long pants, light colors. Loose-fitting clothing harder for mosquitoes to bite through.
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Other Vector-Borne Diseases -->
+        <div class="category-divider">
+            <div class="category-divider-line"></div>
+            <div class="category-divider-text">Other Vector-Borne</div>
+            <div class="category-divider-line"></div>
+        </div>
+
+        <!-- Lyme Disease -->
+        <div class="disease-card">
+            <div class="disease-header">
+                <div class="disease-icon">🦌</div>
+                <div class="disease-title">
+                    <h3>Lyme Disease</h3>
+                    <span class="disease-tag">Tick-Borne</span>
+                </div>
+            </div>
+            <div class="disease-content">
+                <p>Bacterial infection transmitted by Ixodes ticks. Found in temperate regions: Northeastern USA, Europe, Asia.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-label">Symptoms</div>
+                        <div class="info-item-value">Bullseye rash, fatigue</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Onset</div>
+                        <div class="info-item-value">3-30 days</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Vaccine</div>
+                        <div class="info-item-value no">None</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Treatment</div>
+                        <div class="info-item-value yes">Antibiotics</div>
+                    </div>
+                </div>
+
+                <button class="details-toggle" onclick="toggleDetails(this)">
+                    Tick Prevention <span>▼</span>
+                </button>
+                <div class="details-content">
+                    <div class="disease-content" style="margin-top: 12px;">
+                        <p><strong>Before outdoor activities:</strong></p>
+                        <p>• Use DEET on skin, permethrin on clothing</p>
+                        <p>• Wear long pants tucked into socks</p>
+                        <p>• Stay on trails, avoid tall grass/brush</p>
+                        <p><strong>After exposure:</strong></p>
+                        <p>• Shower within 2 hours</p>
+                        <p>• Do full-body tick check</p>
+                        <p>• Remove ticks promptly with tweezers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leishmaniasis -->
+        <div class="disease-card">
+            <div class="disease-header">
+                <div class="disease-icon">🏜️</div>
+                <div class="disease-title">
+                    <h3>Leishmaniasis</h3>
+                    <span class="disease-tag">Sandfly</span>
+                </div>
+            </div>
+            <div class="disease-content">
+                <p>Parasitic disease transmitted by sandflies. Cutaneous (skin sores) and visceral (internal organ) forms exist.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-label">Symptoms</div>
+                        <div class="info-item-value">Skin sores, fever</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Risk Areas</div>
+                        <div class="info-item-value">Tropics, Mediterranean</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Vaccine</div>
+                        <div class="info-item-value no">None</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Prevention</div>
+                        <div class="info-item-value">Avoid sandfly bites</div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <span class="warning-icon">🦟</span>
+                    <div class="warning-text">
+                        <strong>Sandfly Behavior</strong>
+                        Tiny insects active from dusk to dawn. Smaller than mosquitoes - bed nets with smaller mesh recommended.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- African Sleeping Sickness -->
+        <div class="disease-card">
+            <div class="disease-header">
+                <div class="disease-icon">💤</div>
+                <div class="disease-title">
+                    <h3>African Sleeping Sickness</h3>
+                    <span class="disease-tag">Tsetse Fly</span>
+                </div>
+            </div>
+            <div class="disease-content">
+                <p>Trypanosomiasis caused by protozoan parasites. Transmitted by tsetse flies in sub-Saharan Africa. Can be fatal if untreated.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-label">Symptoms</div>
+                        <div class="info-item-value">Fever, sleep disruption</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Risk Areas</div>
+                        <div class="info-item-value">Rural sub-Saharan Africa</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Vaccine</div>
+                        <div class="info-item-value no">None</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Treatment</div>
+                        <div class="info-item-value">Complex drugs</div>
+                    </div>
+                </div>
+
+                <button class="details-toggle" onclick="toggleDetails(this)">
+                    Tsetse Fly Prevention <span>▼</span>
+                </button>
+                <div class="details-content">
+                    <div class="disease-content" style="margin-top: 12px;">
+                        <p><strong>Challenging to prevent:</strong></p>
+                        <p>• Tsetse flies are not repelled by DEET</p>
+                        <p>• Wear neutral-colored clothing (avoid bright/dark)</p>
+                        <p>• Long sleeves and pants essential</p>
+                        <p>• Avoid bushy areas during day (peak activity)</p>
+                        <p>• Vehicle screens if traveling through risk areas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Water/Food-Borne -->
+        <div class="category-divider">
+            <div class="category-divider-line"></div>
+            <div class="category-divider-text">Water & Food-Borne</div>
+            <div class="category-divider-line"></div>
+        </div>
+
+        <!-- Typhoid -->
+        <div class="disease-card">
+            <div class="disease-header">
+                <div class="disease-icon">🥘</div>
+                <div class="disease-title">
+                    <h3>Typhoid Fever</h3>
+                    <span class="disease-tag">Contaminated Food/Water</span>
+                </div>
+            </div>
+            <div class="disease-content">
+                <p>Bacterial infection caused by <em>Salmonella typhi</em>. Common in areas with poor sanitation. Can be life-threatening.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-label">Symptoms</div>
+                        <div class="info-item-value">High fever, GI symptoms</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Transmission</div>
+                        <div class="info-item-value">Fecal-oral route</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Vaccine</div>
+                        <div class="info-item-value yes">Oral or injectable</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Treatment</div>
+                        <div class="info-item-value">Antibiotics</div>
+                    </div>
+                </div>
+
+                <button class="details-toggle" onclick="toggleDetails(this)">
+                    Vaccine Options <span>▼</span>
+                </button>
+                <div class="details-content">
+                    <div class="disease-content" style="margin-top: 12px;">
+                        <p><strong>Vi Polysaccharide (injectable):</strong></p>
+                        <p>• Single dose, 2 weeks before travel</p>
+                        <p>• Protection lasts 2 years</p>
+                        <p>• Approved for age 2+</p>
+                        <p><strong>Ty21a Live Oral:</strong></p>
+                        <p>• 4 capsules over 7 days</p>
+                        <p>• Protection lasts 5 years</p>
+                        <p>• Not for immunocompromised</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hepatitis A/E -->
+        <div class="disease-card">
+            <div class="disease-header">
+                <div class="disease-icon">🫁</div>
+                <div class="disease-title">
+                    <h3>Hepatitis A & E</h3>
+                    <span class="disease-tag">Fecal-Oral</span>
+                </div>
+            </div>
+            <div class="disease-content">
+                <p>Viral liver infections. Hep A common worldwide in areas with poor sanitation. Hep E common in South Asia, similar transmission.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-label">Hep A Vaccine</div>
+                        <div class="info-item-value yes">Highly effective</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Hep E Vaccine</div>
+                        <div class="info-item-value">China only</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Symptoms</div>
+                        <div class="info-item-value">Jaundice, fatigue</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Risk</div>
+                        <div class="info-item-value">Shellfish, produce</div>
+                    </div>
+                </div>
+
+                <div class="vaccine-badge">
+                    ✅ Hep A vaccine recommended for most travelers
+                </div>
+            </div>
+        </div>
+
+        <!-- Cholera -->
+        <div class="disease-card">
+            <div class="disease-header">
+                <div class="disease-icon">💧</div>
+                <div class="disease-title">
+                    <h3>Cholera</h3>
+                    <span class="disease-tag">Water-Borne</span>
+                </div>
+            </div>
+            <div class="disease-content">
+                <p>Bacterial infection causing severe watery diarrhea. Rapid dehydration can be fatal within hours. Associated with poor sanitation and contaminated water.</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-label">Symptoms</div>
+                        <div class="info-item-value">Rice-water stools</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Transmission</div>
+                        <div class="info-item-value">Contaminated water</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Vaccine</div>
+                        <div class="info-item-value yes">Oral (Dukoral)</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-item-label">Treatment</div>
+                        <div class="info-item-value">Rehydration critical</div>
+                    </div>
+                </div>
+
+                <button class="details-toggle" onclick="toggleDetails(this)">
+                    Water Treatment Methods <span>▼</span>
+                </button>
+                <div class="details-content">
+                    <div class="disease-content" style="margin-top: 12px;">
+                        <p><strong>Safe water strategies:</strong></p>
+                        <p>• Boil water for 1 minute (3 min at altitude)</p>
+                        <p>• Water purification tablets (iodine/chlorine)</p>
+                        <p>• UV sterilizers (SteriPEN)</p>
+                        <p>• Filters with 0.1-0.4 micron pores</p>
+                        <p>• Bottled water from sealed containers</p>
+                        <p>• Avoid ice, uncooked vegetables, unpeeled fruit</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- High Risk Destinations -->
+        <div class="section-label">🗺️ High Risk Destinations</div>
+
+        <!-- Sub-Saharan Africa -->
+        <div class="region-card" onclick="toggleRegion(this)">
+            <div class="region-header">
+                <div class="region-name">🌍 Sub-Saharan Africa</div>
+                <div class="region-arrow">▼</div>
+            </div>
+            <div class="region-diseases">
+                <span class="disease-tag-small high-risk">Malaria</span>
+                <span class="disease-tag-small high-risk">Yellow Fever</span>
+                <span class="disease-tag-small">Typhoid</span>
+                <span class="disease-tag-small vector">Sleeping Sickness</span>
+            </div>
+            <div class="details-content" style="margin-top: 16px;">
+                <p style="font-size: 13px; color: #6B7280; margin-top: 12px;">
+                    <strong>Key concerns:</strong> Malaria prophylaxis essential throughout. Yellow fever vaccine required for entry to many countries. Sleeping sickness in rural areas with tsetse flies. High burden of water-borne diseases.
+                </p>
+            </div>
+        </div>
+
+        <!-- South/Southeast Asia -->
+        <div class="region-card" onclick="toggleRegion(this)">
+            <div class="region-header">
+                <div class="region-name">🏯 South & Southeast Asia</div>
+                <div class="region-arrow">▼</div>
+            </div>
+            <div class="region-diseases">
+                <span class="disease-tag-small high-risk">Malaria</span>
+                <span class="disease-tag-small high-risk">Dengue</span>
+                <span class="disease-tag-small">Japanese Encephalitis</span>
+                <span class="disease-tag-small high-risk">Cholera</span>
+                <span class="disease-tag-small">Hepatitis E</span>
+            </div>
+            <div class="details-content" style="margin-top: 16px;">
+                <p style="font-size: 13px; color: #6B7280; margin-top: 12px;">
+                    <strong>Key concerns:</strong> Japanese encephalitis risk in rural agricultural areas. Cholera outbreaks periodic. Hepatitis E more common than other regions. Dengue endemic in urban and rural areas. Drug-resistant malaria in Greater Mekong.
+                </p>
+            </div>
+        </div>
+
+        <!-- Central/South America -->
+        <div class="region-card" onclick="toggleRegion(this)">
+            <div class="region-header">
+                <div class="region-name">🌎 Central & South America</div>
+                <div class="region-arrow">▼</div>
+            </div>
+            <div class="region-diseases">
+                <span class="disease-tag-small high-risk">Malaria</span>
+                <span class="disease-tag-small high-risk">Yellow Fever</span>
+                <span class="disease-tag-small high-risk">Dengue</span>
+                <span class="disease-tag-small high-risk">Chikungunya</span>
+                <span class="disease-tag-small">Zika</span>
+                <span class="disease-tag-small">Leishmaniasis</span>
+            </div>
+            <div class="details-content" style="margin-top: 16px;">
+                <p style="font-size: 13px; color: #6B7280; margin-top: 12px;">
+                    <strong>Key concerns:</strong> Yellow fever in Amazon basin and parts of Panama. Malaria in rural areas of Amazon, Central America. Zika risk remains in many areas - pregnancy caution. Cutaneous leishmaniasis in forested areas.
+                </p>
+            </div>
+        </div>
+
+        <!-- Caribbean -->
+        <div class="region-card" onclick="toggleRegion(this)">
+            <div class="region-header">
+                <div class="region-name">🏝️ Caribbean</div>
+                <div class="region-arrow">▼</div>
+            </div>
+            <div class="region-diseases">
+                <span class="disease-tag-small high-risk">Dengue</span>
+                <span class="disease-tag-small high-risk">Chikungunya</span>
+                <span class="disease-tag-small">Zika</span>
+                <span class="disease-tag-small high-risk">Malaria (Hispaniola)</span>
+            </div>
+            <div class="details-content" style="margin-top: 16px;">
+                <p style="font-size: 13px; color: #6B7280; margin-top: 12px;">
+                    <strong>Key concerns:</strong> Dengue and chikungunya widespread. Zika risk present - caution for pregnant travelers. Malaria only on Hispaniola (Haiti/Dominican Republic). Yellow fever not endemic but vaccine may be required.
+                </p>
+            </div>
+        </div>
+
+        <!-- Oceania -->
+        <div class="region-card" onclick="toggleRegion(this)">
+            <div class="region-header">
+                <div class="region-name">🐠 Oceania & Pacific Islands</div>
+                <div class="region-arrow">▼</div>
+            </div>
+            <div class="region-diseases">
+                <span class="disease-tag-small high-risk">Malaria (PNG, Solomons)</span>
+                <span class="disease-tag-small high-risk">Dengue</span>
+                <span class="disease-tag-small">Japanese Encephalitis</span>
+                <span class="disease-tag-small high-risk">Chikungunya</span>
+            </div>
+            <div class="details-content" style="margin-top: 16px;">
+                <p style="font-size: 13px; color: #6B7280; margin-top: 12px;">
+                    <strong>Key concerns:</strong> Malaria in Papua New Guinea, Solomon Islands, Vanuatu. Japanese encephalitis in parts of Australia (Torres Strait), Papua New Guinea. Dengue outbreaks common in Pacific islands.
+                </p>
+            </div>
+        </div>
+
+        <!-- Temperate Regions -->
+        <div class="region-card" onclick="toggleRegion(this)">
+            <div class="region-header">
+                <div class="region-name">🌲 Temperate Regions (USA, Europe, Asia)</div>
+                <div class="region-arrow">▼</div>
+            </div>
+            <div class="region-diseases">
+                <span class="disease-tag-small vector">Lyme Disease</span>
+                <span class="disease-tag-small vector">Leishmaniasis</span>
+                <span class="disease-tag-small">Tick-borne Encephalitis</span>
+            </div>
+            <div class="details-content" style="margin-top: 16px;">
+                <p style="font-size: 13px; color: #6B7280; margin-top: 12px;">
+                    <strong>Key concerns:</strong> Lyme disease risk in northeastern USA, Europe, forested areas of Asia. Tick-borne encephalitis vaccine available for Central/Eastern Europe and Russia. Mediterranean leishmaniasis in Southern Europe.
+                </p>
+            </div>
+        </div>
+
+        <!-- Final Prevention Summary -->
+        <div class="prevention-card" style="margin-top: 32px;">
+            <div class="prevention-title">
+                ✈️ Pre-Travel Checklist
+            </div>
+            <ul class="prevention-list">
+                <li>
+                    <span class="prevention-check">✓</span>
+                    <div>
+                        <strong>Visit travel clinic 4-6 weeks before</strong><br>
+                        Some vaccines require multiple doses or take time to become effective
+                    </div>
+                </li>
+                <li>
+                    <span class="prevention-check">✓</span>
+                    <div>
+                        <strong>Get destination-specific vaccines</strong><br>
+                        Yellow fever, typhoid, hepatitis A, Japanese encephalitis as indicated
+                    </div>
+                </li>
+                <li>
+                    <span class="prevention-check">✓</span>
+                    <div>
+                        <strong>Pack malaria prophylaxis if needed</strong><br>
+                        Start before departure as directed by your provider
+                    </div>
+                </li>
+                <li>
+                    <span class="prevention-check">✓</span>
+                    <div>
+                        <strong>Bring insect repellent and bed net</strong><br>
+                        DEET 20-50%, permethrin spray for clothing, insecticide-treated net
+                    </div>
+                </li>
+                <li>
+                    <span class="prevention-check">✓</span>
+                    <div>
+                        <strong>Pack water treatment supplies</strong><br>
+                        Purification tablets, filter, or plan to buy bottled water
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="bottom-spacer"></div>
+    </div>
+
+    <script>
+        function toggleDetails(button) {
+            const content = button.nextElementSibling;
+            const arrow = button.querySelector('span');
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                arrow.textContent = '▼';
+            } else {
+                content.classList.add('show');
+                arrow.textContent = '▲';
+            }
+        }
+
+        function toggleRegion(card) {
+            const content = card.querySelector('.details-content');
+            const arrow = card.querySelector('.region-arrow');
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                arrow.textContent = '▼';
+            } else {
+                content.classList.add('show');
+                arrow.textContent = '▲';
+            }
+        }
+    </script>
+</body>
+</html>
