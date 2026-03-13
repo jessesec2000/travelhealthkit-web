@@ -71,6 +71,22 @@
             color: #92400E;
         }
 
+        /* FTC Affiliate Disclosure */
+        .affiliate-disclosure {
+            background: #F3F4F6;
+            border: 1px solid #E5E7EB;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #6B7280;
+            text-align: center;
+        }
+
+        .affiliate-disclosure strong {
+            color: #374151;
+        }
+
         /* Trip Info */
         .trip-info {
             background: white;
@@ -173,10 +189,11 @@
         .item {
             display: flex;
             align-items: center;
-            padding: 12px 20px;
+            padding: 12px 16px;
             border-bottom: 1px solid #F3F4F6;
             cursor: pointer;
             transition: background 0.2s;
+            gap: 10px;
         }
 
         .item:last-child {
@@ -192,11 +209,11 @@
             height: 24px;
             border: 2px solid #D1D5DB;
             border-radius: 6px;
-            margin-right: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            flex-shrink: 0;
         }
 
         .checkbox.checked {
@@ -213,6 +230,7 @@
 
         .item-text {
             flex: 1;
+            min-width: 0;
         }
 
         .item-name {
@@ -238,6 +256,7 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
+            flex-shrink: 0;
         }
 
         .priority-essential {
@@ -255,7 +274,149 @@
             color: #6B7280;
         }
 
-        /* Export Button */
+        /* Amazon Buy Button */
+        .amazon-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, #FF9900 0%, #FF8C00 100%);
+            color: #232F3E;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .amazon-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(255, 153, 0, 0.4);
+        }
+
+        .amazon-btn svg {
+            width: 12px;
+            height: 12px;
+            fill: currentColor;
+        }
+
+        /* Shop Category Button */
+        .shop-category-section {
+            padding: 12px 16px 16px;
+            background: #FAFAFA;
+            border-top: 1px solid #F3F4F6;
+        }
+
+        .shop-category-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: white;
+            color: #FF6B35;
+            border: 2px solid #FF6B35;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .shop-category-btn:hover {
+            background: #FF6B35;
+            color: white;
+        }
+
+        /* Recommended Retailers Section */
+        .retailers-section {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .retailers-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .retailers-subtitle {
+            font-size: 14px;
+            color: #6B7280;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .retailer-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+        }
+
+        .retailer-card:hover {
+            border-color: #FF6B35;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.1);
+        }
+
+        .retailer-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .retailer-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .retailer-amazon { background: #FF9900; }
+        .retailer-am { background: #DC2626; }
+        .retailer-rei { background: #006241; }
+        .retailer-bc { background: #1E40AF; }
+
+        .retailer-info {
+            flex: 1;
+        }
+
+        .retailer-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 2px;
+        }
+
+        .retailer-desc {
+            font-size: 13px;
+            color: #6B7280;
+        }
+
+        .retailer-arrow {
+            color: #9CA3AF;
+            font-size: 18px;
+        }
+
+        /* Export Section */
         .export-section {
             margin-top: 32px;
             padding: 24px;
@@ -287,10 +448,54 @@
             font-weight: 700;
             cursor: pointer;
             transition: transform 0.2s;
+            width: 100%;
+            margin-bottom: 10px;
         }
 
         .export-button:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
+        }
+
+        .export-button-secondary {
+            background: white;
+            color: #FF6B35;
+            border: 2px solid #FF6B35;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .export-button-secondary:hover {
+            background: #FF6B35;
+            color: white;
+        }
+
+        .export-button-amazon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #FF9900 0%, #FF8C00 100%);
+            color: #232F3E;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            margin-bottom: 8px;
+        }
+
+        .export-button-amazon:hover {
+            transform: scale(1.02);
+            box-shadow: 0 2px 8px rgba(255, 153, 0, 0.3);
         }
 
         /* Doctor Note */
@@ -312,6 +517,58 @@
         .bottom-space {
             height: 40px;
         }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .modal-text {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .modal-close {
+            background: #F3F4F6;
+            color: #374151;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -332,6 +589,13 @@
                 This checklist is for planning purposes only. Review with your healthcare provider 
                 to ensure it meets your specific needs. Always carry emergency medications prescribed by your doctor.
             </div>
+        </div>
+
+        <!-- FTC Affiliate Disclosure -->
+        <div class="affiliate-disclosure">
+            <strong>Affiliate Disclosure:</strong> This page contains affiliate links. 
+            We may earn a small commission if you make a purchase through these links — 
+            at no extra cost to you. This helps support TravelHealthKit.
         </div>
 
         <!-- Trip Info -->
@@ -365,6 +629,10 @@
                         <div class="item-name">Diamox (Acetazolamide)</div>
                         <div class="item-quantity">125-250mg, twice daily - for altitude</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=acetazolamide+125mg&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-essential">Essential</span>
                 </div>
                 <div class="item" onclick="toggleItem(this, 'prescription')">
@@ -373,6 +641,10 @@
                         <div class="item-name">Azithromycin</div>
                         <div class="item-quantity">For travelers diarrhea - discuss with doctor</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=azithromycin+travel+first+aid&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-recommended">Recommended</span>
                 </div>
                 <div class="item" onclick="toggleItem(this, 'prescription')">
@@ -381,6 +653,10 @@
                         <div class="item-name">Personal prescriptions</div>
                         <div class="item-quantity">Bring extra 3-day supply in carry-on</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=pill+organizer+travel&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-essential">Essential</span>
                 </div>
                 <div class="item" onclick="toggleItem(this, 'prescription')">
@@ -389,8 +665,17 @@
                         <div class="item-name">Prescription copies</div>
                         <div class="item-quantity">Photos of all labels + doctor's letter</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=waterproof+document+bag+travel&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-essential">Essential</span>
                 </div>
+            </div>
+            <div class="shop-category-section">
+                <a href="https://www.amazon.com/s?k=travel+medications+first+aid&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="shop-category-btn">
+                    🛒 Shop Prescription & Medication Supplies
+                </a>
             </div>
         </div>
 
@@ -407,6 +692,10 @@
                         <div class="item-name">Blister kit</div>
                         <div class="item-quantity">Moleskin, Compeed pads, blister cushions</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=blister+kit+moleskin+compeed&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-essential">Essential</span>
                 </div>
                 <div class="item" onclick="toggleItem(this, 'firstaid')">
@@ -415,6 +704,10 @@
                         <div class="item-name">Wound care supplies</div>
                         <div class="item-quantity">Gauze pads, tape, antiseptic wipes, bandages</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=wound+care+kit+first+aid&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-essential">Essential</span>
                 </div>
                 <div class="item" onclick="toggleItem(this, 'firstaid')">
@@ -423,6 +716,10 @@
                         <div class="item-name">SAM Splint</div>
                         <div class="item-quantity">Lightweight moldable splint for fractures</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=sam+splint+first+aid&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-recommended">Recommended</span>
                 </div>
                 <div class="item" onclick="toggleItem(this, 'firstaid')">
@@ -431,6 +728,10 @@
                         <div class="item-name">Tweezers & scissors</div>
                         <div class="item-quantity">Fine point for splinters/ticks</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=medical+tweezers+scissors+first+aid&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-essential">Essential</span>
                 </div>
                 <div class="item" onclick="toggleItem(this, 'firstaid')">
@@ -439,6 +740,10 @@
                         <div class="item-name">Elastic bandages</div>
                         <div class="item-quantity">3-inch and 4-inch for sprains</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=elastic+bandage+ace+wrap+3+4+inch&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-recommended">Recommended</span>
                 </div>
                 <div class="item" onclick="toggleItem(this, 'firstaid')">
@@ -447,8 +752,17 @@
                         <div class="item-name">Emergency blanket</div>
                         <div class="item-quantity">Mylar space blanket (2-3)</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=mylar+emergency+blanket+space+blanket&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-essential">Essential</span>
                 </div>
+            </div>
+            <div class="shop-category-section">
+                <a href="https://www.amazon.com/s?k=first+aid+supplies+travel+kit&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="shop-category-btn">
+                    🛒 Shop First Aid Supplies
+                </a>
             </div>
         </div>
 
@@ -465,6 +779,10 @@
                         <div class="item-name">Pulse oximeter</div>
                         <div class="item-quantity">Monitor oxygen saturation at altitude</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=pulse+oximeter+finger+monitor&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-recommended">Recommended</span>
                 </div>
                 <div class="item" onclick="toggleItem(this, 'altitude')">
@@ -473,6 +791,10 @@
                         <div class="item-name">Electrolyte supplements</div>
                         <div class="item-quantity">Nuun tablets, oral rehydration salts</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=nuun+tablets+electrolyte+hydration&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-essential">Essential</span>
                 </div>
                 <div class="item" onclick="toggleItem(this, 'altitude')">
@@ -481,6 +803,10 @@
                         <div class="item-name">Altitude sickness guide</div>
                         <div class="item-quantity">Laminated card with symptoms & treatment</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=altitude+sickness+guide+card+lanyard&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-essential">Essential</span>
                 </div>
                 <div class="item" onclick="toggleItem(this, 'altitude')">
@@ -489,19 +815,77 @@
                         <div class="item-name">Glucometer (if diabetic)</div>
                         <div class="item-quantity">Altitude affects blood sugar</div>
                     </div>
+                    <a href="https://www.amazon.com/s?k=glucose+meter+testing+kit&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="amazon-btn" onclick="event.stopPropagation()">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        Buy
+                    </a>
                     <span class="priority-badge priority-optional">If needed</span>
                 </div>
             </div>
+            <div class="shop-category-section">
+                <a href="https://www.amazon.com/s?k=altitude+sickness+gear+high+altitude+trekking&ref=YOUR_ASSOCIATE_TAG" target="_blank" class="shop-category-btn">
+                    🛒 Shop Altitude Gear
+                </a>
+            </div>
+        </div>
+
+        <!-- Recommended Retailers Section -->
+        <div class="retailers-section">
+            <div class="retailers-title">🛍️ Recommended Retailers</div>
+            <div class="retailers-subtitle">Trusted sources for travel and outdoor gear</div>
+            
+            <a href="https://www.amazon.com/gp/search?ie=UTF8&tag=YOUR_ASSOCIATE_TAG&linkCode=ur2&linkId=&camp=1789&creative=9325&keywords=travel+gear+first+aid+trekking" target="_blank" class="retailer-card">
+                <div class="retailer-icon retailer-amazon">📦</div>
+                <div class="retailer-info">
+                    <div class="retailer-name">Amazon Associates</div>
+                    <div class="retailer-desc">General travel gear & fast shipping</div>
+                </div>
+                <div class="retailer-arrow">→</div>
+            </a>
+            
+            <a href="https://www.adventuremedicalkits.com/?aff=YOUR_AFFILIATE_ID" target="_blank" class="retailer-card">
+                <div class="retailer-icon retailer-am">🩹</div>
+                <div class="retailer-info">
+                    <div class="retailer-name">Adventure Medical Kits</div>
+                    <div class="retailer-desc">Official first aid kits for outdoor adventures</div>
+                </div>
+                <div class="retailer-arrow">→</div>
+            </a>
+            
+            <a href="https://www.rei.com/s/travel-first-aid?aff=YOUR_AFFILIATE_ID" target="_blank" class="retailer-card">
+                <div class="retailer-icon retailer-rei">🏕️</div>
+                <div class="retailer-info">
+                    <div class="retailer-name">REI</div>
+                    <div class="retailer-desc">Quality outdoor gear & expert advice</div>
+                </div>
+                <div class="retailer-arrow">→</div>
+            </a>
+            
+            <a href="https://www.backcountry.com/shop/travel-health?aff=YOUR_AFFILIATE_ID" target="_blank" class="retailer-card">
+                <div class="retailer-icon retailer-bc">⛰️</div>
+                <div class="retailer-info">
+                    <div class="retailer-name">Backcountry.com</div>
+                    <div class="retailer-desc">Specialty outdoor & mountaineering gear</div>
+                </div>
+                <div class="retailer-arrow">→</div>
+            </a>
         </div>
 
         <!-- Export Section -->
         <div class="export-section">
             <div class="export-title">📱 Save or Share</div>
             <div class="export-text">
-                Download your checklist as PDF to bring to your doctor appointment
+                Download your checklist or get purchase links for your items
             </div>
             <button class="export-button" onclick="exportKit()">
-                Export Checklist
+                📄 Export Checklist
+            </button>
+            <button class="export-button-secondary" onclick="emailList()">
+                📧 Email Me This List with Purchase Links
+            </button>
+            <button class="export-button-amazon" onclick="addAllToCart()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                Add All to Amazon Cart (Simulated)
             </button>
         </div>
 
@@ -514,6 +898,15 @@
         </div>
 
         <div class="bottom-space"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <div class="modal-title" id="modalTitle">Title</div>
+            <div class="modal-text" id="modalText">Message</div>
+            <button class="modal-close" onclick="closeModal()">Got it</button>
+        </div>
     </div>
 
     <script>
@@ -561,8 +954,73 @@
         }
 
         function exportKit() {
-            alert('In the full app, this would generate a PDF of your checklist with all checked items for your doctor appointment.');
+            showModal('Export Checklist', 'In the full app, this would generate a PDF of your checklist with all checked items for your doctor appointment, including affiliate purchase links for unchecked items.');
         }
+
+        function emailList() {
+            // Collect checked items
+            const checkedItems = [];
+            document.querySelectorAll('.item').forEach(item => {
+                if (item.querySelector('.checkbox').classList.contains('checked')) {
+                    checkedItems.push({
+                        name: item.querySelector('.item-name').textContent,
+                        quantity: item.querySelector('.item-quantity').textContent
+                    });
+                }
+            });
+            
+            // Build email content
+            let emailBody = 'My Travel Health Kit Checklist\n\n';
+            emailBody += 'Trip: Nepal - Everest Base Camp\n';
+            emailBody += 'Items needed:\n\n';
+            
+            if (checkedItems.length > 0) {
+                checkedItems.forEach(item => {
+                    emailBody += `- ${item.name}: ${item.quantity}\n`;
+                });
+            } else {
+                emailBody += 'No items selected yet.\n';
+            }
+            
+            emailBody += '\nPurchase links:\n';
+            emailBody += '• Prescription & Medications: https://www.amazon.com/s?k=travel+medications+first+aid\n';
+            emailBody += '• First Aid Supplies: https://www.amazon.com/s?k=first+aid+supplies+travel+kit\n';
+            emailBody += '• Altitude Gear: https://www.amazon.com/s?k=altitude+sickness+gear+high+altitude\n\n';
+            emailBody += '\nSent from TravelHealthKit';
+            
+            // Open mailto link
+            const subject = encodeURIComponent('My Travel Health Kit - Nepal Trek');
+            const body = encodeURIComponent(emailBody);
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+
+        function addAllToCart() {
+            showModal(
+                'Add All to Amazon Cart',
+                'In a production app with Amazon Product Advertising API access, this would:\n\n' +
+                '1. Add all unchecked items to your Amazon cart\n' +
+                '2. Use your Amazon Associate tag for attribution\n' +
+                '3. Open Amazon with items pre-loaded\n\n' +
+                'For now, use the individual "Buy" buttons next to each item, or the "Shop This Category" links at the bottom of each section.'
+            );
+        }
+
+        function showModal(title, text) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalText').textContent = text;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Close modal on overlay click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
