@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Protocols - TravelHealthKit</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+        .container { max-width: 480px; margin: 0 auto; padding: 20px; }
+        .back-button {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: #6B7280; text-decoration: none; font-size: 14px; margin-bottom: 16px;
+        }
+        .header { margin-bottom: 24px; }
+        .title { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+        .subtitle { font-size: 15px; color: #6B7280; }
+        
+        .emergency-banner {
+            background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .emergency-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .emergency-text { font-size: 14px; opacity: 0.9; }
+        .emergency-number {
+            font-size: 32px; font-weight: 800; margin-top: 12px;
+            background: rgba(255,255,255,0.2); padding: 8px 20px;
+            border-radius: 8px; display: inline-block;
+        }
+        
+        .protocol-card {
+            background: white; border-radius: 16px;
+            margin-bottom: 16px; overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 4px solid;
+        }
+        .protocol-card.critical { border-left-color: #DC2626; }
+        .protocol-card.urgent { border-left-color: #F59E0B; }
+        
+        .protocol-header {
+            padding: 16px 20px; display: flex; align-items: center; gap: 12px;
+        }
+        .protocol-icon { font-size: 28px; }
+        .protocol-title-section { flex: 1; }
+        .protocol-title { font-size: 18px; font-weight: 700; }
+        .protocol-subtitle { font-size: 13px; color: #6B7280; }
+        .severity-badge {
+            padding: 4px 10px; border-radius: 12px; font-size: 11px;
+            font-weight: 700; text-transform: uppercase;
+        }
+        .badge-critical { background: #FEE2E2; color: #DC2626; }
+        .badge-urgent { background: #FEF3C7; color: #92400E; }
+        
+        .protocol-content { padding: 0 20px 20px; }
+        .step-list { counter-reset: step; }
+        .step {
+            display: flex; align-items: flex-start; gap: 12px;
+            padding: 12px 0; border-bottom: 1px solid #F3F4F6;
+        }
+        .step:last-child { border-bottom: none; }
+        .step-number {
+            width: 28px; height: 28px; background: #FF6B35;
+            color: white; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center;
+            font-weight: 700; font-size: 13px; flex-shrink: 0;
+        }
+        .step-text { flex: 1; font-size: 14px; line-height: 1.5; }
+        .step-text strong { color: #DC2626; }
+        
+        .dont-section {
+            background: #FEF2F2; padding: 16px; border-radius: 12px;
+            margin-top: 12px;
+        }
+        .dont-title { font-size: 14px; font-weight: 700; color: #DC2626; margin-bottom: 8px; }
+        .dont-item { font-size: 13px; color: #991B1B; margin-bottom: 4px; padding-left: 16px; position: relative; }
+        .dont-item::before { content: "✗"; position: absolute; left: 0; }
+        
+        .call-button {
+            background: #DC2626; color: white; padding: 16px;
+            border-radius: 12px; text-align: center; font-weight: 700;
+            font-size: 16px; margin-top: 24px; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">← Back to Home</a>
+        
+        <div class="header">
+            <h1 class="title">Emergency Protocols</h1>
+            <p class="subtitle">Step-by-step guides for travel emergencies</p>
+        </div>
+        
+        <div class="emergency-banner">
+            <div class="emergency-title">🆘 In a life-threatening emergency?</div>
+            <div class="emergency-text">Call local emergency services immediately</div>
+            <div class="emergency-number">112 / 911</div>
+        </div>
+        
+        <!-- Anaphylaxis -->
+        <div class="protocol-card critical">
+            <div class="protocol-header">
+                <div class="protocol-icon">😰</div>
+                <div class="protocol-title-section">
+                    <div class="protocol-title">Anaphylaxis (Severe Allergic Reaction)</div>
+                    <div class="protocol-subtitle">Difficulty breathing, throat swelling</div>
+                </div>
+                <span class="severity-badge badge-critical">Critical</span>
+            </div>
+            <div class="protocol-content">
+                <div class="step-list">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text"><strong>Use EpiPen immediately</strong> - Inject into outer thigh (through clothing OK)</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text"><strong>Call emergency services</strong> - Even if symptoms improve</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Lie flat with legs elevated (if breathing OK) or sit if breathing difficult</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Use second EpiPen after 5-15 minutes if symptoms persist</div>
+                    </div>
+                </div>
+                <div class="dont-section">
+                    <div class="dont-title">Do NOT:</div>
+                    <div class="dont-item">Wait to see if it gets better</div>
+                    <div class="dont-item">Give antihistamines first (too slow)</div>
+                    <div class="dont-item">Let person walk around</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Severe Bleeding -->
+        <div class="protocol-card critical">
+            <div class="protocol-header">
+                <div class="protocol-icon">🩸</div>
+                <div class="protocol-title-section">
+                    <div class="protocol-title">Severe Bleeding</div>
+                    <div class="protocol-subtitle">Blood spurting, soaking through bandages</div>
+                </div>
+                <span class="severity-badge badge-critical">Critical</span>
+            </div>
+            <div class="protocol-content">
+                <div class="step-list">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text"><strong>Apply direct pressure</strong> with clean cloth - maintain for 10 minutes minimum</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">If bleeding through, add more layers - <strong>do NOT remove</strong> original dressing</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Apply tourniquet 2-3 inches above wound if limb bleeding (note time)</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Call emergency services immediately</div>
+                    </div>
+                </div>
+                <div class="dont-section">
+                    <div class="dont-title">Do NOT:</div>
+                    <div class="dont-item">Remove embedded objects</div>
+                    <div class="dont-item">Apply tourniquet to neck/chest/abdomen</div>
+                    <div class="dont-item">Check wound frequently (maintain pressure)</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chest Pain -->
+        <div class="protocol-card critical">
+            <div class="protocol-header">
+                <div class="protocol-icon">💔</div>
+                <div class="protocol-title-section">
+                    <div class="protocol-title">Chest Pain / Heart Attack</div>
+                    <div class="protocol-subtitle">Crushing pressure, pain to arm/jaw</div>
+                </div>
+                <span class="severity-badge badge-critical">Critical</span>
+            </div>
+            <div class="protocol-content">
+                <div class="step-list">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text"><strong>Call emergency services immediately</strong></div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Stop activity, sit or lie down</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Chew (don't swallow) <strong>325mg aspirin</strong> if available</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Take nitroglycerin if prescribed</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-text">Loosen tight clothing, stay calm</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Altitude Sickness (Severe) -->
+        <div class="protocol-card urgent">
+            <div class="protocol-header">
+                <div class="protocol-icon">🏔️</div>
+                <div class="protocol-title-section">
+                    <div class="protocol-title">Altitude Sickness (Severe)</div>
+                    <div class="protocol-subtitle">Confusion, difficulty walking, breathlessness at rest</div>
+                </div>
+                <span class="severity-badge badge-urgent">Urgent</span>
+            </div>
+            <div class="protocol-content">
+                <div class="step-list">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text"><strong>Stop ascent immediately</strong></div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text"><strong>Descend immediately</strong> if symptoms worsen - do not wait</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Give oxygen if available</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Dexamethasone if prescribed for emergency use</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-text">Evacuate if confusion, difficulty walking, or breathing problems</div>
+                    </div>
+                </div>
+                <div class="dont-section">
+                    <div class="dont-title">Do NOT:</div>
+                    <div class="dont-item">Continue ascent with symptoms</div>
+                    <div class="dont-item">Leave person alone</div>
+                    <div class="dont-item">Wait to see if it improves</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Heat Stroke -->
+        <div class="protocol-card critical">
+            <div class="protocol-header">
+                <div class="protocol-icon">🌡️</div>
+                <div class="protocol-title-section">
+                    <div class="protocol-title">Heat Stroke</div>
+                    <div class="protocol-subtitle">Body temp >104°F, confusion, hot skin</div>
+                </div>
+                <span class="severity-badge badge-critical">Critical</span>
+            </div>
+            <div class="protocol-content">
+                <div class="step-list">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text"><strong>Call emergency services</strong> - This is life-threatening</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Move to shade/air conditioning immediately</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Remove excess clothing</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Cool rapidly: ice packs at neck/armpits/groin, cold water immersion if possible</div>
+                    </div>
+                </div>
+                <div class="dont-section">
+                    <div class="dont-title">Do NOT:</div>
+                    <div class="dont-item">Give fever-reducing medications (acetaminophen/ibuprofen)</div>
+                    <div class="dont-item">Give fluids if confused (choking risk)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="call-button" onclick="alert('In real emergency, dial local emergency number: 112 in Europe, 911 in US, 000 in Australia')">
+            🚨 Call Emergency Services
+        </div>
+    </div>
+</body>
+</html>

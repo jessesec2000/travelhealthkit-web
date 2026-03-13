@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1: Adventure Seekers - TravelHealthKit</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0F0F0F;
+            color: #FFFFFF;
+            line-height: 1.6;
+        }
+        .container { max-width: 480px; margin: 0 auto; }
+        
+        .hero {
+            background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+            padding: 40px 24px;
+            position: relative;
+        }
+        .back-button {
+            position: absolute; top: 20px; left: 20px;
+            color: white; text-decoration: none; font-size: 14px;
+            opacity: 0.9;
+        }
+        .level-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px; border-radius: 20px;
+            font-size: 12px; font-weight: 700; letter-spacing: 1px;
+            display: inline-block; margin-bottom: 16px;
+        }
+        .hero-icon { font-size: 64px; margin-bottom: 16px; }
+        .hero-title { font-size: 36px; font-weight: 800; margin-bottom: 8px; }
+        .hero-subtitle { font-size: 18px; opacity: 0.9; }
+        
+        .content { padding: 24px; }
+        
+        .section { margin-bottom: 32px; }
+        .section-title {
+            font-size: 14px; font-weight: 700; letter-spacing: 1px;
+            color: #FF6B35; margin-bottom: 16px; text-transform: uppercase;
+        }
+        
+        .description {
+            font-size: 16px; line-height: 1.6; color: #A1A1AA;
+            margin-bottom: 24px;
+        }
+        
+        .activity-grid {
+            display: grid; gap: 12px;
+        }
+        .activity-card {
+            background: #1A1A1A; padding: 16px; border-radius: 12px;
+            border: 1px solid #27272A;
+        }
+        .activity-icon { font-size: 28px; margin-bottom: 8px; }
+        .activity-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .activity-risk { font-size: 13px; color: #FF6B35; }
+        
+        .gear-list {
+            background: #1A1A1A; border-radius: 16px; padding: 20px;
+            border: 1px solid #27272A;
+        }
+        .gear-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 0; border-bottom: 1px solid #27272A;
+        }
+        .gear-item:last-child { border-bottom: none; }
+        .gear-icon { font-size: 24px; }
+        .gear-text { flex: 1; }
+        .gear-name { font-size: 15px; font-weight: 500; }
+        .gear-desc { font-size: 13px; color: #71717A; }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+            padding: 20px; border-radius: 16px; margin-bottom: 24px;
+        }
+        .warning-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+        .warning-text { font-size: 14px; opacity: 0.9; }
+        
+        .insurance-box {
+            background: #1A1A1A; border: 2px solid #FF6B35;
+            padding: 20px; border-radius: 16px;
+        }
+        .insurance-title { font-size: 16px; font-weight: 700; color: #FF6B35; margin-bottom: 8px; }
+        .insurance-text { font-size: 14px; color: #A1A1AA; }
+        .insurance-price { font-size: 24px; font-weight: 800; color: #FFFFFF; margin-top: 12px; }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            color: white; padding: 20px; border-radius: 16px;
+            text-align: center; font-weight: 700; font-size: 18px;
+            margin-top: 24px; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <a href="adventure-levels.html" class="back-button">← Back</a>
+            <div class="level-badge">LEVEL 1</div>
+            <div class="hero-icon">🔥</div>
+            <h1 class="hero-title">Adventure Seekers</h1>
+            <p class="hero-subtitle">Extreme & High-Risk</p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <p class="description">
+                    For adrenaline junkies who push limits. These activities involve high physical demands, 
+                    remote locations, and significant risks. Rescue may be delayed 24+ hours. Not for beginners.
+                </p>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Example Activities</div>
+                <div class="activity-grid">
+                    <div class="activity-card">
+                        <div class="activity-icon">🏔️</div>
+                        <div class="activity-name">8000m Peak Climbing</div>
+                        <div class="activity-risk">Death zone altitude • Extreme weather</div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon">🪂</div>
+                        <div class="activity-name">BASE Jumping / Wingsuit</div>
+                        <div class="activity-risk">1 in 60 fatality rate • Illegal in many areas</div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon">🧊</div>
+                        <div class="activity-name">Polar Expeditions</div>
+                        <div class="activity-risk">-50°C • Whiteout conditions • Crevasse falls</div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon">🌊</div>
+                        <div class="activity-name">Big Wave Surfing (30ft+)</div>
+                        <div class="activity-risk">Drowning • Impact injuries • Hold-downs</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Essential Gear</div>
+                <div class="gear-list">
+                    <div class="gear-item">
+                        <div class="gear-icon">📡</div>
+                        <div class="gear-text">
+                            <div class="gear-name">Satellite Communicator</div>
+                            <div class="gear-desc">Garmin inReach - SOS button mandatory</div>
+                        </div>
+                    </div>
+                    <div class="gear-item">
+                        <div class="gear-icon">🆘</div>
+                        <div class="gear-text">
+                            <div class="gear-name">Emergency Beacon (PLB/EPIRB)</div>
+                            <div class="gear-desc">Registered to you, tested before trip</div>
+                        </div>
+                    </div>
+                    <div class="gear-item">
+                        <div class="gear-icon">🩺</div>
+                        <div class="gear-text">
+                            <div class="gear-name">Comprehensive First Aid Kit</div>
+                            <div class="gear-desc">Trauma supplies, medications, splints</div>
+                        </div>
+                    </div>
+                    <div class="gear-item">
+                        <div class="gear-icon">🔋</div>
+                        <div class="gear-text">
+                            <div class="gear-name">Extended Battery/Power</div>
+                            <div class="gear-desc">Solar charger + battery banks</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <div class="warning-title">⚠️ Critical Requirements</div>
+                <div class="warning-text">
+                    • Comprehensive medical screening required<br>
+                    • Wilderness First Responder (WFR) certification minimum<br>
+                    • Specialized rescue insurance mandatory<br>
+                    • Evacuation can cost $100,000+<br>
+                    • Some activities have 1-5% fatality rates
+                </div>
+            </div>
+            
+            <div class="insurance-box">
+                <div class="insurance-title">💰 Insurance Cost</div>
+                <div class="insurance-text">
+                    Standard travel insurance EXCLUDES these activities. You need specialty adventure insurance.
+                </div>
+                <div class="insurance-price">$500 - $2,000+</div>
+            </div>
+            
+            <div class="cta-button" onclick="alert('In the full app, this would start building your Level 1 adventure kit checklist')">
+                Build My Level 1 Kit
+            </div>
+        </div>
+    </div>
+</body>
+</html>
