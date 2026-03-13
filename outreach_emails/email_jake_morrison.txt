@@ -1,0 +1,42 @@
+Subject: TravelHealthKit v2.0 - Water Sports Review Needed
+
+Hi Jake,
+
+You reviewed our early version - thanks! We've expanded water sports content significantly.
+
+**WHAT'S NEW:**
+• Level 1: Big wave surfing (30ft+)
+• Level 2: Open ocean kayaking
+• Level 3: Surfing lessons
+• Water Environment Risks (rip currents, jellyfish, coral cuts, marine animals)
+• Destination Health: Costa Rica
+
+**YOUR REVIEW FOCUS:**
+https://travelhealthkit.onrender.com/level-1.html (big wave section)
+https://travelhealthkit.onrender.com/level-2.html
+https://travelhealthkit.onrender.com/environmental-risks.html (water section)
+
+**SPECIFIC QUESTIONS:**
+
+1. Big wave surfing risks (drowning, impact injuries, hold-downs) - accurate description?
+
+2. Open ocean kayaking risks (capsize, currents, distance from shore) - appropriate?
+
+3. Rip current escape protocol - "swim parallel to shore" - still the best advice?
+
+4. Jellyfish stings - Are we correctly avoiding the urine myth? (vinegar for box jelly, hot water for others)
+
+5. Costa Rica health brief - dengue presence, no malaria, safest water in region - accurate for surfers?
+
+6. Missing water sports? (kitesurfing, windsurfing, SUP?)
+
+7. Marine hazards - what else should we include?
+
+**TIMELINE:** March 20th
+
+Thanks for your expertise!
+
+Jesse
+
+---
+APP: https://travelhealthkit.onrender.com

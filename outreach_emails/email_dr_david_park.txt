@@ -1,0 +1,39 @@
+Subject: TravelHealthKit v2.0 - Emergency Protocols Review Needed
+
+Hi Dr. Park,
+
+You reviewed our early emergency protocols - thank you! We've expanded significantly and need your ER expertise.
+
+**WHAT'S NEW:**
+• Emergency Protocols (anaphylaxis, bleeding, chest pain, altitude, heat stroke)
+• Environmental Risks (HAPE/HACE, hypothermia, rip currents, jellyfish)
+• Country Utilities (emergency numbers for 24 countries)
+
+**YOUR REVIEW FOCUS:**
+https://travelhealthkit.onrender.com/emergency-protocols.html
+https://travelhealthkit.onrender.com/environmental-risks.html
+
+**SPECIFIC QUESTIONS:**
+
+1. Anaphylaxis steps - EpiPen → call 911 → lie flat → second dose. Any issues?
+
+2. HAPE/HACE warning signs and "immediate descent" instructions - clear and actionable?
+
+3. Heat stroke vs heat exhaustion differentiation - clear for laypeople? Is "NO fever-reducing meds" prominent enough?
+
+4. Rip current escape - "swim parallel to shore" - current best advice?
+
+5. Jellyfish stings - Are we avoiding the urine myth correctly? (vinegar for box jelly, hot water for others)
+
+6. Emergency numbers by country - sufficient or should we emphasize universal 112 more?
+
+**CRITICAL:** Any protocols that could delay appropriate care?
+
+**TIMELINE:** March 20th
+
+Thanks!
+
+Jesse
+
+---
+APP: https://travelhealthkit.onrender.com

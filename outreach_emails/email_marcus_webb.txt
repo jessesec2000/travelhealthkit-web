@@ -1,0 +1,37 @@
+Subject: TravelHealthKit v2.0 - Remote Travel Expert Review
+
+Hi Marcus,
+
+You reviewed our adventure levels previously - thanks! We've added significant remote travel content and need your Nat Geo expertise.
+
+**WHAT'S NEW:**
+• Satellite Communicator Guide (Garmin, Spot, Zoleo, ACR comparison)
+• Country Utilities (24 countries, plug adapters, emergency numbers, embassies)
+• Environmental Risks (wildlife, natural disasters, extreme weather)
+• Expanded Level 1: 10 extreme activities
+
+**YOUR REVIEW FOCUS:**
+https://travelhealthkit.onrender.com/satellite-guide.html
+https://travelhealthkit.onrender.com/country-utilities.html
+https://travelhealthkit.onrender.com/environmental-risks.html
+
+**SPECIFIC QUESTIONS:**
+
+1. Satellite communicator recommendations - accurate for remote travel? Is PLB (ACR ResQLink) prominent enough for truly remote activities?
+
+2. Country utilities - 24 countries with plug types, emergency numbers, US embassy contacts. What's missing for remote travelers?
+
+3. Insurance cost estimates: Level 1 ($500-2000+), Level 2 ($100-300), Level 3 ($50-150), Level 4 ($30-100). Realistic?
+
+4. Should we emphasize STEP registration (State Dept) more prominently?
+
+5. Any gear missing from extreme activity recommendations?
+
+**TIMELINE:** March 20th
+
+Thanks for your insights!
+
+Jesse
+
+---
+APP: https://travelhealthkit.onrender.com

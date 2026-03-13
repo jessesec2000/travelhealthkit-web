@@ -1,0 +1,42 @@
+Subject: TravelHealthKit v2.0 - Extreme Sports Review Needed
+
+Hi Alex,
+
+You reviewed our early version - thanks! We've refined the extreme sports content and need your BASE/wingsuit expertise.
+
+**WHAT'S NEW:**
+• Refined Level 1 activities (removed war zone content)
+• Enhanced risk descriptions
+• Satellite Communicator Guide (for remote retrieval)
+• Insurance guidance
+
+**YOUR REVIEW FOCUS:**
+https://travelhealthkit.onrender.com/level-1.html
+https://travelhealthkit.onrender.com/satellite-guide.html
+
+**SPECIFIC QUESTIONS:**
+
+1. BASE Jumping / Wingsuit - "1 in 60 fatality rate, illegal in many areas" - appropriate risk communication?
+
+2. Helicopter skiing - avalanche exposure description - accurate?
+
+3. Backcountry skiing (Level 2) - avalanche warning sufficient?
+
+4. Satellite communicators - PLB recommendation prominent enough for truly remote activities?
+
+5. Insurance "$500-2000+" for Level 1 - realistic for BASE/wingsuit? (Most insurers exclude entirely)
+
+6. Are we being too encouraging of deadly activities? Should we add stronger "not for beginners" warnings?
+
+7. Missing legal warnings for illegal BASE locations?
+
+**IMPORTANT:** We're not encouraging these activities - we want to ensure people who DO engage have proper medical prep.
+
+**TIMELINE:** March 20th
+
+Thanks for keeping us honest!
+
+Jesse
+
+---
+APP: https://travelhealthkit.onrender.com
