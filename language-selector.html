@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelHealthKit - Select Language</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #6B7280;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 24px;
+            padding: 8px 0;
+            transition: color 0.2s;
+        }
+
+        .back-button:hover {
+            color: #FF6B35;
+        }
+
+        .back-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 32px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #6B7280;
+        }
+
+        /* Auto-detect Banner */
+        .autodetect-banner {
+            background: linear-gradient(135deg, #FFF5F2 0%, #FFE8E0 100%);
+            border: 2px solid #FF6B35;
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .autodetect-banner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 107, 53, 0.2);
+        }
+
+        .autodetect-icon {
+            font-size: 24px;
+        }
+
+        .autodetect-text {
+            flex: 1;
+        }
+
+        .autodetect-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 2px;
+        }
+
+        .autodetect-desc {
+            font-size: 13px;
+            color: #9CA3AF;
+        }
+
+        .autodetect-arrow {
+            font-size: 20px;
+            color: #FF6B35;
+        }
+
+        /* Language Grid */
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        @media (min-width: 400px) {
+            .language-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Language Card */
+        .language-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .language-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-color: #FF6B35;
+        }
+
+        .language-card.selected {
+            border-color: #FF6B35;
+            background: linear-gradient(135deg, #FFF5F2 0%, #FFF 100%);
+        }
+
+        .language-card.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 24px;
+            height: 24px;
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .language-flag {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .language-native {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 2px;
+        }
+
+        .language-english {
+            font-size: 13px;
+            color: #9CA3AF;
+            margin-bottom: 12px;
+        }
+
+        .select-button {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+            text-align: center;
+        }
+
+        .select-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+        }
+
+        .language-card.selected .select-button {
+            background: #10B981;
+        }
+
+        /* Default Badge */
+        .default-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #E5E7EB;
+            color: #6B7280;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .language-card.selected .default-badge {
+            display: none;
+        }
+
+        /* Translation Note */
+        .translation-note {
+            background: #F3F4F6;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .note-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .note-content {
+            flex: 1;
+        }
+
+        .note-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+
+        .note-text {
+            font-size: 13px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        /* Help Translate CTA */
+        .translate-cta {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin-bottom: 100px;
+        }
+
+        .translate-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .translate-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .translate-text {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .translate-button {
+            background: white;
+            color: #FF6B35;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .translate-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+
+        /* RTL Support Preview */
+        .rtl-preview {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .language-card[dir="rtl"] .language-flag,
+        .language-card[dir="rtl"] .language-native,
+        .language-card[dir="rtl"] .language-english {
+            align-self: flex-end;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1A1A1A;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Section divider */
+        .section-divider {
+            height: 1px;
+            background: #E5E7EB;
+            margin: 24px 0;
+        }
+
+        /* Popular languages label */
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #9CA3AF;
+            margin: 24px 0 16px 0;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <a href="index.html" class="back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back
+        </a>
+
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Select Your Language</h1>
+            <p class="subtitle">Choose your preferred language for the app</p>
+        </div>
+
+        <!-- Auto-detect Banner -->
+        <div class="autodetect-banner" onclick="autoDetectLanguage()">
+            <div class="autodetect-icon">🌍</div>
+            <div class="autodetect-text">
+                <div class="autodetect-title">Auto-detect Language</div>
+                <div class="autodetect-desc">Use your browser's language setting</div>
+            </div>
+            <div class="autodetect-arrow">›</div>
+        </div>
+
+        <!-- Popular Languages -->
+        <div class="section-label">Popular Languages</div>
+        <div class="language-grid" id="popularLanguages">
+            <!-- English (Default) -->
+            <div class="language-card selected" data-lang="en" onclick="selectLanguage('en')">
+                <span class="default-badge">Default</span>
+                <div class="language-flag">🇺🇸</div>
+                <div class="language-native">English</div>
+                <div class="language-english">English</div>
+                <button class="select-button">Selected</button>
+            </div>
+
+            <!-- Spanish -->
+            <div class="language-card" data-lang="es" onclick="selectLanguage('es')">
+                <div class="language-flag">🇪🇸</div>
+                <div class="language-native">Español</div>
+                <div class="language-english">Spanish</div>
+                <button class="select-button">Select</button>
+            </div>
+
+            <!-- French -->
+            <div class="language-card" data-lang="fr" onclick="selectLanguage('fr')">
+                <div class="language-flag">🇫🇷</div>
+                <div class="language-native">Français</div>
+                <div class="language-english">French</div>
+                <button class="select-button">Select</button>
+            </div>
+
+            <!-- German -->
+            <div class="language-card" data-lang="de" onclick="selectLanguage('de')">
+                <div class="language-flag">🇩🇪</div>
+                <div class="language-native">Deutsch</div>
+                <div class="language-english">German</div>
+                <button class="select-button">Select</button>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- All Languages -->
+        <div class="section-label">All Languages</div>
+        <div class="language-grid" id="allLanguages">
+            <!-- Italian -->
+            <div class="language-card" data-lang="it" onclick="selectLanguage('it')">
+                <div class="language-flag">🇮🇹</div>
+                <div class="language-native">Italiano</div>
+                <div class="language-english">Italian</div>
+                <button class="select-button">Select</button>
+            </div>
+
+            <!-- Portuguese -->
+            <div class="language-card" data-lang="pt" onclick="selectLanguage('pt')">
+                <div class="language-flag">🇵🇹</div>
+                <div class="language-native">Português</div>
+                <div class="language-english">Portuguese</div>
+                <button class="select-button">Select</button>
+            </div>
+
+            <!-- Dutch -->
+            <div class="language-card" data-lang="nl" onclick="selectLanguage('nl')">
+                <div class="language-flag">🇳🇱</div>
+                <div class="language-native">Nederlands</div>
+                <div class="language-english">Dutch</div>
+                <button class="select-button">Select</button>
+            </div>
+
+            <!-- Japanese -->
+            <div class="language-card" data-lang="ja" onclick="selectLanguage('ja')">
+                <div class="language-flag">🇯🇵</div>
+                <div class="language-native">日本語</div>
+                <div class="language-english">Japanese</div>
+                <button class="select-button">Select</button>
+            </div>
+
+            <!-- Chinese -->
+            <div class="language-card" data-lang="zh" onclick="selectLanguage('zh')">
+                <div class="language-flag">🇨🇳</div>
+                <div class="language-native">中文</div>
+                <div class="language-english">Chinese</div>
+                <button class="select-button">Select</button>
+            </div>
+
+            <!-- Korean -->
+            <div class="language-card" data-lang="ko" onclick="selectLanguage('ko')">
+                <div class="language-flag">🇰🇷</div>
+                <div class="language-native">한국어</div>
+                <div class="language-english">Korean</div>
+                <button class="select-button">Select</button>
+            </div>
+
+            <!-- Russian -->
+            <div class="language-card" data-lang="ru" onclick="selectLanguage('ru')">
+                <div class="language-flag">🇷🇺</div>
+                <div class="language-native">Русский</div>
+                <div class="language-english">Russian</div>
+                <button class="select-button">Select</button>
+            </div>
+
+            <!-- Arabic (RTL) -->
+            <div class="language-card" data-lang="ar" dir="rtl" onclick="selectLanguage('ar')">
+                <div class="language-flag">🇸🇦</div>
+                <div class="language-native">العربية</div>
+                <div class="language-english">Arabic</div>
+                <button class="select-button">Select</button>
+            </div>
+
+            <!-- Hindi -->
+            <div class="language-card" data-lang="hi" onclick="selectLanguage('hi')">
+                <div class="language-flag">🇮🇳</div>
+                <div class="language-native">हिन्दी</div>
+                <div class="language-english">Hindi</div>
+                <button class="select-button">Select</button>
+            </div>
+        </div>
+
+        <!-- Translation Coverage Note -->
+        <div class="translation-note">
+            <div class="note-icon">ℹ️</div>
+            <div class="note-content">
+                <div class="note-title">Translation Coverage</div>
+                <div class="note-text">
+                    We're actively working on translations. Some pages may only be available in English initially. 
+                    The most critical health and safety information is prioritized for translation.
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Us Translate CTA -->
+        <div class="translate-cta">
+            <div class="translate-icon">🌐</div>
+            <div class="translate-title">Help Us Translate</div>
+            <div class="translate-text">
+                Want to help make TravelHealthKit available in your language? 
+                We're looking for volunteer translators to expand our coverage.
+            </div>
+            <button class="translate-button" onclick="helpTranslate()">Contribute</button>
+        </div>
+
+        <!-- Bottom spacer -->
+        <div style="height: 40px;"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastIcon">✓</span>
+        <span id="toastMessage">Language updated</span>
+    </div>
+
+    <script>
+        // Language data
+        const languages = {
+            en: { name: 'English', native: 'English', flag: '🇺🇸' },
+            es: { name: 'Spanish', native: 'Español', flag: '🇪🇸' },
+            fr: { name: 'French', native: 'Français', flag: '🇫🇷' },
+            de: { name: 'German', native: 'Deutsch', flag: '🇩🇪' },
+            it: { name: 'Italian', native: 'Italiano', flag: '🇮🇹' },
+            pt: { name: 'Portuguese', native: 'Português', flag: '🇵🇹' },
+            nl: { name: 'Dutch', native: 'Nederlands', flag: '🇳🇱' },
+            ja: { name: 'Japanese', native: '日本語', flag: '🇯🇵' },
+            zh: { name: 'Chinese', native: '中文', flag: '🇨🇳' },
+            ko: { name: 'Korean', native: '한국어', flag: '🇰🇷' },
+            ru: { name: 'Russian', native: 'Русский', flag: '🇷🇺' },
+            ar: { name: 'Arabic', native: 'العربية', flag: '🇸🇦' },
+            hi: { name: 'Hindi', native: 'हिन्दी', flag: '🇮🇳' }
+        };
+
+        // Current selected language
+        let currentLang = 'en';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for saved language preference
+            const savedLang = localStorage.getItem('thk-language');
+            if (savedLang && languages[savedLang]) {
+                selectLanguage(savedLang, false);
+            }
+        });
+
+        // Select language function
+        function selectLanguage(langCode, showToast = true) {
+            if (!languages[langCode]) return;
+
+            // Update current language
+            currentLang = langCode;
+
+            // Save to localStorage
+            localStorage.setItem('thk-language', langCode);
+
+            // Update UI - remove selected class from all cards
+            document.querySelectorAll('.language-card').forEach(card => {
+                card.classList.remove('selected');
+                const btn = card.querySelector('.select-button');
+                btn.textContent = 'Select';
+            });
+
+            // Add selected class to current card
+            const selectedCard = document.querySelector(`[data-lang="${langCode}"]`);
+            if (selectedCard) {
+                selectedCard.classList.add('selected');
+                const btn = selectedCard.querySelector('.select-button');
+                btn.textContent = 'Selected';
+            }
+
+            // Show toast notification
+            if (showToast) {
+                showToastNotification(`${languages[langCode].flag} ${languages[langCode].native} selected`);
+            }
+
+            // Apply RTL if Arabic is selected (preview)
+            if (langCode === 'ar') {
+                document.body.style.direction = 'rtl';
+            } else {
+                document.body.style.direction = 'ltr';
+            }
+        }
+
+        // Auto-detect language based on browser
+        function autoDetectLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.split('-')[0].toLowerCase();
+
+            if (languages[langCode]) {
+                selectLanguage(langCode);
+                showToastNotification(`🌍 Detected: ${languages[langCode].native}`);
+            } else {
+                showToastNotification('🌍 Language not yet supported. Using English.');
+                selectLanguage('en');
+            }
+        }
+
+        // Show toast notification
+        function showToastNotification(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Help translate CTA
+        function helpTranslate() {
+            // In a real app, this would open a form or redirect to a translation platform
+            showToastNotification('📧 Translation program coming soon!');
+            
+            // Future implementation could open:
+            // - A Google Form for translator signup
+            // - A link to GitHub for contributing translations
+            // - A dedicated translation platform
+        }
+    </script>
+</body>
+</html>
