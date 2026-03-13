@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food & Water Safety - TravelHealthKit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #FF6B35;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            padding: 8px 0;
+        }
+
+        .back-button:hover {
+            color: #E55A2B;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 24px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #6B7280;
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1A1A1A;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-content {
+            font-size: 15px;
+            color: #374151;
+        }
+
+        .section-content p {
+            margin-bottom: 12px;
+        }
+
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Rule Items */
+        .rule-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .rule-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .rule-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .rule-content {
+            flex: 1;
+        }
+
+        .rule-title {
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .rule-desc {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        /* Safety Lists */
+        .safety-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .safety-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .safety-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .icon-safe { color: #10B981; }
+        .icon-caution { color: #F59E0B; }
+        .icon-avoid { color: #EF4444; }
+
+        /* Method Cards */
+        .method-card {
+            background: #F9FAFB;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .method-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .method-title {
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: #1A1A1A;
+        }
+
+        .method-desc {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        .method-highlight {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        /* Treatment Steps */
+        .treatment-step {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .step-desc {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        /* Region Cards */
+        .region-card {
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .region-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .region-high { background: #FEF2F2; border-left: 4px solid #EF4444; }
+        .region-moderate { background: #FFFBEB; border-left: 4px solid #F59E0B; }
+        .region-low { background: #ECFDF5; border-left: 4px solid #10B981; }
+
+        .region-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .region-desc {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #FEF2F2;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .warning-title {
+            color: #DC2626;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning-text {
+            font-size: 14px;
+            color: #7F1D1D;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #DBEAFE;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .info-title {
+            color: #1E40AF;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-text {
+            font-size: 14px;
+            color: #1E3A8A;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .highlight-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .highlight-text {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+
+        /* Subsection */
+        .subsection-title {
+            font-weight: 700;
+            font-size: 15px;
+            margin: 20px 0 12px 0;
+            color: #1A1A1A;
+        }
+
+        .subsection-title:first-of-type {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <a href="index.html" class="back-button">
+            ← Back to Home
+        </a>
+
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Food & Water Safety</h1>
+            <p class="subtitle">Avoid travelers diarrhea and foodborne illness</p>
+        </div>
+
+        <!-- The Golden Rule -->
+        <div class="section-card">
+            <div class="section-title">🔥 The "Boil It, Cook It, Peel It, or Forget It" Rule</div>
+            <div class="section-content">
+                <p>This simple rule has protected travelers for decades. When in doubt, apply it strictly.</p>
+                
+                <div class="rule-item">
+                    <div class="rule-icon">♨️</div>
+                    <div class="rule-content">
+                        <div class="rule-title">Boil It</div>
+                        <div class="rule-desc">Boiling water kills bacteria, viruses, and parasites. Let it boil for at least 1 minute (3 minutes at high altitude). Hot beverages like tea and coffee are generally safe if served steaming hot.</div>
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-icon">🍳</div>
+                    <div class="rule-content">
+                        <div class="rule-title">Cook It</div>
+                        <div class="rule-desc">Food cooked thoroughly and served steaming hot is usually safe. Avoid lukewarm food. Meat should be cooked all the way through—no pink in the center.</div>
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-icon">🍊</div>
+                    <div class="rule-content">
+                        <div class="rule-title">Peel It</div>
+                        <div class="rule-desc">Fruits and vegetables you can peel yourself (bananas, oranges, mangoes, avocados) are safe. The peel protects the edible part from contamination. Wash your hands before peeling.</div>
+                    </div>
+                </div>
+
+                <div class="rule-item">
+                    <div class="rule-icon">🚫</div>
+                    <div class="rule-content">
+                        <div class="rule-title">Or Forget It</div>
+                        <div class="rule-desc">If it doesn't meet the above criteria, skip it. Raw salads, unpeeled fruits, unpasteurized dairy, and raw seafood are high-risk foods in many destinations.</div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-title">💡 When Exceptions Apply</div>
+                    <div class="info-text">
+                        In developed countries with safe water systems (Western Europe, Japan, Australia, New Zealand, Singapore), tap water and raw vegetables in restaurants are generally safe. Use your judgment based on local infrastructure.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Water Safety -->
+        <div class="section-card">
+            <div class="section-title">💧 Water Safety</div>
+            <div class="section-content">
+                <div class="subsection-title">Safe Water Sources</div>
+                <ul class="safety-list">
+                    <li><span class="icon-safe">✅</span> Sealed bottled water from reputable brands</li>
+                    <li><span class="icon-safe">✅</span> Water boiled for 1 minute (3 min above 6,500ft/2,000m)</li>
+                    <li><span class="icon-safe">✅</span> Properly treated water (chemical, filtered, UV)</li>
+                    <li><span class="icon-safe">✅</span> Hot beverages served steaming hot</li>
+                    <li><span class="icon-safe">✅</span> Factory-sealed canned or bottled drinks</li>
+                </ul>
+
+                <div class="subsection-title">Unsafe Water Sources</div>
+                <ul class="safety-list">
+                    <li><span class="icon-avoid">❌</span> Tap water in most developing countries</li>
+                    <li><span class="icon-avoid">❌</span> Well water, river water, lake water</li>
+                    <li><span class="icon-avoid">❌</span> Ice cubes (unless from purified water)</li>
+                    <li><span class="icon-avoid">❌</span> Fountain drinks mixed with local water</li>
+                    <li><span class="icon-avoid">❌</span> Water from decorative fountains</li>
+                </ul>
+
+                <div class="subsection-title">Water Treatment Methods</div>
+                
+                <div class="method-card">
+                    <div class="method-title">♨️ Boiling</div>
+                    <div class="method-desc">The most reliable method. Bring water to a rolling boil for at least 1 minute. At altitudes above 6,500 feet (2,000m), boil for 3 minutes.</div>
+                </div>
+
+                <div class="method-card">
+                    <div class="method-title">🧪 Chemical Treatment</div>
+                    <div class="method-desc">Iodine or chlorine tablets kill most pathogens. Follow product instructions for wait times (typically 30 minutes to 4 hours depending on water temperature and clarity). Not effective against Cryptosporidium.</div>
+                </div>
+
+                <div class="method-card">
+                    <div class="method-title">🔍 Filters</div>
+                    <div class="method-desc">Look for filters with pore sizes of 0.1-0.4 microns to remove bacteria and parasites. "Absolute" pore size is more reliable than "nominal." Combine with chemical treatment or UV for viruses.</div>
+                </div>
+
+                <div class="method-card">
+                    <div class="method-title">⚡ UV Purifiers (SteriPen)</div>
+                    <div class="method-desc">Ultraviolet light destroys bacteria, viruses, and parasites. Requires clear water and correct exposure time. Battery-powered and portable. Less effective in cloudy water.</div>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-title">⚠️ Ice & Brushing Teeth</div>
+                    <div class="warning-text">
+                        <strong>Ice:</strong> Avoid ice unless you know it was made from purified water. Freezing doesn't kill pathogens.<br><br>
+                        <strong>Brushing teeth:</strong> Use bottled or boiled water for brushing teeth in high-risk areas. Even small amounts of contaminated water can cause illness.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Food Safety -->
+        <div class="section-card">
+            <div class="section-title">🍽️ Food Safety</div>
+            <div class="section-content">
+                <div class="subsection-title">Hot Foods</div>
+                <ul class="safety-list">
+                    <li><span class="icon-safe">✅</span> Food served steaming hot is generally safe</li>
+                    <li><span class="icon-safe">✅</span> Freshly cooked items from busy kitchens</li>
+                    <li><span class="icon-caution">⚠️</span> Avoid food that's been sitting lukewarm</li>
+                </ul>
+
+                <div class="subsection-title">Street Food Rules</div>
+                <ul class="safety-list">
+                    <li><span class="icon-safe">✅</span> Watch it being cooked in front of you</li>
+                    <li><span class="icon-safe">✅</span> Choose stalls with high turnover (locals lining up)</li>
+                    <li><span class="icon-safe">✅</span> Hot, fresh-cooked items only</li>
+                    <li><span class="icon-avoid">❌</span> Pre-cooked food sitting out</li>
+                    <li><span class="icon-avoid">❌</span> Raw or undercooked items</li>
+                </ul>
+
+                <div class="subsection-title">Raw Foods to Avoid</div>
+                <ul class="safety-list">
+                    <li><span class="icon-avoid">❌</span> Fresh salads and raw vegetables</li>
+                    <li><span class="icon-avoid">❌</span> Unpeeled fruits (unless you peel them)</li>
+                    <li><span class="icon-avoid">❌</span> Raw or undercooked meat</li>
+                    <li><span class="icon-avoid">❌</span> Raw shellfish (oysters, ceviche, sushi)</li>
+                    <li><span class="icon-avoid">❌</span> Unpasteurized eggs</li>
+                </ul>
+
+                <div class="subsection-title">Dairy Products</div>
+                <ul class="safety-list">
+                    <li><span class="icon-safe">✅</span> Pasteurized milk and cheese</li>
+                    <li><span class="icon-safe">✅</span> Hard cheeses (even if unpasteurized)</li>
+                    <li><span class="icon-avoid">❌</span> Unpasteurized milk and soft cheeses</li>
+                    <li><span class="icon-avoid">❌</span> Ice cream from questionable sources</li>
+                </ul>
+
+                <div class="subsection-title">Seafood Precautions</div>
+                <ul class="safety-list">
+                    <li><span class="icon-safe">✅</span> Fresh seafood from reputable restaurants</li>
+                    <li><span class="icon-safe">✅</span> Thoroughly cooked fish and shellfish</li>
+                    <li><span class="icon-caution">⚠️</span> Check for proper refrigeration</li>
+                    <li><span class="icon-avoid">❌</span> Raw or undercooked seafood</li>
+                    <li><span class="icon-avoid">❌</span> Reef fish in tropical areas (ciguatera risk)</li>
+                </ul>
+
+                <div class="subsection-title">Buffet Dangers</div>
+                <ul class="safety-list">
+                    <li><span class="icon-caution">⚠️</span> Check that hot foods are kept hot (>140°F/60°C)</li>
+                    <li><span class="icon-caution">⚠️</span> Cold foods should be cold (<40°F/4°C)</li>
+                    <li><span class="icon-avoid">❌</span> Food sitting out at room temperature</li>
+                    <li><span class="icon-avoid">❌</span> Items with questionable freshness</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Travelers Diarrhea -->
+        <div class="section-card">
+            <div class="section-title">🤢 Travelers Diarrhea</div>
+            <div class="section-content">
+                <p>Affects 30-70% of travelers to high-risk destinations. Usually resolves in 3-5 days but can ruin your trip.</p>
+
+                <div class="subsection-title">Causes</div>
+                <ul class="safety-list">
+                    <li><span class="icon-caution">⚠️</span> <strong>Bacteria (80%):</strong> E. coli, Salmonella, Campylobacter, Shigella</li>
+                    <li><span class="icon-caution">⚠️</span> <strong>Viruses:</strong> Norovirus, Rotavirus</li>
+                    <li><span class="icon-caution">⚠️</span> <strong>Parasites:</strong> Giardia, Cryptosporidium (less common, longer lasting)</li>
+                </ul>
+
+                <div class="subsection-title">Prevention</div>
+                <ul class="safety-list">
+                    <li><span class="icon-safe">✅</span> Follow food and water safety rules strictly</li>
+                    <li><span class="icon-safe">✅</span> Wash hands frequently with soap</li>
+                    <li><span class="icon-safe">✅</span> Use alcohol-based sanitizer (60%+ alcohol)</li>
+                    <li><span class="icon-safe">✅</span> <strong>Bismuth subsalicylate</strong> (Pepto-Bismol) can reduce risk by 50-65%</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <div class="highlight-title">Treatment Hierarchy</div>
+                    <div class="highlight-text">Follow these steps in order for best recovery</div>
+                </div>
+
+                <div class="treatment-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Rehydration</div>
+                        <div class="step-desc">Most important! Use oral rehydration salts (ORS), sports drinks, or clean water with a pinch of salt and sugar. Take frequent small sips.</div>
+                    </div>
+                </div>
+
+                <div class="treatment-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Loperamide (Imodium)</div>
+                        <div class="step-desc">Reduces diarrhea for travel days when you can't stay near a bathroom. Do NOT use if you have fever or bloody stool. Use only short-term.</div>
+                    </div>
+                </div>
+
+                <div class="treatment-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">Azithromycin (Prescription)</div>
+                        <div class="step-desc">Antibiotic for moderate to severe travelers diarrhea. Ask your doctor before travel. Typically single dose or 3-day course. Effective against most bacterial causes.</div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-title">🚨 When to See a Doctor</div>
+                    <div class="warning-text">
+                        • Blood in stool<br>
+                        • Fever above 101°F (38.5°C)<br>
+                        • Severe abdominal pain<br>
+                        • Signs of dehydration (dizziness, dark urine)<br>
+                        • Symptoms lasting more than 3 days<br>
+                        • More than 6 watery stools per day
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Safe Eating by Region -->
+        <div class="section-card">
+            <div class="section-title">🌍 Safe Eating by Region</div>
+            <div class="section-content">
+                <p>Risk varies by destination. Adjust your precautions accordingly.</p>
+
+                <div class="region-card region-high">
+                    <div class="region-title">🔴 High Risk</div>
+                    <div class="region-desc">
+                        <strong>South Asia, Sub-Saharan Africa, parts of the Middle East</strong><br>
+                        Apply the "boil it, cook it, peel it, or forget it" rule strictly. Avoid all raw foods and tap water. High incidence of travelers diarrhea (50-70%).
+                    </div>
+                </div>
+
+                <div class="region-card region-moderate">
+                    <div class="region-title">🟡 Moderate Risk</div>
+                    <div class="region-desc">
+                        <strong>Southeast Asia, Central America, Caribbean, parts of South America</strong><br>
+                        Exercise caution with street food and water. Moderate incidence (20-40%). Be careful outside tourist areas and major cities.
+                    </div>
+                </div>
+
+                <div class="region-card region-low">
+                    <div class="region-title">🟢 Lower Risk</div>
+                    <div class="region-desc">
+                        <strong>East Asia (Japan, South Korea), Eastern Europe, Southern Europe, South Africa, Argentina, Chile</strong><br>
+                        Tap water generally safe in major cities. Standard food safety precautions apply. Lower incidence (8-20%).
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-title">💡 Lowest Risk</div>
+                    <div class="info-text">
+                        <strong>USA, Canada, Western Europe, Australia, New Zealand, Singapore, Japan</strong><br>
+                        Food and water standards similar to home. Normal caution sufficient for most travelers.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The 2-Hour Rule -->
+        <div class="section-card">
+            <div class="section-title">⏰ The "2-Hour Rule"</div>
+            <div class="section-content">
+                <p>Food left at room temperature is when bacteria multiply fastest. This is especially important in hot climates where food spoils even faster.</p>
+
+                <div class="highlight-box">
+                    <div class="highlight-title">The Danger Zone: 40°F - 140°F (4°C - 60°C)</div>
+                    <div class="highlight-text">Bacteria grow rapidly in this temperature range</div>
+                </div>
+
+                <ul class="safety-list">
+                    <li><span class="icon-avoid">❌</span> Food left out at room temperature for <strong>more than 2 hours</strong></li>
+                    <li><span class="icon-avoid">❌</span> In hot weather (above 90°F/32°C), the limit drops to <strong>1 hour</strong></li>
+                    <li><span class="icon-safe">✅</span> Hot food should be kept above 140°F (60°C)</li>
+                    <li><span class="icon-safe">✅</span> Cold food should be kept below 40°F (4°C)</li>
+                </ul>
+
+                <div class="warning-box">
+                    <div class="warning-title">⚠️ Common Scenarios</div>
+                    <div class="warning-text">
+                        <strong>Hotel breakfast buffets:</strong> Check how long items have been sitting out. Early risers get the safest food.<br><br>
+                        <strong>Street food:</strong> Choose vendors who cook to order, not those with pre-cooked items waiting.<br><br>
+                        <strong>Airline food:</strong> Can be risky on long-haul flights if not stored properly.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom spacer -->
+        <div style="height: 40px;"></div>
+    </div>
+</body>
+</html>
