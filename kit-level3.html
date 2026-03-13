@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 3 Kit - Casual Explorer Gear</title>
+    <link rel="stylesheet" href="shared-nav.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+        .container { max-width: 480px; margin: 0 auto; padding: 20px; }
+        
+        .hero {
+            background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%);
+            padding: 32px 24px;
+            margin: -20px -20px 24px -20px;
+            border-radius: 0 0 24px 24px;
+            color: white;
+        }
+        
+        .back-button {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: white; text-decoration: none; font-size: 14px;
+            opacity: 0.9; margin-bottom: 16px;
+        }
+        
+        .level-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px; border-radius: 20px;
+            font-size: 12px; font-weight: 700; letter-spacing: 1px;
+            display: inline-block; margin-bottom: 12px;
+        }
+        
+        .hero-icon { font-size: 48px; margin-bottom: 12px; }
+        .hero-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+        .hero-subtitle { font-size: 16px; opacity: 0.9; }
+        
+        .notice-box {
+            background: linear-gradient(135deg, #E0F2F1 0%, #B2DFDB 100%);
+            padding: 20px; border-radius: 16px; margin-bottom: 24px;
+            border-left: 4px solid #00B894;
+        }
+        .notice-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; color: #00695C; }
+        .notice-text { font-size: 14px; color: #00695C; line-height: 1.5; }
+        
+        .kit-section { margin-bottom: 28px; }
+        .section-title {
+            font-size: 14px; font-weight: 700; letter-spacing: 1px;
+            color: #00B894; margin-bottom: 16px; text-transform: uppercase;
+        }
+        
+        .category-card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .category-header {
+            background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%);
+            padding: 16px 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            color: white;
+        }
+        
+        .category-title { font-size: 18px; font-weight: 700; }
+        .category-count { font-size: 14px; opacity: 0.9; }
+        
+        .item-list { padding: 8px 0; }
+        
+        .item {
+            display: flex; align-items: center; padding: 14px 20px;
+            border-bottom: 1px solid #F3F4F6; cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .item:last-child { border-bottom: none; }
+        .item:hover { background: #F9FAFB; }
+        
+        .checkbox {
+            width: 24px; height: 24px; border: 2px solid #D1D5DB;
+            border-radius: 6px; margin-right: 14px;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s; flex-shrink: 0;
+        }
+        
+        .checkbox.checked {
+            background: #00B894; border-color: #00B894;
+        }
+        
+        .checkbox.checked::after {
+            content: "✓"; color: white; font-weight: 700; font-size: 14px;
+        }
+        
+        .item-content { flex: 1; }
+        .item-name { font-size: 15px; font-weight: 500; color: #1A1A1A; }
+        .item-name.checked { text-decoration: line-through; opacity: 0.5; }
+        .item-desc { font-size: 13px; color: #6B7280; margin-top: 2px; }
+        
+        .priority-badge {
+            padding: 4px 10px; border-radius: 12px;
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            margin-left: 8px;
+        }
+        
+        .priority-essential { background: #FEF3C7; color: #92400E; }
+        .priority-recommended { background: #DBEAFE; color: #1E40AF; }
+        .priority-optional { background: #F3F4F6; color: #6B7280; }
+        
+        .progress-section {
+            background: #FFFFFF;
+            padding: 20px; border-radius: 16px;
+            margin-bottom: 24px;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .progress-header {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 12px;
+        }
+        
+        .progress-label { font-size: 14px; font-weight: 600; color: #1A1A1A; }
+        .progress-percent { font-size: 18px; font-weight: 800; color: #00B894; }
+        
+        .progress-bar {
+            height: 10px; background: #E5E7EB;
+            border-radius: 5px; overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00D4AA, #00B894);
+            border-radius: 5px; transition: width 0.3s;
+        }
+        
+        .buy-button {
+            background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%);
+            color: white; border: none; padding: 8px 16px;
+            border-radius: 8px; font-size: 12px; font-weight: 700;
+            cursor: pointer; text-decoration: none;
+            display: inline-block; margin-left: 8px;
+        }
+        
+        .insurance-box {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            padding: 20px; border-radius: 16px; margin-bottom: 24px;
+            border: 2px solid #4FACFE;
+        }
+        
+        .insurance-title { font-size: 16px; font-weight: 700; color: #1565C0; margin-bottom: 8px; }
+        .insurance-text { font-size: 14px; color: #424242; line-height: 1.5; margin-bottom: 12px; }
+        .insurance-price { font-size: 28px; font-weight: 800; color: #1A1A1A; }
+        
+        .export-section {
+            background: #FFFFFF;
+            padding: 24px; border-radius: 16px;
+            text-align: center; margin-top: 32px;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .export-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #1A1A1A; }
+        .export-text { font-size: 14px; color: #6B7280; margin-bottom: 16px; }
+        
+        .export-button {
+            background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%);
+            color: white; border: none; padding: 16px 32px;
+            border-radius: 12px; font-size: 16px; font-weight: 700;
+            cursor: pointer; width: 100%;
+        }
+    </style>
+</head>
+<body class="has-bottom-nav">
+    <div class="container">
+        <div class="medical-disclaimer">
+            <strong>⚠️ Medical Disclaimer</strong>
+            This information is for educational purposes only. Always consult a healthcare professional for medical advice.
+        </div>
+        
+        <div class="hero">
+            <a href="adventure-levels.html" class="back-button">← Back</a>
+            <div class="level-badge">LEVEL 3 KIT</div>
+            <div class="hero-icon">🌟</div>
+            <h1 class="hero-title">Casual Explorer Kit</h1>
+            <p class="hero-subtitle">For day hikes, resort diving, safari tours & bike tours</p>
+        </div>
+        
+        <div class="notice-box">
+            <div class="notice-title">ℹ️ MODERATE ACTIVITY</div>
+            <div class="notice-text">
+                These activities have tourist infrastructure nearby and cell service is usually available. 
+                Basic preparation is still important for safety and comfort.
+            </div>
+        </div>
+        
+        <!-- Progress -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <span class="progress-label">Packing Progress</span>
+                <span class="progress-percent" id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <!-- Basic First Aid -->
+        <div class="kit-section">
+            <div class="section-title">🏥 Basic First Aid</div>
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-title">Essential Care</span>
+                    <span class="category-count" id="count-firstaid">0/4</span>
+                </div>
+                <div class="item-list">
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Compact First Aid Kit <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Bandages, gauze, antiseptic wipes, tweezers</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=compact+first+aid+kit+travel" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Blister Care Pack <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Moleskin, band-aids, blister cushions</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=blister+care+kit+hiking" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Pain Relief Meds</div>
+                            <div class="item-desc">Ibuprofen or acetaminophen - personal supply</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=travel+pain+relief+medication" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Antihistamines</div>
+                            <div class="item-desc">For allergic reactions to bites, plants, or food</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=antihistamine+travel+size" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Day Pack Essentials -->
+        <div class="kit-section">
+            <div class="section-title">🎒 Day Pack Essentials</div>
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-title">Daily Carry</span>
+                    <span class="category-count" id="count-daypack">0/4</span>
+                </div>
+                <div class="item-list">
+                    <div class="item" onclick="toggleItem(this, 'daypack')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Hydration Bottle <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Insulated 20-32oz bottle or hydration bladder</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=insulated+water+bottle+hiking" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'daypack')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Lightweight Daypack</div>
+                            <div class="item-desc">15-25L capacity, comfortable straps</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=lightweight+daypack+travel" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'daypack')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Rain Jacket / Poncho</div>
+                            <div class="item-desc">Packable waterproof layer for unexpected weather</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=packable+rain+jacket+travel" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'daypack')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Snacks & Electrolytes</div>
+                            <div class="item-desc">Energy bars, nuts, electrolyte packets</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=electrolyte+packets+travel" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sun Protection -->
+        <div class="kit-section">
+            <div class="section-title">☀️ Sun Protection</div>
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-title">UV Defense</span>
+                    <span class="category-count" id="count-sun">0/4</span>
+                </div>
+                <div class="item-list">
+                    <div class="item" onclick="toggleItem(this, 'sun')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">SPF 30+ Sunscreen <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Broad spectrum, water-resistant, reef-safe</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=reef+safe+sunscreen+spf+50" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'sun')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Wide-Brim Hat</div>
+                            <div class="item-desc">UPF 50+ protection for face and neck</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=upf+50+sun+hat+hiking" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'sun')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">UV Sunglasses</div>
+                            <div class="item-desc">Polarized, 100% UV protection</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=polarized+sunglasses+uv+protection" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'sun')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">SPF Lip Balm</div>
+                            <div class="item-desc">Protects lips from sun and wind</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=spf+lip+balm+sunscreen" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Basic Meds -->
+        <div class="kit-section">
+            <div class="section-title">💊 Basic Medications</div>
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-title">Travel Health</span>
+                    <span class="category-count" id="count-meds">0/3</span>
+                </div>
+                <div class="item-list">
+                    <div class="item" onclick="toggleItem(this, 'meds')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Anti-Diarrheal <span class="priority-badge priority-recommended">RECOMMENDED</span></div>
+                            <div class="item-desc">Loperamide for traveler's stomach issues</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=travel+anti+diarrheal" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'meds')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Motion Sickness Relief</div>
+                            <div class="item-desc">For boats, safari vehicles, winding roads</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=motion+sickness+patches+travel" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'meds')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Insect Repellent</div>
+                            <div class="item-desc">DEET or picaridin for bug protection</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=travel+insect+repellent+deet" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Insurance -->
+        <div class="insurance-box">
+            <div class="insurance-title">🛡️ RECOMMENDED: Standard Travel Insurance</div>
+            <div class="insurance-text">
+                Most standard travel insurance policies cover these activities. Verify coverage for any specific activities like diving or safari tours.
+            </div>
+            <div class="insurance-price">$50 - $150</div>
+            <div style="font-size: 12px; color: #6B7280; margin-top: 8px;">Recommended: World Nomads, SafetyWing, Allianz</div>
+        </div>
+        
+        <!-- Export -->
+        <div class="export-section">
+            <div class="export-title">📱 Save Your Kit</div>
+            <div class="export-text">Progress auto-saves. Export for your trip planning.</div>
+            <button class="export-button" onclick="exportKit()">Export Level 3 Checklist</button>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🏠</span>
+            <span>Home</span>
+        </a>
+        <a href="search.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🔍</span>
+            <span>Search</span>
+        </a>
+        <a href="adventure-levels.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🎯</span>
+            <span>Levels</span>
+        </a>
+        <a href="emergency-protocols.html" class="bottom-nav-item emergency">
+            <span class="bottom-nav-icon">🆘</span>
+            <span>Emergency</span>
+        </a>
+    </nav>
+    
+    <script>
+        const counts = {
+            firstaid: { total: 4, checked: 0 },
+            daypack: { total: 4, checked: 0 },
+            sun: { total: 4, checked: 0 },
+            meds: { total: 3, checked: 0 }
+        };
+        
+        function loadProgress() {
+            const saved = localStorage.getItem('level3KitProgress');
+            if (saved) {
+                const checked = JSON.parse(saved);
+                document.querySelectorAll('.item').forEach((item, index) => {
+                    if (checked.includes(index)) {
+                        item.querySelector('.checkbox').classList.add('checked');
+                        item.querySelector('.item-name').classList.add('checked');
+                    }
+                });
+                updateAllCounts();
+            }
+        }
+        
+        function toggleItem(element, category) {
+            const checkbox = element.querySelector('.checkbox');
+            const name = element.querySelector('.item-name');
+            
+            if (checkbox.classList.contains('checked')) {
+                checkbox.classList.remove('checked');
+                name.classList.remove('checked');
+                counts[category].checked--;
+            } else {
+                checkbox.classList.add('checked');
+                name.classList.add('checked');
+                counts[category].checked++;
+            }
+            
+            updateCount(category);
+            updateProgress();
+            saveProgress();
+        }
+        
+        function updateCount(category) {
+            document.getElementById(`count-${category}`).textContent = 
+                `${counts[category].checked}/${counts[category].total}`;
+        }
+        
+        function updateAllCounts() {
+            updateCount('firstaid');
+            updateCount('daypack');
+            updateCount('sun');
+            updateCount('meds');
+        }
+        
+        function updateProgress() {
+            let total = 0, checked = 0;
+            for (let cat in counts) {
+                total += counts[cat].total;
+                checked += counts[cat].checked;
+            }
+            const percent = Math.round((checked / total) * 100);
+            document.getElementById('progressPercent').textContent = `${percent}%`;
+            document.getElementById('progressFill').style.width = `${percent}%`;
+        }
+        
+        function saveProgress() {
+            const checked = [];
+            document.querySelectorAll('.item').forEach((item, index) => {
+                if (item.querySelector('.checkbox').classList.contains('checked')) {
+                    checked.push(index);
+                }
+            });
+            localStorage.setItem('level3KitProgress', JSON.stringify(checked));
+        }
+        
+        function exportKit() {
+            const items = [];
+            document.querySelectorAll('.item').forEach(item => {
+                const name = item.querySelector('.item-name').childNodes[0].textContent.trim();
+                const desc = item.querySelector('.item-desc').textContent;
+                const isChecked = item.querySelector('.checkbox').classList.contains('checked');
+                items.push({ name, desc, checked: isChecked });
+            });
+            
+            let text = "LEVEL 3: CASUAL EXPLORER KIT\n";
+            text += "For day hikes, resort diving, safari tours & bike tours\n\n";
+            items.forEach(item => {
+                text += `${item.checked ? '✓' : '☐'} ${item.name}\n`;
+                text += `   ${item.desc}\n\n`;
+            });
+            
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'level3-casual-kit.txt';
+            a.click();
+        }
+        
+        loadProgress();
+        updateProgress();
+    </script>
+</body>
+</html>

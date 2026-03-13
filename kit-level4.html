@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 4 Kit - Family & Resort Gear</title>
+    <link rel="stylesheet" href="shared-nav.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+        .container { max-width: 480px; margin: 0 auto; padding: 20px; }
+        
+        .hero {
+            background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%);
+            padding: 32px 24px;
+            margin: -20px -20px 24px -20px;
+            border-radius: 0 0 24px 24px;
+            color: white;
+        }
+        
+        .back-button {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: white; text-decoration: none; font-size: 14px;
+            opacity: 0.9; margin-bottom: 16px;
+        }
+        
+        .level-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px; border-radius: 20px;
+            font-size: 12px; font-weight: 700; letter-spacing: 1px;
+            display: inline-block; margin-bottom: 12px;
+        }
+        
+        .hero-icon { font-size: 48px; margin-bottom: 12px; }
+        .hero-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+        .hero-subtitle { font-size: 16px; opacity: 0.9; }
+        
+        .notice-box {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            padding: 20px; border-radius: 16px; margin-bottom: 24px;
+            border-left: 4px solid #4FACFE;
+        }
+        .notice-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; color: #1565C0; }
+        .notice-text { font-size: 14px; color: #424242; line-height: 1.5; }
+        
+        .pediatric-box {
+            background: linear-gradient(135deg, #FCE4EC 0%, #F8BBD9 100%);
+            padding: 20px; border-radius: 16px; margin-bottom: 24px;
+            border-left: 4px solid #E91E63;
+        }
+        .pediatric-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; color: #C2185B; }
+        .pediatric-text { font-size: 14px; color: #424242; line-height: 1.5; }
+        
+        .kit-section { margin-bottom: 28px; }
+        .section-title {
+            font-size: 14px; font-weight: 700; letter-spacing: 1px;
+            color: #4FACFE; margin-bottom: 16px; text-transform: uppercase;
+        }
+        
+        .category-card {
+            background: #FFFFFF;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .category-header {
+            background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%);
+            padding: 16px 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            color: white;
+        }
+        
+        .category-title { font-size: 18px; font-weight: 700; }
+        .category-count { font-size: 14px; opacity: 0.9; }
+        
+        .item-list { padding: 8px 0; }
+        
+        .item {
+            display: flex; align-items: center; padding: 14px 20px;
+            border-bottom: 1px solid #F3F4F6; cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .item:last-child { border-bottom: none; }
+        .item:hover { background: #F9FAFB; }
+        
+        .checkbox {
+            width: 24px; height: 24px; border: 2px solid #D1D5DB;
+            border-radius: 6px; margin-right: 14px;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s; flex-shrink: 0;
+        }
+        
+        .checkbox.checked {
+            background: #4FACFE; border-color: #4FACFE;
+        }
+        
+        .checkbox.checked::after {
+            content: "✓"; color: white; font-weight: 700; font-size: 14px;
+        }
+        
+        .item-content { flex: 1; }
+        .item-name { font-size: 15px; font-weight: 500; color: #1A1A1A; }
+        .item-name.checked { text-decoration: line-through; opacity: 0.5; }
+        .item-desc { font-size: 13px; color: #6B7280; margin-top: 2px; }
+        
+        .priority-badge {
+            padding: 4px 10px; border-radius: 12px;
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            margin-left: 8px;
+        }
+        
+        .priority-essential { background: #FEF3C7; color: #92400E; }
+        .priority-recommended { background: #DBEAFE; color: #1E40AF; }
+        .priority-optional { background: #F3F4F6; color: #6B7280; }
+        
+        .progress-section {
+            background: #FFFFFF;
+            padding: 20px; border-radius: 16px;
+            margin-bottom: 24px;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .progress-header {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 12px;
+        }
+        
+        .progress-label { font-size: 14px; font-weight: 600; color: #1A1A1A; }
+        .progress-percent { font-size: 18px; font-weight: 800; color: #4FACFE; }
+        
+        .progress-bar {
+            height: 10px; background: #E5E7EB;
+            border-radius: 5px; overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4FACFE, #00F2FE);
+            border-radius: 5px; transition: width 0.3s;
+        }
+        
+        .buy-button {
+            background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%);
+            color: white; border: none; padding: 8px 16px;
+            border-radius: 8px; font-size: 12px; font-weight: 700;
+            cursor: pointer; text-decoration: none;
+            display: inline-block; margin-left: 8px;
+        }
+        
+        .insurance-box {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            padding: 20px; border-radius: 16px; margin-bottom: 24px;
+            border: 2px solid #4CAF50;
+        }
+        
+        .insurance-title { font-size: 16px; font-weight: 700; color: #2E7D32; margin-bottom: 8px; }
+        .insurance-text { font-size: 14px; color: #424242; line-height: 1.5; margin-bottom: 12px; }
+        .insurance-price { font-size: 28px; font-weight: 800; color: #1A1A1A; }
+        
+        .export-section {
+            background: #FFFFFF;
+            padding: 24px; border-radius: 16px;
+            text-align: center; margin-top: 32px;
+            border: 1px solid #E5E7EB;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        
+        .export-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #1A1A1A; }
+        .export-text { font-size: 14px; color: #6B7280; margin-bottom: 16px; }
+        
+        .export-button {
+            background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%);
+            color: white; border: none; padding: 16px 32px;
+            border-radius: 12px; font-size: 16px; font-weight: 700;
+            cursor: pointer; width: 100%;
+        }
+    </style>
+</head>
+<body class="has-bottom-nav">
+    <div class="container">
+        <div class="medical-disclaimer">
+            <strong>⚠️ Medical Disclaimer</strong>
+            This information is for educational purposes only. Always consult a healthcare professional for medical advice, especially for children.
+        </div>
+        
+        <div class="hero">
+            <a href="adventure-levels.html" class="back-button">← Back</a>
+            <div class="level-badge">LEVEL 4 KIT</div>
+            <div class="hero-icon">💎</div>
+            <h1 class="hero-title">Family & Resort Kit</h1>
+            <p class="hero-subtitle">For Disney, cruises, beach resorts & city tourism</p>
+        </div>
+        
+        <div class="notice-box">
+            <div class="notice-title">ℹ️ LOW RISK, HIGH COMFORT</div>
+            <div class="notice-text">
+                These destinations have excellent medical facilities nearby, full amenities, and are designed for accessibility and safety. Perfect for families and relaxed travelers.
+            </div>
+        </div>
+        
+        <div class="pediatric-box">
+            <div class="pediatric-title">👶 PEDIATRIC CONSIDERATIONS</div>
+            <div class="pediatric-text">
+                Children need age-appropriate medications and dosages. Pack familiar comfort items, extra clothes, and pediatric-specific first aid supplies. Know the location of pediatric urgent care at your destination.
+            </div>
+        </div>
+        
+        <!-- Progress -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <span class="progress-label">Packing Progress</span>
+                <span class="progress-percent" id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <!-- Child-Friendly First Aid -->
+        <div class="kit-section">
+            <div class="section-title">👶 Child-Friendly First Aid</div>
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-title">Family Medical Kit</span>
+                    <span class="category-count" id="count-firstaid">0/4</span>
+                </div>
+                <div class="item-list">
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Pediatric First Aid Kit <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Band-aids with fun characters, gauze, antiseptic wipes</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=pediatric+first+aid+kit+kids" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Children's Pain/Fever Relief <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Acetaminophen & ibuprofen - age appropriate</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=children+acetaminophen+travel" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Digital Thermometer</div>
+                            <div class="item-desc">Quick-read for checking fevers on the go</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=digital+thermometer+travel" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Liquid Bandage / Spray</div>
+                            <div class="item-desc">Easy application for kids' scrapes</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=liquid+bandage+kids" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Travel Documents -->
+        <div class="kit-section">
+            <div class="section-title">📄 Travel Documents</div>
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-title">Essential Paperwork</span>
+                    <span class="category-count" id="count-docs">0/4</span>
+                </div>
+                <div class="item-list">
+                    <div class="item" onclick="toggleItem(this, 'docs')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Passports & Copies <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Digital and physical copies stored separately</div>
+                        </div>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'docs')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Travel Insurance Cards <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Policy numbers and emergency contact info</div>
+                        </div>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'docs')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Medical Info Cards</div>
+                            <div class="item-desc">Allergies, medications, emergency contacts per family member</div>
+                        </div>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'docs')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Cruise/Reservation Confirmations</div>
+                            <div class="item-desc">Boarding passes, excursion tickets, hotel vouchers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comfort Items -->
+        <div class="kit-section">
+            <div class="section-title">🧸 Comfort Items</div>
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-title">Family Comfort</span>
+                    <span class="category-count" id="count-comfort">0/4</span>
+                </div>
+                <div class="item-list">
+                    <div class="item" onclick="toggleItem(this, 'comfort')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Favorite Snacks <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Familiar foods for picky eaters during travel</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=travel+snacks+family" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'comfort')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Comfort Object / Lovey</div>
+                            <div class="item-desc">Stuffed animal or blanket for sleeping away from home</div>
+                        </div>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'comfort')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Entertainment Kit</div>
+                            <div class="item-desc">Tablets, headphones, coloring books, small toys</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=kids+travel+entertainment" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'comfort')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Extra Outfit (Per Person)</div>
+                            <div class="item-desc">Spills and accidents happen - be prepared!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Basic OTC Meds -->
+        <div class="kit-section">
+            <div class="section-title">💊 Basic OTC Medications</div>
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-title">Travel Pharmacy</span>
+                    <span class="category-count" id="count-meds">0/3</span>
+                </div>
+                <div class="item-list">
+                    <div class="item" onclick="toggleItem(this, 'meds')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Anti-Nausea Medicine <span class="priority-badge priority-recommended">RECOMMENDED</span></div>
+                            <div class="item-desc">For cruises, winding roads, or amusement rides</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=anti+nausea+kids+travel" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'meds')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Allergy Medicine</div>
+                            <div class="item-desc">Child-safe antihistamines for unexpected reactions</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=children+allergy+medicine" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'meds')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Tummy Soothers</div>
+                            <div class="item-desc">Antacids, anti-diarrheal, electrolyte packets</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=pedialyte+packets+travel" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Insurance -->
+        <div class="insurance-box">
+            <div class="insurance-title">🛡️ RECOMMENDED: Family Travel Insurance</div>
+            <div class="insurance-text">
+                Standard travel insurance or cruise-specific coverage. Look for policies that cover trip cancellation, medical emergencies, and lost baggage for the whole family.
+            </div>
+            <div class="insurance-price">$30 - $100</div>
+            <div style="font-size: 12px; color: #6B7280; margin-top: 8px;">Recommended: Allianz, Travel Guard, Cruise line insurance</div>
+        </div>
+        
+        <!-- Export -->
+        <div class="export-section">
+            <div class="export-title">📱 Save Your Kit</div>
+            <div class="export-text">Progress auto-saves. Export for your family trip planning.</div>
+            <button class="export-button" onclick="exportKit()">Export Level 4 Checklist</button>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🏠</span>
+            <span>Home</span>
+        </a>
+        <a href="search.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🔍</span>
+            <span>Search</span>
+        </a>
+        <a href="adventure-levels.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🎯</span>
+            <span>Levels</span>
+        </a>
+        <a href="emergency-protocols.html" class="bottom-nav-item emergency">
+            <span class="bottom-nav-icon">🆘</span>
+            <span>Emergency</span>
+        </a>
+    </nav>
+    
+    <script>
+        const counts = {
+            firstaid: { total: 4, checked: 0 },
+            docs: { total: 4, checked: 0 },
+            comfort: { total: 4, checked: 0 },
+            meds: { total: 3, checked: 0 }
+        };
+        
+        function loadProgress() {
+            const saved = localStorage.getItem('level4KitProgress');
+            if (saved) {
+                const checked = JSON.parse(saved);
+                document.querySelectorAll('.item').forEach((item, index) => {
+                    if (checked.includes(index)) {
+                        item.querySelector('.checkbox').classList.add('checked');
+                        item.querySelector('.item-name').classList.add('checked');
+                    }
+                });
+                updateAllCounts();
+            }
+        }
+        
+        function toggleItem(element, category) {
+            const checkbox = element.querySelector('.checkbox');
+            const name = element.querySelector('.item-name');
+            
+            if (checkbox.classList.contains('checked')) {
+                checkbox.classList.remove('checked');
+                name.classList.remove('checked');
+                counts[category].checked--;
+            } else {
+                checkbox.classList.add('checked');
+                name.classList.add('checked');
+                counts[category].checked++;
+            }
+            
+            updateCount(category);
+            updateProgress();
+            saveProgress();
+        }
+        
+        function updateCount(category) {
+            document.getElementById(`count-${category}`).textContent = 
+                `${counts[category].checked}/${counts[category].total}`;
+        }
+        
+        function updateAllCounts() {
+            updateCount('firstaid');
+            updateCount('docs');
+            updateCount('comfort');
+            updateCount('meds');
+        }
+        
+        function updateProgress() {
+            let total = 0, checked = 0;
+            for (let cat in counts) {
+                total += counts[cat].total;
+                checked += counts[cat].checked;
+            }
+            const percent = Math.round((checked / total) * 100);
+            document.getElementById('progressPercent').textContent = `${percent}%`;
+            document.getElementById('progressFill').style.width = `${percent}%`;
+        }
+        
+        function saveProgress() {
+            const checked = [];
+            document.querySelectorAll('.item').forEach((item, index) => {
+                if (item.querySelector('.checkbox').classList.contains('checked')) {
+                    checked.push(index);
+                }
+            });
+            localStorage.setItem('level4KitProgress', JSON.stringify(checked));
+        }
+        
+        function exportKit() {
+            const items = [];
+            document.querySelectorAll('.item').forEach(item => {
+                const name = item.querySelector('.item-name').childNodes[0].textContent.trim();
+                const desc = item.querySelector('.item-desc').textContent;
+                const isChecked = item.querySelector('.checkbox').classList.contains('checked');
+                items.push({ name, desc, checked: isChecked });
+            });
+            
+            let text = "LEVEL 4: FAMILY & RESORT KIT\n";
+            text += "For Disney, cruises, beach resorts & city tourism\n\n";
+            items.forEach(item => {
+                text += `${item.checked ? '✓' : '☐'} ${item.name}\n`;
+                text += `   ${item.desc}\n\n`;
+            });
+            
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'level4-family-kit.txt';
+            a.click();
+        }
+        
+        loadProgress();
+        updateProgress();
+    </script>
+</body>
+</html>
