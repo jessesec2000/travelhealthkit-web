@@ -1,5 +1,5 @@
 services:
-  - type: web
+  - type: static
     name: travelhealthkit
     env: static
     buildCommand: "yarn install && yarn build"
