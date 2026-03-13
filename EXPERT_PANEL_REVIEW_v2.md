@@ -91,7 +91,7 @@
 **NEW Content Review:**
 1. **Satellite Communicator Guide** - Device comparison for Garmin inReach Mini 2, Messenger, Spot X, Zoleo, ACR ResQLink PLB - are recommendations appropriate?
 
-2. **Level 1 Activities** - 8000m peaks, BASE jumping, polar expeditions, big wave surfing, war zone reporting, heli-skiing - are risk descriptions accurate?
+2. **Level 1 Activities** - 8000m peaks, BASE jumping, polar expeditions, big wave surfing, heli-skiing - are risk descriptions accurate?
 
 3. **Country Utilities Page** - 24 countries with plug types, emergency numbers, US embassy contacts - what's missing for remote travelers?
 
