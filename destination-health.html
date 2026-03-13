@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destination Health Brief: Nepal - TravelHealthKit</title>
+    <title>Destination Health Brief - TravelHealthKit</title>
     <style>
         * {
             margin: 0;
@@ -29,7 +29,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             color: #6B7280;
             font-size: 14px;
             font-weight: 600;
@@ -39,6 +39,43 @@
 
         .back-nav:hover {
             color: #FF6B35;
+        }
+
+        /* Country Selector */
+        .country-selector {
+            margin-bottom: 20px;
+        }
+
+        .country-selector label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #FF6B35;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .country-dropdown {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            font-weight: 600;
+            border: 2px solid #FF6B35;
+            border-radius: 12px;
+            background: white;
+            color: #1A1A1A;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23FF6B35' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+        }
+
+        .country-dropdown:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
         }
 
         /* Hero Header */
@@ -53,17 +90,18 @@
         }
 
         .hero::before {
-            content: '🏔️';
+            content: '';
             position: absolute;
             right: -10px;
             top: -10px;
             font-size: 100px;
-            opacity: 0.2;
+            opacity: 0.15;
         }
 
         .hero-flag {
-            font-size: 40px;
+            font-size: 48px;
             margin-bottom: 12px;
+            display: block;
         }
 
         .hero-title {
@@ -79,18 +117,77 @@
             position: relative;
         }
 
+        /* Overview Card */
+        .overview-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .overview-item {
+            text-align: center;
+            padding: 12px;
+            background: #F9FAFB;
+            border-radius: 12px;
+        }
+
+        .overview-icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .overview-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .overview-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1A1A1A;
+        }
+
+        .overview-value.good {
+            color: #059669;
+        }
+
+        .overview-value.warning {
+            color: #D97706;
+        }
+
+        .overview-value.poor {
+            color: #DC2626;
+        }
+
         /* Alert Banner */
         .alert-banner {
             background: #FEF3F0;
             border-left: 4px solid #FF6B35;
             border-radius: 0 12px 12px 0;
             padding: 16px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .alert-banner.danger {
             background: #FEE2E2;
             border-left-color: #DC2626;
+        }
+
+        .alert-banner.info {
+            background: #DBEAFE;
+            border-left-color: #3B82F6;
         }
 
         .alert-title {
@@ -107,6 +204,10 @@
 
         .alert-banner.danger .alert-title {
             color: #DC2626;
+        }
+
+        .alert-banner.info .alert-title {
+            color: #3B82F6;
         }
 
         .alert-text {
@@ -234,6 +335,7 @@
             justify-content: center;
             font-size: 12px;
             flex-shrink: 0;
+            font-weight: 700;
         }
 
         .vaccine-required {
@@ -367,6 +469,56 @@
             color: #DC2626;
         }
 
+        /* Infrastructure Rating */
+        .rating-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .rating-track {
+            flex: 1;
+            height: 8px;
+            background: #E5E7EB;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .rating-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .rating-fill.good {
+            background: #059669;
+        }
+
+        .rating-fill.moderate {
+            background: #D97706;
+        }
+
+        .rating-fill.poor {
+            background: #DC2626;
+        }
+
+        .rating-text {
+            font-size: 13px;
+            font-weight: 600;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        /* Country Content - Hidden by default */
+        .country-content {
+            display: none;
+        }
+
+        .country-content.active {
+            display: block;
+        }
+
         /* Disclaimer */
         .disclaimer {
             background: #F9FAFB;
@@ -409,243 +561,1375 @@
             <span>Back to Home</span>
         </div>
 
-        <!-- Hero Header -->
-        <div class="hero">
-            <div class="hero-flag">🇳🇵</div>
-            <h1 class="hero-title">Nepal</h1>
-            <p class="hero-subtitle">Destination Health Brief</p>
+        <!-- Country Selector -->
+        <div class="country-selector">
+            <label for="country-select">Select Destination</label>
+            <select id="country-select" class="country-dropdown" onchange="switchCountry()">
+                <option value="nepal">🇳🇵 Nepal</option>
+                <option value="thailand">🇹🇭 Thailand</option>
+                <option value="peru">🇵🇪 Peru</option>
+                <option value="tanzania">🇹🇿 Tanzania</option>
+                <option value="costarica">🇨🇷 Costa Rica</option>
+                <option value="india">🇮🇳 India</option>
+            </select>
         </div>
 
-        <!-- Outbreak Alerts -->
-        <div class="alert-banner danger">
-            <div class="alert-title">⚠️ Active Alert</div>
-            <div class="alert-text">
-                Dengue fever cases have increased in the Terai region (southern plains). Take extra precautions against mosquito bites in these areas.
+        <!-- ==================== NEPAL ==================== -->
+        <div id="nepal" class="country-content active">
+            <!-- Hero Header -->
+            <div class="hero">
+                <span class="hero-flag">🇳🇵</span>
+                <h1 class="hero-title">Nepal</h1>
+                <p class="hero-subtitle">Destination Health Brief</p>
             </div>
-            <div class="alert-date">Updated: March 2026</div>
+
+            <!-- Overview -->
+            <div class="overview-card">
+                <div class="overview-grid">
+                    <div class="overview-item">
+                        <div class="overview-icon">🏥</div>
+                        <div class="overview-label">Healthcare</div>
+                        <div class="overview-value warning">Limited</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">💊</div>
+                        <div class="overview-label">Pharmacies</div>
+                        <div class="overview-value warning">Basic</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">💧</div>
+                        <div class="overview-label">Tap Water</div>
+                        <div class="overview-value poor">Unsafe</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">🍽️</div>
+                        <div class="overview-label">Food Safety</div>
+                        <div class="overview-value warning">Caution</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Outbreak Alerts -->
+            <div class="alert-banner danger">
+                <div class="alert-title">⚠️ Active Alert</div>
+                <div class="alert-text">
+                    Dengue fever cases have increased in the Terai region (southern plains). Take extra precautions against mosquito bites in these areas.
+                </div>
+                <div class="alert-date">Updated: March 2026</div>
+            </div>
+
+            <div class="alert-banner">
+                <div class="alert-title">ℹ️ Travel Notice</div>
+                <div class="alert-text">
+                    Altitude sickness is a risk for treks above 2,500m. Acclimatization days required for Everest and Annapurna circuits.
+                </div>
+                <div class="alert-date">Always in effect</div>
+            </div>
+
+            <!-- Disease Risks -->
+            <div class="section-label">Top Health Risks</div>
+            <div class="card">
+                <div class="risk-item">
+                    <span class="risk-icon">🦟</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Malaria</div>
+                        <span class="risk-level risk-moderate">Moderate Risk</span>
+                        <p class="risk-desc">Risk in Terai region (south) below 1,500m, especially during monsoon (June-Sept). No risk in Kathmandu or mountain areas.</p>
+                    </div>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">🦟</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Dengue Fever</div>
+                        <span class="risk-level risk-high">High Risk</span>
+                        <p class="risk-desc">Increasing cases in Terai region and Kathmandu Valley. Day-biting mosquitoes. No vaccine available—prevention is key.</p>
+                    </div>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">⛰️</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Altitude Sickness (AMS)</div>
+                        <span class="risk-level risk-high">High Risk</span>
+                        <p class="risk-desc">Risk above 2,500m. Symptoms: headache, nausea, fatigue. Can progress to life-threatening HACE/HAPE. Ascend slowly!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vaccines -->
+            <div class="section-label">Vaccinations</div>
+            <div class="card">
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-required">!</span>
+                    <span class="vaccine-name">Yellow Fever</span>
+                    <span class="vaccine-tag">Required if arriving from endemic area</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Hepatitis A</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Typhoid</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Hepatitis B</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Rabies</span>
+                    <span class="vaccine-tag">Recommended for trekkers</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-consider">○</span>
+                    <span class="vaccine-name">Japanese Encephalitis</span>
+                    <span class="vaccine-tag">Consider if rural stay</span>
+                </div>
+            </div>
+
+            <!-- Medical Facilities -->
+            <div class="section-label">Medical Facilities</div>
+            <div class="card">
+                <div class="facility-card">
+                    <div class="facility-name">CIWEC Clinic Travel Medicine Center</div>
+                    <div class="facility-location">📍 Kathmandu (Lazimpat)</div>
+                    <div class="facility-phone">📞 +977 1-4424111</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">Nepal International Clinic</div>
+                    <div class="facility-location">📍 Kathmandu (Thamel)</div>
+                    <div class="facility-phone">📞 +977 1-4434642</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">Himalayan Rescue Association</div>
+                    <div class="facility-location">📍 Pheriche (Everest region), Manang (Annapurna)</div>
+                    <div class="facility-phone">📞 Altitude clinics for trekkers</div>
+                </div>
+            </div>
+
+            <!-- Water & Food Safety -->
+            <div class="section-label">Water & Food Safety</div>
+            <div class="card">
+                <div class="tip-item">
+                    <span class="tip-icon">💧</span>
+                    <div class="tip-content">
+                        <h4>Drink Only Safe Water</h4>
+                        <p>Bottled, boiled, or purified water only. Use purification tablets or filters for trekking. Avoid ice cubes.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🍽️</span>
+                    <div class="tip-content">
+                        <h4>Eat Cooked Foods</h4>
+                        <p>"Boil it, cook it, peel it, or forget it." Avoid raw vegetables, salads, and unpeeled fruits.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🥛</span>
+                    <div class="tip-content">
+                        <h4>Avoid Dairy</h4>
+                        <p>Unpasteurized milk and dairy products are risky. Only consume if from trusted sources.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🍵</span>
+                    <div class="tip-content">
+                        <h4>Dal Bhat Power</h4>
+                        <p>The traditional meal (rice, lentils, vegetables) is generally safe and provides good energy for trekking.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Numbers -->
+            <div class="section-label">Emergency Contacts</div>
+            <div class="card">
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚑</span>
+                        <span class="emergency-name">Ambulance</span>
+                    </div>
+                    <span class="emergency-number">102</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚓</span>
+                        <span class="emergency-name">Police</span>
+                    </div>
+                    <span class="emergency-number">100</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🏥</span>
+                        <span class="emergency-name">Tourist Helpline</span>
+                    </div>
+                    <span class="emergency-number">1144</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🆘</span>
+                        <span class="emergency-name">HRA Emergency (Mountains)</span>
+                    </div>
+                    <span class="emergency-number">+977 1-4440292</span>
+                </div>
+            </div>
+
+            <!-- Altitude Section -->
+            <div class="section-label">Altitude Guidelines</div>
+            <div class="card">
+                <div class="card-title">⛰️ Trekking Safely</div>
+                <div class="tip-item">
+                    <span class="tip-icon">📈</span>
+                    <div class="tip-content">
+                        <h4>Golden Rule</h4>
+                        <p>Above 3,000m: Sleep no more than 300-500m higher per day. Include acclimatization days every 3-4 days.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🌿</span>
+                    <div class="tip-content">
+                        <h4>Diamox (Acetazolamide)</h4>
+                        <p>Can help prevent AMS. Discuss with your doctor before the trip. Start 1-2 days before ascent.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">⚠️</span>
+                    <div class="tip-content">
+                        <h4>Descend Immediately If</h4>
+                        <p>Severe headache, confusion, difficulty walking, or shortness of breath at rest. AMS can be fatal.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="alert-banner">
-            <div class="alert-title">ℹ️ Travel Notice</div>
-            <div class="alert-text">
-                Altitude sickness is a risk for treks above 2,500m. Acclimatization days required for Everest and Annapurna circuits.
+        <!-- ==================== THAILAND ==================== -->
+        <div id="thailand" class="country-content">
+            <!-- Hero Header -->
+            <div class="hero">
+                <span class="hero-flag">🇹🇭</span>
+                <h1 class="hero-title">Thailand</h1>
+                <p class="hero-subtitle">Destination Health Brief</p>
             </div>
-            <div class="alert-date">Always in effect</div>
+
+            <!-- Overview -->
+            <div class="overview-card">
+                <div class="overview-grid">
+                    <div class="overview-item">
+                        <div class="overview-icon">🏥</div>
+                        <div class="overview-label">Healthcare</div>
+                        <div class="overview-value good">Good (BKK)</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">💊</div>
+                        <div class="overview-label">Pharmacies</div>
+                        <div class="overview-value good">Excellent</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">💧</div>
+                        <div class="overview-label">Tap Water</div>
+                        <div class="overview-value poor">Unsafe</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">🍽️</div>
+                        <div class="overview-label">Food Safety</div>
+                        <div class="overview-value warning">Caution</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Outbreak Alerts -->
+            <div class="alert-banner danger">
+                <div class="alert-title">⚠️ Active Alert</div>
+                <div class="alert-text">
+                    Dengue fever is endemic year-round with peaks during rainy season (May-October). Outbreaks occur regularly in both urban and rural areas.
+                </div>
+                <div class="alert-date">Updated: March 2026</div>
+            </div>
+
+            <div class="alert-banner info">
+                <div class="alert-title">ℹ️ Border Area Notice</div>
+                <div class="alert-text">
+                    Malaria risk exists in rural areas near borders with Myanmar, Cambodia, and Laos. No risk in Bangkok, Chiang Mai, or major resort areas.
+                </div>
+                <div class="alert-date">Always in effect</div>
+            </div>
+
+            <!-- Disease Risks -->
+            <div class="section-label">Top Health Risks</div>
+            <div class="card">
+                <div class="risk-item">
+                    <span class="risk-icon">🦟</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Dengue Fever</div>
+                        <span class="risk-level risk-high">High Risk</span>
+                        <p class="risk-desc">Endemic throughout Thailand. Day-biting Aedes mosquitoes. Bangkok and urban areas have significant risk. No vaccine available for most travelers.</p>
+                    </div>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">🦟</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Malaria</div>
+                        <span class="risk-level risk-moderate">Moderate Risk (Border Areas)</span>
+                        <p class="risk-desc">Risk in rural forested areas near Myanmar, Cambodia, and Laos borders. No risk in major cities or tourist beach resorts. Chloroquine-resistant.</p>
+                    </div>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">💧</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Traveler's Diarrhea</div>
+                        <span class="risk-level risk-moderate">Moderate Risk</span>
+                        <p class="risk-desc">Common from street food and contaminated water. Thai cuisine's spiciness can also upset sensitive stomachs. Stick to busy stalls with high turnover.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vaccines -->
+            <div class="section-label">Vaccinations</div>
+            <div class="card">
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-required">!</span>
+                    <span class="vaccine-name">Yellow Fever</span>
+                    <span class="vaccine-tag">Required if arriving from endemic area</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Hepatitis A</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Typhoid</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Hepatitis B</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Japanese Encephalitis</span>
+                    <span class="vaccine-tag">If rural/long-term</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Rabies</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+            </div>
+
+            <!-- Medical Facilities -->
+            <div class="section-label">Medical Facilities</div>
+            <div class="card">
+                <div class="facility-card">
+                    <div class="facility-name">Bumrungrad International Hospital</div>
+                    <div class="facility-location">📍 Bangkok (Sukhumvit)</div>
+                    <div class="facility-phone">📞 +66 2-066-8888</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">Bangkok Hospital</div>
+                    <div class="facility-location">📍 Bangkok (multiple locations)</div>
+                    <div class="facility-phone">📞 +66 2-310-3000</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">Chiang Mai Ram Hospital</div>
+                    <div class="facility-location">📍 Chiang Mai</div>
+                    <div class="facility-phone">📞 +66 53-224-223</div>
+                </div>
+            </div>
+
+            <!-- Water & Food Safety -->
+            <div class="section-label">Water & Food Safety</div>
+            <div class="card">
+                <div class="tip-item">
+                    <span class="tip-icon">💧</span>
+                    <div class="tip-content">
+                        <h4>Stick to Bottled Water</h4>
+                        <p>Tap water is not safe to drink. Use bottled water even for brushing teeth. Ice is generally safe (made from purified water).</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🍜</span>
+                    <div class="tip-content">
+                        <h4>Street Food Smarts</h4>
+                        <p>Choose stalls with high turnover, fresh ingredients, and food cooked to order. Avoid pre-cooked food sitting at room temperature.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🌶️</span>
+                    <div class="tip-content">
+                        <h4>Spice Levels</h4>
+                        <p>Thai food is very spicy. Say "mai pet" (not spicy) or "pet nit noi" (a little spicy). Build up tolerance gradually.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🥗</span>
+                    <div class="tip-content">
+                        <h4>Raw Foods Caution</h4>
+                        <p>Avoid raw vegetables, salads, and unpeeled fruits. Som tam (papaya salad) is often made with raw vegetables—eat with caution.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Numbers -->
+            <div class="section-label">Emergency Contacts</div>
+            <div class="card">
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚑</span>
+                        <span class="emergency-name">Ambulance</span>
+                    </div>
+                    <span class="emergency-number">1669</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚓</span>
+                        <span class="emergency-name">Police</span>
+                    </div>
+                    <span class="emergency-number">191</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚒</span>
+                        <span class="emergency-name">Fire</span>
+                    </div>
+                    <span class="emergency-number">199</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🏥</span>
+                        <span class="emergency-name">Tourist Police</span>
+                    </div>
+                    <span class="emergency-number">1155</span>
+                </div>
+            </div>
         </div>
 
-        <!-- Disease Risks -->
-        <div class="section-label">Current Disease Risks</div>
-        <div class="card">
-            <div class="risk-item">
-                <span class="risk-icon">🦟</span>
-                <div class="risk-content">
-                    <div class="risk-name">Malaria</div>
-                    <span class="risk-level risk-moderate">Moderate Risk</span>
-                    <p class="risk-desc">Risk in Terai region (south) below 1,500m, especially during monsoon (June-Sept). No risk in Kathmandu or mountain areas.</p>
+        <!-- ==================== PERU ==================== -->
+        <div id="peru" class="country-content">
+            <!-- Hero Header -->
+            <div class="hero">
+                <span class="hero-flag">🇵🇪</span>
+                <h1 class="hero-title">Peru</h1>
+                <p class="hero-subtitle">Destination Health Brief</p>
+            </div>
+
+            <!-- Overview -->
+            <div class="overview-card">
+                <div class="overview-grid">
+                    <div class="overview-item">
+                        <div class="overview-icon">🏥</div>
+                        <div class="overview-label">Healthcare</div>
+                        <div class="overview-value warning">Variable</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">💊</div>
+                        <div class="overview-label">Pharmacies</div>
+                        <div class="overview-value good">Good (Lima)</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">💧</div>
+                        <div class="overview-label">Tap Water</div>
+                        <div class="overview-value poor">Unsafe</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">🏔️</div>
+                        <div class="overview-label">Altitude</div>
+                        <div class="overview-value poor">High Risk</div>
+                    </div>
                 </div>
             </div>
-            <div class="risk-item">
-                <span class="risk-icon">🦟</span>
-                <div class="risk-content">
-                    <div class="risk-name">Dengue Fever</div>
-                    <span class="risk-level risk-high">High Risk</span>
-                    <p class="risk-desc">Increasing cases in Terai region and Kathmandu Valley. Day-biting mosquitoes. No vaccine available—prevention is key.</p>
+
+            <!-- Outbreak Alerts -->
+            <div class="alert-banner danger">
+                <div class="alert-title">⚠️ Altitude Alert</div>
+                <div class="alert-text">
+                    Cusco (3,400m) and Machu Picchu area pose significant altitude sickness risk. Acclimatization in the Sacred Valley recommended before going higher.
+                </div>
+                <div class="alert-date">Always in effect</div>
+            </div>
+
+            <div class="alert-banner">
+                <div class="alert-title">ℹ️ Amazon Notice</div>
+                <div class="alert-text">
+                    Yellow fever vaccine recommended for Amazon regions. Some areas have malaria risk. Consult travel clinic before jungle trips.
+                </div>
+                <div class="alert-date">Always in effect</div>
+            </div>
+
+            <!-- Disease Risks -->
+            <div class="section-label">Top Health Risks</div>
+            <div class="card">
+                <div class="risk-item">
+                    <span class="risk-icon">⛰️</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Altitude Sickness (AMS)</div>
+                        <span class="risk-level risk-high">High Risk</span>
+                        <p class="risk-desc">Cusco (3,400m), Lake Titicaca (3,800m), and highland areas. Can affect anyone regardless of fitness. Symptoms: headache, nausea, shortness of breath.</p>
+                    </div>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">🦟</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Yellow Fever</div>
+                        <span class="risk-level risk-moderate">Moderate Risk (Amazon)</span>
+                        <p class="risk-desc">Risk in Amazon regions below 2,300m. Vaccine required for entry to certain areas. No risk in Lima, Cusco, or Machu Picchu.</p>
+                    </div>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">🦟</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Malaria</div>
+                        <span class="risk-level risk-moderate">Moderate Risk (Amazon)</span>
+                        <p class="risk-desc">Risk in Amazon regions below 1,500m including Iquitos, Puerto Maldonado. No risk in highlands or coastal areas.</p>
+                    </div>
                 </div>
             </div>
-            <div class="risk-item">
-                <span class="risk-icon">⛰️</span>
-                <div class="risk-content">
-                    <div class="risk-name">Altitude Sickness (AMS)</div>
-                    <span class="risk-level risk-high">High Risk</span>
-                    <p class="risk-desc">Risk above 2,500m. Symptoms: headache, nausea, fatigue. Can progress to life-threatening HACE/HAPE. Ascend slowly!</p>
+
+            <!-- Vaccines -->
+            <div class="section-label">Vaccinations</div>
+            <div class="card">
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-required">!</span>
+                    <span class="vaccine-name">Yellow Fever</span>
+                    <span class="vaccine-tag">Required for Amazon regions</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Hepatitis A</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Typhoid</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Hepatitis B</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Rabies</span>
+                    <span class="vaccine-tag">If remote/rural</span>
                 </div>
             </div>
-            <div class="risk-item">
-                <span class="risk-icon">💧</span>
-                <div class="risk-content">
-                    <div class="risk-name">Traveler's Diarrhea</div>
-                    <span class="risk-level risk-moderate">Moderate Risk</span>
-                    <p class="risk-desc">Common from contaminated food/water. Carry antibiotics (azithromycin) and oral rehydration salts.</p>
+
+            <!-- Medical Facilities -->
+            <div class="section-label">Medical Facilities</div>
+            <div class="card">
+                <div class="facility-card">
+                    <div class="facility-name">Clínica Angloamericana</div>
+                    <div class="facility-location">📍 Lima (San Isidro)</div>
+                    <div class="facility-phone">📞 +51 1-616-8900</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">Hospital Nacional Cayetano Heredia</div>
+                    <div class="facility-location">📍 Lima</div>
+                    <div class="facility-phone">📞 +51 1-319-6600</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">Hospital Nacional Adolfo Guevara Velasco</div>
+                    <div class="facility-location">📍 Cusco</div>
+                    <div class="facility-phone">📞 +51 84-231-131</div>
                 </div>
             </div>
-            <div class="risk-item">
-                <span class="risk-icon">🧊</span>
-                <div class="risk-content">
-                    <div class="risk-name">Japanese Encephalitis</div>
-                    <span class="risk-level risk-low">Low Risk</span>
-                    <p class="risk-desc">Rare but serious. Risk in rural farming areas during monsoon. Consider vaccine for extended rural stays.</p>
+
+            <!-- Water & Food Safety -->
+            <div class="section-label">Water & Food Safety</div>
+            <div class="card">
+                <div class="tip-item">
+                    <span class="tip-icon">💧</span>
+                    <div class="tip-content">
+                        <h4>No Tap Water</h4>
+                        <p>Tap water is unsafe throughout Peru. Use bottled or purified water. Avoid ice unless made from purified water.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🥘</span>
+                    <div class="tip-content">
+                        <h4>Ceviche Caution</h4>
+                        <p>Peru's famous ceviche is raw fish. Only eat at reputable restaurants with high turnover. Avoid street ceviche.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🍵</span>
+                    <div class="tip-content">
+                        <h4>Coca Tea for Altitude</h4>
+                        <p>Coca tea (mate de coca) is legal and commonly offered for altitude sickness. Mildly effective but not a cure.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🧼</span>
+                    <div class="tip-content">
+                        <h4>Hand Hygiene</h4>
+                        <p>Wash hands frequently. Carry hand sanitizer. Food safety standards vary outside tourist areas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Altitude Section -->
+            <div class="section-label">Altitude Guidelines</div>
+            <div class="card">
+                <div class="card-title">⛰️ Highlands Travel</div>
+                <div class="tip-item">
+                    <span class="tip-icon">📈</span>
+                    <div class="tip-content">
+                        <h4>Acclimatization</h4>
+                        <p>Spend 2-3 days in the Sacred Valley (lower altitude) before Cusco. Drink plenty of water, avoid alcohol initially.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">💊</span>
+                    <div class="tip-content">
+                        <h4>Diamox</h4>
+                        <p>Consider prophylactic Diamox if flying directly to Cusco. Start 24 hours before ascent. Discuss with doctor.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">⚠️</span>
+                    <div class="tip-content">
+                        <h4>Severe Symptoms</h4>
+                        <p>If you experience confusion, difficulty walking straight, or breathlessness at rest—DESCEND IMMEDIATELY.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Numbers -->
+            <div class="section-label">Emergency Contacts</div>
+            <div class="card">
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚑</span>
+                        <span class="emergency-name">Ambulance</span>
+                    </div>
+                    <span class="emergency-number">116</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚓</span>
+                        <span class="emergency-name">Police</span>
+                    </div>
+                    <span class="emergency-number">105</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚒</span>
+                        <span class="emergency-name">Fire</span>
+                    </div>
+                    <span class="emergency-number">116</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🏥</span>
+                        <span class="emergency-name">Tourist Police</span>
+                    </div>
+                    <span class="emergency-number">0800-42500</span>
                 </div>
             </div>
         </div>
 
-        <!-- Vaccines -->
-        <div class="section-label">Vaccinations</div>
-        <div class="card">
-            <div class="vaccine-item">
-                <span class="vaccine-status vaccine-required">!</span>
-                <span class="vaccine-name">Yellow Fever</span>
-                <span class="vaccine-tag">Required if arriving from endemic area</span>
+        <!-- ==================== TANZANIA ==================== -->
+        <div id="tanzania" class="country-content">
+            <!-- Hero Header -->
+            <div class="hero">
+                <span class="hero-flag">🇹🇿</span>
+                <h1 class="hero-title">Tanzania</h1>
+                <p class="hero-subtitle">Destination Health Brief</p>
             </div>
-            <div class="vaccine-item">
-                <span class="vaccine-status vaccine-recommended">★</span>
-                <span class="vaccine-name">Hepatitis A</span>
-                <span class="vaccine-tag">Recommended</span>
+
+            <!-- Overview -->
+            <div class="overview-card">
+                <div class="overview-grid">
+                    <div class="overview-item">
+                        <div class="overview-icon">🏥</div>
+                        <div class="overview-label">Healthcare</div>
+                        <div class="overview-value warning">Limited</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">💊</div>
+                        <div class="overview-label">Pharmacies</div>
+                        <div class="overview-value warning">Basic</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">💧</div>
+                        <div class="overview-label">Tap Water</div>
+                        <div class="overview-value poor">Unsafe</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">🦟</div>
+                        <div class="overview-label">Malaria</div>
+                        <div class="overview-value poor">High Risk</div>
+                    </div>
+                </div>
             </div>
-            <div class="vaccine-item">
-                <span class="vaccine-status vaccine-recommended">★</span>
-                <span class="vaccine-name">Typhoid</span>
-                <span class="vaccine-tag">Recommended</span>
+
+            <!-- Outbreak Alerts -->
+            <div class="alert-banner danger">
+                <div class="alert-title">⚠️ Critical Alert</div>
+                <div class="alert-text">
+                    Malaria is endemic throughout Tanzania including Zanzibar. Antimalarial prophylaxis is ESSENTIAL. No areas are malaria-free.
+                </div>
+                <div class="alert-date">Always in effect</div>
             </div>
-            <div class="vaccine-item">
-                <span class="vaccine-status vaccine-recommended">★</span>
-                <span class="vaccine-name">Hepatitis B</span>
-                <span class="vaccine-tag">Recommended</span>
+
+            <div class="alert-banner">
+                <div class="alert-title">ℹ️ Certificate Required</div>
+                <div class="alert-text">
+                    Yellow fever vaccination certificate required if arriving from endemic countries. Recommended for all travelers to Tanzania.
+                </div>
+                <div class="alert-date">Entry Requirement</div>
             </div>
-            <div class="vaccine-item">
-                <span class="vaccine-status vaccine-recommended">★</span>
-                <span class="vaccine-name">Rabies</span>
-                <span class="vaccine-tag">Recommended for trekkers</span>
+
+            <!-- Disease Risks -->
+            <div class="section-label">Top Health Risks</div>
+            <div class="card">
+                <div class="risk-item">
+                    <span class="risk-icon">🦟</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Malaria</div>
+                        <span class="risk-level risk-high">High Risk - ALL AREAS</span>
+                        <p class="risk-desc">Risk throughout mainland Tanzania and Zanzibar. Chloroquine-resistant. Prophylaxis essential: Malarone, doxycycline, or Lariam.</p>
+                    </div>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">🦟</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Yellow Fever</div>
+                        <span class="risk-level risk-moderate">Moderate Risk</span>
+                        <p class="risk-desc">Risk in forested areas. Certificate required for entry if coming from endemic countries. Vaccine highly recommended for all.</p>
+                    </div>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">💧</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Traveler's Diarrhea</div>
+                        <span class="risk-level risk-moderate">Moderate Risk</span>
+                        <p class="risk-desc">Common on safari and in rural areas. Water quality is poor. Carry antibiotics and oral rehydration salts.</p>
+                    </div>
+                </div>
             </div>
-            <div class="vaccine-item">
-                <span class="vaccine-status vaccine-consider">○</span>
-                <span class="vaccine-name">Japanese Encephalitis</span>
-                <span class="vaccine-tag">Consider if rural stay</span>
+
+            <!-- Vaccines -->
+            <div class="section-label">Vaccinations</div>
+            <div class="card">
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-required">!</span>
+                    <span class="vaccine-name">Yellow Fever</span>
+                    <span class="vaccine-tag">Required if from endemic area</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Hepatitis A</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Typhoid</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Hepatitis B</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Rabies</span>
+                    <span class="vaccine-tag">If rural/safari</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Meningococcal</span>
+                    <span class="vaccine-tag">Consider</span>
+                </div>
             </div>
-            <div class="vaccine-item">
-                <span class="vaccine-status vaccine-recommended">★</span>
-                <span class="vaccine-name">COVID-19</span>
-                <span class="vaccine-tag">Recommended</span>
+
+            <!-- Medical Facilities -->
+            <div class="section-label">Medical Facilities</div>
+            <div class="card">
+                <div class="facility-card">
+                    <div class="facility-name">Aga Khan Hospital</div>
+                    <div class="facility-location">📍 Dar es Salaam</div>
+                    <div class="facility-phone">📞 +255 22-211-5151</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">International Medical Center</div>
+                    <div class="facility-location">📍 Dar es Salaam</div>
+                    <div class="facility-phone">📞 +255 22-266-8888</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">Selian Lutheran Hospital</div>
+                    <div class="facility-location">📍 Arusha (Safari hub)</div>
+                    <div class="facility-phone">📞 +255 27-254-8996</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">Mnazi Mmoja Hospital</div>
+                    <div class="facility-location">📍 Zanzibar</div>
+                    <div class="facility-phone">📞 +255 24-223-0931</div>
+                </div>
+            </div>
+
+            <!-- Water & Food Safety -->
+            <div class="section-label">Water & Food Safety</div>
+            <div class="card">
+                <div class="tip-item">
+                    <span class="tip-icon">💧</span>
+                    <div class="tip-content">
+                        <h4>Purify All Water</h4>
+                        <p>Tap water is unsafe. Drink only bottled, boiled, or treated water. Bring water purification for safari camps.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🍖</span>
+                    <div class="tip-content">
+                        <h4>Meat Precautions</h4>
+                        <p>Bushmeat is illegal and risky. Ensure all meat is thoroughly cooked. Avoid undercooked meat on safari.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🥗</span>
+                    <div class="tip-content">
+                        <h4>Salad Safety</h4>
+                        <p>Avoid raw vegetables and salads. Fresh produce may be washed in contaminated water. Peel fruits yourself.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🐒</span>
+                    <div class="tip-content">
+                        <h4>Animal Encounters</h4>
+                        <p>Don't feed wild animals at lodges. Baboons can be aggressive. Maintain distance from all wildlife.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Numbers -->
+            <div class="section-label">Emergency Contacts</div>
+            <div class="card">
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚑</span>
+                        <span class="emergency-name">Ambulance</span>
+                    </div>
+                    <span class="emergency-number">114</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚓</span>
+                        <span class="emergency-name">Police</span>
+                    </div>
+                    <span class="emergency-number">112</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚒</span>
+                        <span class="emergency-name">Fire</span>
+                    </div>
+                    <span class="emergency-number">115</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🏥</span>
+                        <span class="emergency-name">Flying Doctors (AMREF)</span>
+                    </div>
+                    <span class="emergency-number">+255 22-211-4027</span>
+                </div>
+            </div>
+
+            <!-- Safari Tips -->
+            <div class="section-label">Safari Health Tips</div>
+            <div class="card">
+                <div class="card-title">🦁 Wildlife & Health</div>
+                <div class="tip-item">
+                    <span class="tip-icon">🦟</span>
+                    <div class="tip-content">
+                        <h4>Mosquito Protection</h4>
+                        <p>Use DEET 20-30%, wear long sleeves/pants at dawn/dusk. Sleep under mosquito nets provided by camps.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">☀️</span>
+                    <div class="tip-content">
+                        <h4>Sun Protection</h4>
+                        <p>Equatorial sun is intense. SPF 50+, hat, sunglasses essential. Game drives mean long sun exposure.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">💊</span>
+                    <div class="tip-content">
+                        <h4>Complete Prophylaxis</h4>
+                        <p>Take malaria pills exactly as prescribed. Start before arrival, continue after departure. Don't skip doses.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Medical Facilities -->
-        <div class="section-label">Medical Facilities</div>
-        <div class="card">
-            <div class="facility-card">
-                <div class="facility-name">CIWEC Clinic Travel Medicine Center</div>
-                <div class="facility-location">📍 Kathmandu (Lazimpat)</div>
-                <div class="facility-phone">📞 +977 1-4424111</div>
+        <!-- ==================== COSTA RICA ==================== -->
+        <div id="costarica" class="country-content">
+            <!-- Hero Header -->
+            <div class="hero">
+                <span class="hero-flag">🇨🇷</span>
+                <h1 class="hero-title">Costa Rica</h1>
+                <p class="hero-subtitle">Destination Health Brief</p>
             </div>
-            <div class="facility-card">
-                <div class="facility-name">Nepal International Clinic</div>
-                <div class="facility-location">📍 Kathmandu (Thamel)</div>
-                <div class="facility-phone">📞 +977 1-4434642</div>
+
+            <!-- Overview -->
+            <div class="overview-card">
+                <div class="overview-grid">
+                    <div class="overview-item">
+                        <div class="overview-icon">🏥</div>
+                        <div class="overview-label">Healthcare</div>
+                        <div class="overview-value good">Good</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">💊</div>
+                        <div class="overview-label">Pharmacies</div>
+                        <div class="overview-value good">Excellent</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">💧</div>
+                        <div class="overview-label">Tap Water</div>
+                        <div class="overview-value good">Generally Safe</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">🦟</div>
+                        <div class="overview-label">Malaria</div>
+                        <div class="overview-value good">No Risk</div>
+                    </div>
+                </div>
             </div>
-            <div class="facility-card">
-                <div class="facility-name">Himalayan Rescue Association</div>
-                <div class="facility-location">📍 Pheriche (Everest region), Manang (Annapurna)</div>
-                <div class="facility-phone">📞 Altitude clinics for trekkers</div>
+
+            <!-- Outbreak Alerts -->
+            <div class="alert-banner">
+                <div class="alert-title">ℹ️ Dengue Notice</div>
+                <div class="alert-text">
+                    Dengue is present year-round with increased risk during rainy season (May-November). Day-biting mosquitoes in urban and rural areas.
+                </div>
+                <div class="alert-date">Updated: March 2026</div>
             </div>
-            <div class="facility-card">
-                <div class="facility-name">CIWEC Pokhara</div>
-                <div class="facility-location">📍 Pokhara (Lakeside)</div>
-                <div class="facility-phone">📞 +977 61-466576</div>
+
+            <div class="alert-banner info">
+                <div class="alert-title">✅ Good News</div>
+                <div class="alert-text">
+                    Costa Rica has excellent healthcare for the region and NO malaria risk. Tap water is safe in most areas. One of Central America's safest destinations health-wise.
+                </div>
+                <div class="alert-date">Always in effect</div>
+            </div>
+
+            <!-- Disease Risks -->
+            <div class="section-label">Top Health Risks</div>
+            <div class="card">
+                <div class="risk-item">
+                    <span class="risk-icon">🦟</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Dengue Fever</div>
+                        <span class="risk-level risk-moderate">Moderate Risk</span>
+                        <p class="risk-desc">Present throughout the country, especially in lowland and coastal areas. Day-biting mosquitoes. Peak during rainy season (May-Nov).</p>
+                    </div>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">🌊</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Marine Hazards</div>
+                        <span class="risk-level risk-low">Low Risk</span>
+                        <p class="risk-desc">Jellyfish, stingrays, and sea urchins on some beaches. Rip currents can be strong. Shuffle feet in sand to scare away stingrays.</p>
+                    </div>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">🐍</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Snake Bites</div>
+                        <span class="risk-level risk-low">Low Risk</span>
+                        <p class="risk-desc">Fer-de-lance and other venomous snakes in rainforest areas. Wear closed shoes on trails. Stick to marked paths.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vaccines -->
+            <div class="section-label">Vaccinations</div>
+            <div class="card">
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Hepatitis A</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Typhoid</span>
+                    <span class="vaccine-tag">Consider if rural</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Hepatitis B</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-consider">○</span>
+                    <span class="vaccine-name">Rabies</span>
+                    <span class="vaccine-tag">If wildlife work</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Yellow Fever</span>
+                    <span class="vaccine-tag">Required if from endemic area</span>
+                </div>
+            </div>
+
+            <!-- Medical Facilities -->
+            <div class="section-label">Medical Facilities</div>
+            <div class="card">
+                <div class="facility-card">
+                    <div class="facility-name">Hospital CIMA San José</div>
+                    <div class="facility-location">📍 San José (Escazú)</div>
+                    <div class="facility-phone">📞 +506 2208-1000</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">Hospital Clínica Bíblica</div>
+                    <div class="facility-location">📍 San José</div>
+                    <div class="facility-phone">📞 +506 2522-1000</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">Hospital Nacional de Niños</div>
+                    <div class="facility-location">📍 San José (Pediatric)</div>
+                    <div class="facility-phone">📞 +506 2222-0122</div>
+                </div>
+            </div>
+
+            <!-- Water & Food Safety -->
+            <div class="section-label">Water & Food Safety</div>
+            <div class="card">
+                <div class="tip-item">
+                    <span class="tip-icon">💧</span>
+                    <div class="tip-content">
+                        <h4>Tap Water is Safe</h4>
+                        <p>Tap water is generally safe in most areas including San José. In very remote areas, use bottled water as precaution.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🍽️</span>
+                    <div class="tip-content">
+                        <h4>Casado & Local Food</h4>
+                        <p>Traditional "casado" (rice, beans, meat, salad) is safe and nutritious. Food safety standards are decent in tourist areas.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🥑</span>
+                    <div class="tip-content">
+                        <h4>Fresh Produce</h4>
+                        <p>Fresh fruits and vegetables are generally safe to eat. Wash produce or peel it when possible. Avoid unpeeled fruits from street vendors.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🧉</span>
+                    <div class="tip-content">
+                        <h4>"Pura Vida" Drinks</h4>
+                        <p>Fresh fruit juices are popular. Ensure they're made with purified water at reputable establishments.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Numbers -->
+            <div class="section-label">Emergency Contacts</div>
+            <div class="card">
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚑</span>
+                        <span class="emergency-name">Ambulance (Red Cross)</span>
+                    </div>
+                    <span class="emergency-number">911</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚓</span>
+                        <span class="emergency-name">Police</span>
+                    </div>
+                    <span class="emergency-number">911</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚒</span>
+                        <span class="emergency-name">Fire</span>
+                    </div>
+                    <span class="emergency-number">911</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🏥</span>
+                        <span class="emergency-name">Tourist Helpline</span>
+                    </div>
+                    <span class="emergency-number">800-TURISMO</span>
+                </div>
+            </div>
+
+            <!-- Adventure Safety -->
+            <div class="section-label">Adventure Activity Safety</div>
+            <div class="card">
+                <div class="card-title">🏄 Outdoor Activities</div>
+                <div class="tip-item">
+                    <span class="tip-icon">🏊</span>
+                    <div class="tip-content">
+                        <h4>Rip Currents</h4>
+                        <p>Pacific coast has strong rip currents. Swim only at lifeguarded beaches. Don't fight currents—swim parallel to shore.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🌿</span>
+                    <div class="tip-content">
+                        <h4>Zip-lining & Canopy</h4>
+                        <p>Use licensed operators only. Check equipment. Listen to safety briefings. Adventure tourism is regulated but choose reputable companies.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">♨️</span>
+                    <div class="tip-content">
+                        <h4>Hot Springs</h4>
+                        <p>Arenal area has volcanic hot springs. Stay hydrated, don't soak too long. Some springs are very hot—test before fully entering.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Water & Food Safety -->
-        <div class="section-label">Water & Food Safety</div>
-        <div class="card">
-            <div class="tip-item">
-                <span class="tip-icon">💧</span>
-                <div class="tip-content">
-                    <h4>Drink Only Safe Water</h4>
-                    <p>Bottled, boiled, or purified water only. Use purification tablets or filters for trekking. Avoid ice cubes.</p>
-                </div>
+        <!-- ==================== INDIA ==================== -->
+        <div id="india" class="country-content">
+            <!-- Hero Header -->
+            <div class="hero">
+                <span class="hero-flag">🇮🇳</span>
+                <h1 class="hero-title">India</h1>
+                <p class="hero-subtitle">Destination Health Brief</p>
             </div>
-            <div class="tip-item">
-                <span class="tip-icon">🍽️</span>
-                <div class="tip-content">
-                    <h4>Eat Cooked Foods</h4>
-                    <p>"Boil it, cook it, peel it, or forget it." Avoid raw vegetables, salads, and unpeeled fruits.</p>
-                </div>
-            </div>
-            <div class="tip-item">
-                <span class="tip-icon">🥛</span>
-                <div class="tip-content">
-                    <h4>Avoid Dairy</h4>
-                    <p>Unpasteurized milk and dairy products are risky. Only consume if from trusted sources.</p>
-                </div>
-            </div>
-            <div class="tip-item">
-                <span class="tip-icon">🌶️</span>
-                <div class="tip-content">
-                    <h4>Spicy Food Caution</h4>
-                    <p>Nepali food can be very spicy. Try mild versions first if you have a sensitive stomach.</p>
-                </div>
-            </div>
-            <div class="tip-item">
-                <span class="tip-icon">🍵</span>
-                <div class="tip-content">
-                    <h4>Dal Bhat Power</h4>
-                    <p>The traditional meal (rice, lentils, vegetables) is generally safe and provides good energy for trekking.</p>
-                </div>
-            </div>
-        </div>
 
-        <!-- Emergency Numbers -->
-        <div class="section-label">Emergency Contacts</div>
-        <div class="card">
-            <div class="emergency-item">
-                <div class="emergency-service">
-                    <span class="emergency-icon">🚑</span>
-                    <span class="emergency-name">Ambulance</span>
+            <!-- Overview -->
+            <div class="overview-card">
+                <div class="overview-grid">
+                    <div class="overview-item">
+                        <div class="overview-icon">🏥</div>
+                        <div class="overview-label">Healthcare</div>
+                        <div class="overview-value warning">Variable</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">💊</div>
+                        <div class="overview-label">Pharmacies</div>
+                        <div class="overview-value good">Widely Available</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">💧</div>
+                        <div class="overview-label">Tap Water</div>
+                        <div class="overview-value poor">Unsafe</div>
+                    </div>
+                    <div class="overview-item">
+                        <div class="overview-icon">🍽️</div>
+                        <div class="overview-label">Food Safety</div>
+                        <div class="overview-value warning">High Caution</div>
+                    </div>
                 </div>
-                <span class="emergency-number">102</span>
             </div>
-            <div class="emergency-item">
-                <div class="emergency-service">
-                    <span class="emergency-icon">🚓</span>
-                    <span class="emergency-name">Police</span>
-                </div>
-                <span class="emergency-number">100</span>
-            </div>
-            <div class="emergency-item">
-                <div class="emergency-service">
-                    <span class="emergency-icon">🚒</span>
-                    <span class="emergency-name">Fire</span>
-                </div>
-                <span class="emergency-number">101</span>
-            </div>
-            <div class="emergency-item">
-                <div class="emergency-service">
-                    <span class="emergency-icon">🏥</span>
-                    <span class="emergency-name">Tourist Helpline</span>
-                </div>
-                <span class="emergency-number">1144</span>
-            </div>
-            <div class="emergency-item">
-                <div class="emergency-service">
-                    <span class="emergency-icon">🆘</span>
-                    <span class="emergency-name">HRA Emergency (Mountains)</span>
-                </div>
-                <span class="emergency-number">+977 1-4440292</span>
-            </div>
-        </div>
 
-        <!-- Altitude Section -->
-        <div class="section-label">Altitude Guidelines</div>
-        <div class="card">
-            <div class="card-title">⛰️ Trekking Safely</div>
-            <div class="tip-item">
-                <span class="tip-icon">📈</span>
-                <div class="tip-content">
-                    <h4>Golden Rule</h4>
-                    <p>Above 3,000m: Sleep no more than 300-500m higher per day. Include acclimatization days every 3-4 days.</p>
+            <!-- Outbreak Alerts -->
+            <div class="alert-banner danger">
+                <div class="alert-title">⚠️ Critical Alert</div>
+                <div class="alert-text">
+                    Food and waterborne illness is the most common health issue. Tap water is unsafe everywhere. Even 5-star hotels cannot guarantee water safety.
+                </div>
+                <div class="alert-date">Always in effect</div>
+            </div>
+
+            <div class="alert-banner">
+                <div class="alert-title">ℹ️ Air Quality Alert</div>
+                <div class="alert-text">
+                    Air pollution in Delhi, Mumbai, and other major cities can be severe. Consider N95 masks for sensitive individuals, especially November-February.
+                </div>
+                <div class="alert-date">Seasonal</div>
+            </div>
+
+            <!-- Disease Risks -->
+            <div class="section-label">Top Health Risks</div>
+            <div class="card">
+                <div class="risk-item">
+                    <span class="risk-icon">💧</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Traveler's Diarrhea (Delhi Belly)</div>
+                        <span class="risk-level risk-high">Very High Risk</span>
+                        <p class="risk-desc">Extremely common even with precautions. Caused by bacteria in water/food. Carry azithromycin and rehydration salts. Seek care if bloody or >3 days.</p>
+                    </div>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">🦟</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Dengue & Chikungunya</div>
+                        <span class="risk-level risk-high">High Risk</span>
+                        <p class="risk-desc">Year-round in tropical south, seasonal in north. Day-biting mosquitoes. Major outbreaks occur. No vaccines available.</p>
+                    </div>
+                </div>
+                <div class="risk-item">
+                    <span class="risk-icon">🦟</span>
+                    <div class="risk-content">
+                        <div class="risk-name">Malaria</div>
+                        <span class="risk-level risk-moderate">Moderate Risk</span>
+                        <p class="risk-desc">Risk in rural areas, especially northeast and forested regions. Low/no risk in Delhi, Jaipur, and major cities. Chloroquine-resistant in many areas.</p>
+                    </div>
                 </div>
             </div>
-            <div class="tip-item">
-                <span class="tip-icon">🌿</span>
-                <div class="tip-content">
-                    <h4>Diamox (Acetazolamide)</h4>
-                    <p>Can help prevent AMS. Discuss with your doctor before the trip. Start 1-2 days before ascent.</p>
+
+            <!-- Vaccines -->
+            <div class="section-label">Vaccinations</div>
+            <div class="card">
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-required">!</span>
+                    <span class="vaccine-name">Yellow Fever</span>
+                    <span class="vaccine-tag">Required if from endemic area</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Hepatitis A</span>
+                    <span class="vaccine-tag">Essential</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Typhoid</span>
+                    <span class="vaccine-tag">Essential</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Hepatitis B</span>
+                    <span class="vaccine-tag">Recommended</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Japanese Encephalitis</span>
+                    <span class="vaccine-tag">If rural &gt;1 month</span>
+                </div>
+                <div class="vaccine-item">
+                    <span class="vaccine-status vaccine-recommended">★</span>
+                    <span class="vaccine-name">Rabies</span>
+                    <span class="vaccine-tag">Strongly recommended</span>
                 </div>
             </div>
-            <div class="tip-item">
-                <span class="tip-icon">⚠️</span>
-                <div class="tip-content">
-                    <h4>Descend Immediately If</h4>
-                    <p>Severe headache, confusion, difficulty walking, or shortness of breath at rest. AMS can be fatal.</p>
+
+            <!-- Medical Facilities -->
+            <div class="section-label">Medical Facilities</div>
+            <div class="card">
+                <div class="facility-card">
+                    <div class="facility-name">Apollo Hospital</div>
+                    <div class="facility-location">📍 Delhi (multiple locations)</div>
+                    <div class="facility-phone">📞 +91 11-7179-1090</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">Fortis Hospital</div>
+                    <div class="facility-location">📍 Delhi, Mumbai, Bangalore</div>
+                    <div class="facility-phone">📞 +91 124-492-1021</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">Wockhardt Hospital</div>
+                    <div class="facility-location">📍 Mumbai</div>
+                    <div class="facility-phone">📞 +91 22-6767-0101</div>
+                </div>
+                <div class="facility-card">
+                    <div class="facility-name">MIOT International</div>
+                    <div class="facility-location">📍 Chennai</div>
+                    <div class="facility-phone">📞 +91 44-4200-2288</div>
+                </div>
+            </div>
+
+            <!-- Water & Food Safety -->
+            <div class="section-label">Water & Food Safety</div>
+            <div class="card">
+                <div class="tip-item">
+                    <span class="tip-icon">💧</span>
+                    <div class="tip-content">
+                        <h4>NO Tap Water - Ever</h4>
+                        <p>Use only bottled water from sealed bottles. Brush teeth with bottled water. No ice unless from purified water.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🥗</span>
+                    <div class="tip-content">
+                        <h4>Avoid Raw Everything</h4>
+                        <p>No salads, raw vegetables, or unpeeled fruits. Chutneys and sauces may be made with tap water. Eat only piping hot food.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🥛</span>
+                    <div class="tip-content">
+                        <h4>Dairy Dangers</h4>
+                        <p>Lassi (yogurt drink) can be risky if made with tap water or unpasteurized milk. Only drink packaged/bottled lassi.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🌶️</span>
+                    <div class="tip-content">
+                        <h4>Spice Strategy</h4>
+                        <p>Indian food is very spicy. Start mild. Spicy food + contaminated oil = worse stomach issues. Ask for "less spicy" or "no chili."</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🍵</span>
+                    <div class="tip-content">
+                        <h4>Tea Safety</h4>
+                        <p>Chai is usually safe (boiled milk/water). But ask for "fresh cup" as reused cups may be rinsed in tap water.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Numbers -->
+            <div class="section-label">Emergency Contacts</div>
+            <div class="card">
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚑</span>
+                        <span class="emergency-name">Ambulance</span>
+                    </div>
+                    <span class="emergency-number">102</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚓</span>
+                        <span class="emergency-name">Police</span>
+                    </div>
+                    <span class="emergency-number">100</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🚒</span>
+                        <span class="emergency-name">Fire</span>
+                    </div>
+                    <span class="emergency-number">101</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🏥</span>
+                        <span class="emergency-name">Medical Emergency</span>
+                    </div>
+                    <span class="emergency-number">108</span>
+                </div>
+                <div class="emergency-item">
+                    <div class="emergency-service">
+                        <span class="emergency-icon">🆘</span>
+                        <span class="emergency-name">Tourist Helpline</span>
+                    </div>
+                    <span class="emergency-number">1363</span>
+                </div>
+            </div>
+
+            <!-- Air Quality -->
+            <div class="section-label">Air Quality Advisory</div>
+            <div class="card">
+                <div class="card-title">🏭 Pollution Concerns</div>
+                <div class="tip-item">
+                    <span class="tip-icon">😷</span>
+                    <div class="tip-content">
+                        <h4>N95 Masks Recommended</h4>
+                        <p>Delhi AQI often exceeds 300+ (hazardous). Use N95 masks Nov-Feb. Check AQI apps daily. Stay indoors on severe days.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-icon">🏙️</span>
+                    <div class="tip-content">
+                        <h4>Worst Affected Cities</h4>
+                        <p>Delhi NCR, Mumbai, Kolkata, and Ahmedabad have severe pollution. South Indian cities (Chennai, Bangalore) generally better.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -660,5 +1944,27 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function switchCountry() {
+            const selector = document.getElementById('country-select');
+            const selectedCountry = selector.value;
+            
+            // Hide all country content
+            const allCountries = document.querySelectorAll('.country-content');
+            allCountries.forEach(country => {
+                country.classList.remove('active');
+            });
+            
+            // Show selected country
+            const selectedElement = document.getElementById(selectedCountry);
+            if (selectedElement) {
+                selectedElement.classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
