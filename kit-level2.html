@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 2 Kit - Active Traveler Gear</title>
+    <link rel="stylesheet" href="shared-nav.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0F0F0F;
+            color: #FFFFFF;
+            line-height: 1.6;
+        }
+        .container { max-width: 480px; margin: 0 auto; padding: 20px; }
+        
+        .hero {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 32px 24px;
+            margin: -20px -20px 24px -20px;
+            border-radius: 0 0 24px 24px;
+        }
+        
+        .back-button {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: white; text-decoration: none; font-size: 14px;
+            opacity: 0.9; margin-bottom: 16px;
+        }
+        
+        .level-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 14px; border-radius: 20px;
+            font-size: 12px; font-weight: 700; letter-spacing: 1px;
+            display: inline-block; margin-bottom: 12px;
+        }
+        
+        .hero-icon { font-size: 48px; margin-bottom: 12px; }
+        .hero-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+        .hero-subtitle { font-size: 16px; opacity: 0.9; }
+        
+        .notice-box {
+            background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+            padding: 20px; border-radius: 16px; margin-bottom: 24px;
+        }
+        .notice-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .notice-text { font-size: 14px; opacity: 0.9; line-height: 1.5; }
+        
+        .kit-section { margin-bottom: 28px; }
+        .section-title {
+            font-size: 14px; font-weight: 700; letter-spacing: 1px;
+            color: #FF6B35; margin-bottom: 16px; text-transform: uppercase;
+        }
+        
+        .category-card {
+            background: #1A1A1A;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            border: 1px solid #27272A;
+        }
+        
+        .category-header {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            padding: 16px 20px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        
+        .category-title { font-size: 18px; font-weight: 700; }
+        .category-count { font-size: 14px; opacity: 0.9; }
+        
+        .item-list { padding: 8px 0; }
+        
+        .item {
+            display: flex; align-items: center; padding: 14px 20px;
+            border-bottom: 1px solid #27272A; cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .item:last-child { border-bottom: none; }
+        .item:hover { background: #27272A; }
+        
+        .checkbox {
+            width: 24px; height: 24px; border: 2px solid #4B5563;
+            border-radius: 6px; margin-right: 14px;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s; flex-shrink: 0;
+        }
+        
+        .checkbox.checked {
+            background: #FF6B35; border-color: #FF6B35;
+        }
+        
+        .checkbox.checked::after {
+            content: "✓"; color: white; font-weight: 700; font-size: 14px;
+        }
+        
+        .item-content { flex: 1; }
+        .item-name { font-size: 15px; font-weight: 500; }
+        .item-name.checked { text-decoration: line-through; opacity: 0.5; }
+        .item-desc { font-size: 13px; color: #9CA3AF; margin-top: 2px; }
+        
+        .priority-badge {
+            padding: 4px 10px; border-radius: 12px;
+            font-size: 10px; font-weight: 700; text-transform: uppercase;
+            margin-left: 8px;
+        }
+        
+        .priority-essential { background: #FEF3C7; color: #92400E; }
+        .priority-recommended { background: #DBEAFE; color: #1E40AF; }
+        .priority-optional { background: #F3F4F6; color: #6B7280; }
+        
+        .progress-section {
+            background: #1A1A1A;
+            padding: 20px; border-radius: 16px;
+            margin-bottom: 24px;
+            border: 1px solid #27272A;
+        }
+        
+        .progress-header {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 12px;
+        }
+        
+        .progress-label { font-size: 14px; font-weight: 600; }
+        .progress-percent { font-size: 18px; font-weight: 800; color: #FF6B35; }
+        
+        .progress-bar {
+            height: 10px; background: #27272A;
+            border-radius: 5px; overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FF6B35, #FF8E53);
+            border-radius: 5px; transition: width 0.3s;
+        }
+        
+        .buy-button {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            color: white; border: none; padding: 8px 16px;
+            border-radius: 8px; font-size: 12px; font-weight: 700;
+            cursor: pointer; text-decoration: none;
+            display: inline-block; margin-left: 8px;
+        }
+        
+        .insurance-box {
+            background: linear-gradient(135deg, #1E3A5F 0%, #2D4A6F 100%);
+            padding: 20px; border-radius: 16px; margin-bottom: 24px;
+            border: 2px solid #3B82F6;
+        }
+        
+        .insurance-title { font-size: 16px; font-weight: 700; color: #60A5FA; margin-bottom: 8px; }
+        .insurance-text { font-size: 14px; color: #BFDBFE; line-height: 1.5; margin-bottom: 12px; }
+        .insurance-price { font-size: 28px; font-weight: 800; color: #FFFFFF; }
+        
+        .export-section {
+            background: #1A1A1A;
+            padding: 24px; border-radius: 16px;
+            text-align: center; margin-top: 32px;
+            border: 1px solid #27272A;
+        }
+        
+        .export-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .export-text { font-size: 14px; color: #9CA3AF; margin-bottom: 16px; }
+        
+        .export-button {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white; border: none; padding: 16px 32px;
+            border-radius: 12px; font-size: 16px; font-weight: 700;
+            cursor: pointer; width: 100%;
+        }
+    </style>
+</head>
+<body class="has-bottom-nav">
+    <div class="container">
+        <div class="hero">
+            <a href="adventure-levels.html" class="back-button">← Back</a>
+            <div class="level-badge">LEVEL 2 KIT</div>
+            <div class="hero-icon">⚡</div>
+            <h1 class="hero-title">Active Traveler Kit</h1>
+            <p class="hero-subtitle">For trekking, diving, climbing & backcountry adventures</p>
+        </div>
+        
+        <div class="notice-box">
+            <div class="notice-title">⚠️ TRAINING RECOMMENDED</div>
+            <div class="notice-text">
+                Wilderness First Aid (WFA) or higher recommended. Rescue may take 6-24 hours. Verify your insurance covers these specific activities.
+            </div>
+        </div>
+        
+        <!-- Progress -->
+        <div class="progress-section">
+            <div class="progress-header">
+                <span class="progress-label">Packing Progress</span>
+                <span class="progress-percent" id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <!-- Comms -->
+        <div class="kit-section">
+            <div class="section-title">📡 Communication</div>
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-title">Stay Connected</span>
+                    <span class="category-count" id="count-comms">0/3</span>
+                </div>
+                <div class="item-list">
+                    <div class="item" onclick="toggleItem(this, 'comms')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Garmin inReach Mini 2 <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Satellite messaging where cell doesn't reach</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=garmin+inreach+mini+2" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'comms')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Power Bank 10,000mAh+</div>
+                            <div class="item-desc">Anker, Goal Zero - keep devices charged</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=anker+power+bank+10000" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'comms')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Whistle (Emergency)</div>
+                            <div class="item-desc">Fox 40 or similar - 3 blasts = distress</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=fox+40+whistle" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- First Aid -->
+        <div class="kit-section">
+            <div class="section-title">🏥 First Aid</div>
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-title">Comprehensive Kit</span>
+                    <span class="category-count" id="count-firstaid">0/5</span>
+                </div>
+                <div class="item-list">
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Adventure Medical Kits .5 or .7 <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Pre-made kit with trauma + wound care</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=adventure+medical+kits+ultralight" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">SAM Splint <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Lightweight, moldable for fractures/sprains</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=sam+splint" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Blister Kit</div>
+                            <div class="item-desc">Moleskin, Leukotape, Compeed - hike savers</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=blister+kit+hiking" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Irrigation Syringe (35cc)</div>
+                            <div class="item-desc">Clean wounds thoroughly in field</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=irrigation+syringe+35cc" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'firstaid')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Personal Medications</div>
+                            <div class="item-desc">Prescriptions + pain relief (discuss with doctor)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="kit-section">
+            <div class="section-title">🧭 Navigation</div>
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-title">Don't Get Lost</span>
+                    <span class="category-count" id="count-nav">0/3</span>
+                </div>
+                <div class="item-list">
+                    <div class="item" onclick="toggleItem(this, 'nav')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Physical Maps (Waterproof) <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">GPS can fail. Always have paper backup.</div>
+                        </div>
+                        <a href="https://www.rei.com/search?q=waterproof+topo+maps" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'nav')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Compass</div>
+                            <div class="item-desc">Suunto or Silva - learn to use before trip</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=suunto+compass" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'nav')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">GPS Device/App</div>
+                            <div class="item-desc">Gaia GPS, AllTrails - download offline maps</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Protection -->
+        <div class="kit-section">
+            <div class="section-title">🛡️ Protection</div>
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-title">Weather & Safety</span>
+                    <span class="category-count" id="count-protection">0/4</span>
+                </div>
+                <div class="item-list">
+                    <div class="item" onclick="toggleItem(this, 'protection')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Headlamp + Extra Batteries <span class="priority-badge priority-essential">ESSENTIAL</span></div>
+                            <div class="item-desc">Black Diamond, Petzl - 200+ lumens</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=black+diamond+headlamp" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'protection')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Emergency Shelter/Bivy</div>
+                            <div class="item-desc">SOL Escape Bivy or emergency blanket</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=sol+escape+bivy" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'protection')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Fire Starting Kit</div>
+                            <div class="item-desc">Lighter + waterproof matches + firestarter</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=fire+starting+kit+camping" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                    <div class="item" onclick="toggleItem(this, 'protection')">
+                        <div class="checkbox"></div>
+                        <div class="item-content">
+                            <div class="item-name">Water Treatment</div>
+                            <div class="item-desc">Sawyer Squeeze or chemical tablets</div>
+                        </div>
+                        <a href="https://www.amazon.com/s?k=sawyer+squeeze+water+filter" class="buy-button" target="_blank" onclick="event.stopPropagation()">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Insurance -->
+        <div class="insurance-box">
+            <div class="insurance-title">🛡️ RECOMMENDED: Adventure Travel Insurance</div>
+            <div class="insurance-text">
+                Standard travel insurance often excludes trekking above 3,000m, technical diving, and rock climbing. Get adventure-specific coverage.
+            </div>
+            <div class="insurance-price">$100 - $300</div>
+            <div style="font-size: 12px; color: #9CA3AF; margin-top: 8px;">Recommended: World Nomads, SafetyWing, IMG</div>
+        </div>
+        
+        <!-- Export -->
+        <div class="export-section">
+            <div class="export-title">📱 Save Your Kit</div>
+            <div class="export-text">Progress auto-saves. Export for your trip planning.</div>
+            <button class="export-button" onclick="exportKit()">Export Level 2 Checklist</button>
+        </div>
+    </div>
+    
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🏠</span>
+            <span>Home</span>
+        </a>
+        <a href="search.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🔍</span>
+            <span>Search</span>
+        </a>
+        <a href="adventure-levels.html" class="bottom-nav-item">
+            <span class="bottom-nav-icon">🎯</span>
+            <span>Levels</span>
+        </a>
+        <a href="emergency-protocols.html" class="bottom-nav-item emergency">
+            <span class="bottom-nav-icon">🆘</span>
+            <span>Emergency</span>
+        </a>
+    </nav>
+    
+    <script>
+        const counts = {
+            comms: { total: 3, checked: 0 },
+            firstaid: { total: 5, checked: 0 },
+            nav: { total: 3, checked: 0 },
+            protection: { total: 4, checked: 0 }
+        };
+        
+        function loadProgress() {
+            const saved = localStorage.getItem('level2KitProgress');
+            if (saved) {
+                const checked = JSON.parse(saved);
+                document.querySelectorAll('.item').forEach((item, index) => {
+                    if (checked.includes(index)) {
+                        item.querySelector('.checkbox').classList.add('checked');
+                        item.querySelector('.item-name').classList.add('checked');
+                    }
+                });
+                updateAllCounts();
+            }
+        }
+        
+        function toggleItem(element, category) {
+            const checkbox = element.querySelector('.checkbox');
+            const name = element.querySelector('.item-name');
+            
+            if (checkbox.classList.contains('checked')) {
+                checkbox.classList.remove('checked');
+                name.classList.remove('checked');
+                counts[category].checked--;
+            } else {
+                checkbox.classList.add('checked');
+                name.classList.add('checked');
+                counts[category].checked++;
+            }
+            
+            updateCount(category);
+            updateProgress();
+            saveProgress();
+        }
+        
+        function updateCount(category) {
+            document.getElementById(`count-${category}`).textContent = 
+                `${counts[category].checked}/${counts[category].total}`;
+        }
+        
+        function updateAllCounts() {
+            updateCount('comms');
+            updateCount('firstaid');
+            updateCount('nav');
+            updateCount('protection');
+        }
+        
+        function updateProgress() {
+            let total = 0, checked = 0;
+            for (let cat in counts) {
+                total += counts[cat].total;
+                checked += counts[cat].checked;
+            }
+            const percent = Math.round((checked / total) * 100);
+            document.getElementById('progressPercent').textContent = `${percent}%`;
+            document.getElementById('progressFill').style.width = `${percent}%`;
+        }
+        
+        function saveProgress() {
+            const checked = [];
+            document.querySelectorAll('.item').forEach((item, index) => {
+                if (item.querySelector('.checkbox').classList.contains('checked')) {
+                    checked.push(index);
+                }
+            });
+            localStorage.setItem('level2KitProgress', JSON.stringify(checked));
+        }
+        
+        function exportKit() {
+            const items = [];
+            document.querySelectorAll('.item').forEach(item => {
+                const name = item.querySelector('.item-name').childNodes[0].textContent.trim();
+                const desc = item.querySelector('.item-desc').textContent;
+                const isChecked = item.querySelector('.checkbox').classList.contains('checked');
+                items.push({ name, desc, checked: isChecked });
+            });
+            
+            let text = "LEVEL 2: ACTIVE TRAVELER KIT\n";
+            text += "For trekking, diving, climbing & backcountry\n\n";
+            items.forEach(item => {
+                text += `${item.checked ? '✓' : '☐'} ${item.name}\n`;
+                text += `   ${item.desc}\n\n`;
+            });
+            
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'level2-active-kit.txt';
+            a.click();
+        }
+        
+        loadProgress();
+        updateProgress();
+    </script>
+</body>
+</html>
