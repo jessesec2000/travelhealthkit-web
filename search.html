@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - TravelHealthKit</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+        .container { max-width: 480px; margin: 0 auto; padding: 20px; }
+        
+        .header {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            padding: 24px 20px;
+            margin: -20px -20px 24px -20px;
+            color: white;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+        
+        .title { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+        .subtitle { font-size: 15px; opacity: 0.9; }
+        
+        .search-box {
+            background: white;
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+        
+        .search-icon { font-size: 24px; color: #9CA3AF; }
+        
+        .search-input {
+            flex: 1;
+            border: none;
+            font-size: 18px;
+            outline: none;
+            color: #1A1A1A;
+        }
+        
+        .search-input::placeholder { color: #9CA3AF; }
+        
+        .results-section { margin-bottom: 24px; }
+        
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #9CA3AF;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border: 2px solid #FF6B35;
+        }
+        
+        .result-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .result-desc { font-size: 14px; color: #6B7280; }
+        .result-category {
+            display: inline-block;
+            background: #FF6B35;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6B7280;
+        }
+        
+        .no-results-icon { font-size: 48px; margin-bottom: 16px; }
+        .no-results-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #1A1A1A; }
+        
+        .popular-searches {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        
+        .search-chip {
+            background: #F3F4F6;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .search-chip:hover {
+            background: #FF6B35;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="index.html" class="back-button">← Back</a>
+            <h1 class="title">Search</h1>
+            <p class="subtitle">Find health info, protocols, and guides</p>
+        </div>
+        
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="searchInput" placeholder="Search topics, destinations, symptoms..." autofocus>
+        </div>
+        
+        <div id="searchResults"></div>
+        
+        <div class="results-section" id="popularSection">
+            <div class="section-title">Popular Searches</div>
+            <div class="popular-searches">
+                <span class="search-chip" onclick="searchFor('malaria')">Malaria</span>
+                <span class="search-chip" onclick="searchFor('altitude')">Altitude sickness</span>
+                <span class="search-chip" onclick="searchFor('diarrhea')">Travelers diarrhea</span>
+                <span class="search-chip" onclick="searchFor('Nepal')">Nepal</span>
+                <span class="search-chip" onclick="searchFor('vaccines')">Vaccines</span>
+                <span class="search-chip" onclick="searchFor('first aid')">First aid</span>
+                <span class="search-chip" onclick="searchFor('epipen')">EpiPen</span>
+                <span class="search-chip" onclick="searchFor(' Thailand')">Thailand</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const searchIndex = [
+            { title: "Infectious Disease Guide", desc: "Malaria, dengue, Zika, yellow fever, Lyme disease", url: "infectious-diseases.html", category: "Health", keywords: "malaria, dengue, zika, yellow fever, lyme, disease, infection, vaccine" },
+            { title: "Environmental Risks", desc: "Altitude sickness, heat stroke, hypothermia, wildlife", url: "environmental-risks.html", category: "Safety", keywords: "altitude, HAPE, HACE, heat, cold, hypothermia, frostbite, wildlife, bear, snake" },
+            { title: "Food & Water Safety", desc: "Avoid travelers diarrhea, safe eating, water treatment", url: "food-water-safety.html", category: "Health", keywords: "diarrhea, food, water, drink, eat, safety, boil, cook, peel" },
+            { title: "Emergency Protocols", desc: "Anaphylaxis, bleeding, chest pain, heat stroke", url: "emergency-protocols.html", category: "Emergency", keywords: "emergency, anaphylaxis, epipen, bleeding, chest pain, heart attack, altitude, heat stroke" },
+            { title: "Pre-Travel Consultation", desc: "Vaccination timeline, doctor visit checklist", url: "pre-travel.html", category: "Planning", keywords: "doctor, vaccine, consultation, appointment, timeline, preparation" },
+            { title: "Destination Health: Nepal", desc: "Altitude, malaria, dengue, medical facilities", url: "destination-health.html", category: "Destination", keywords: "nepal, kathmandu, everest, altitude, himalaya" },
+            { title: "Pediatric Travel Medicine", desc: "Traveling with children, medication dosing", url: "pediatric.html", category: "Family", keywords: "children, kids, baby, infant, pediatric, family" },
+            { title: "Allergy Translation Cards", desc: "Peanut, shellfish, dairy translations in 5 languages", url: "allergy-cards.html", category: "Tools", keywords: "allergy, peanut, gluten, dairy, translation, language" },
+            { title: "Satellite Communicator Guide", desc: "Garmin, Spot, Zoleo, ACR device comparison", url: "satellite-guide.html", category: "Gear", keywords: "satellite, communicator, garmin, inreach, spot, emergency beacon" },
+            { title: "Country Utilities", desc: "Plug adapters, emergency numbers, embassies", url: "country-utilities.html", category: "Planning", keywords: "adapter, plug, electricity, embassy, emergency number" },
+            { title: "Adventure Levels", desc: "Find your adventure level from extreme to family", url: "adventure-levels.html", category: "Planning", keywords: "adventure, level, extreme, beginner, family" },
+            { title: "Kit Builder", desc: "Build your personalized travel health kit", url: "kit-builder.html", category: "Tools", keywords: "kit, packing, first aid, medicine, gear" },
+            { title: "Level 1: Adventure Seekers", desc: "Extreme activities: 8000m peaks, BASE jumping", url: "level-1.html", category: "Adventure", keywords: "extreme, base jumping, climbing, polar, dangerous" },
+            { title: "Level 2: Active Travelers", desc: "Challenging: trekking, diving, climbing", url: "level-2.html", category: "Adventure", keywords: "trekking, diving, climbing, hiking, challenging" },
+            { title: "Level 3: Casual Explorers", desc: "Moderate: day hikes, safaris, bike tours", url: "level-3.html", category: "Adventure", keywords: "hiking, safari, bike, moderate, casual" },
+            { title: "Level 4: Family & Resort", desc: "Relaxed: Disney, cruises, beach resorts", url: "level-4.html", category: "Adventure", keywords: "family, disney, cruise, resort, relaxed" },
+            { title: "Language Selector", desc: "Choose your preferred language", url: "language-selector.html", category: "Settings", keywords: "language, spanish, french, german, translation" }
+        ];
+        
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const popularSection = document.getElementById('popularSection');
+        
+        function searchFor(term) {
+            searchInput.value = term;
+            performSearch(term);
+        }
+        
+        function performSearch(query) {
+            if (!query.trim()) {
+                searchResults.innerHTML = '';
+                popularSection.style.display = 'block';
+                return;
+            }
+            
+            popularSection.style.display = 'none';
+            const lowerQuery = query.toLowerCase();
+            
+            const results = searchIndex.filter(item => {
+                return item.title.toLowerCase().includes(lowerQuery) ||
+                       item.desc.toLowerCase().includes(lowerQuery) ||
+                       item.keywords.toLowerCase().includes(lowerQuery);
+            });
+            
+            if (results.length === 0) {
+                searchResults.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <div class="no-results-title">No results found</div>
+                        <p>Try searching for: malaria, altitude, Nepal, vaccines, first aid</p>
+                    </div>
+                `;
+            } else {
+                searchResults.innerHTML = `
+                    <div class="results-section">
+                        <div class="section-title">${results.length} Result${results.length !== 1 ? 's' : ''}</div>
+                        ${results.map(item => `
+                            <a href="${item.url}" class="result-card">
+                                <div class="result-title">${item.title}</div>
+                                <div class="result-desc">${item.desc}</div>
+                                <span class="result-category">${item.category}</span>
+                            </a>
+                        `).join('')}
+                    </div>
+                `;
+            }
+        }
+        
+        searchInput.addEventListener('input', (e) => {
+            performSearch(e.target.value);
+        });
+        
+        // Focus search on load
+        searchInput.focus();
+    </script>
+</body>
+</html>
