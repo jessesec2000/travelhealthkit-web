@@ -1,0 +1,180 @@
+<!-- First Launch Disclaimer Modal - Include this in index.html -->
+<style>
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+    }
+    
+    .modal-overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .disclaimer-modal {
+        background: white;
+        border-radius: 24px;
+        max-width: 420px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 32px;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    }
+    
+    .disclaimer-icon {
+        font-size: 64px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .disclaimer-title {
+        font-size: 24px;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 16px;
+        color: #1A1A1A;
+    }
+    
+    .disclaimer-content {
+        font-size: 15px;
+        line-height: 1.6;
+        color: #4B5563;
+        margin-bottom: 24px;
+    }
+    
+    .disclaimer-content strong {
+        color: #1A1A1A;
+    }
+    
+    .disclaimer-list {
+        margin: 16px 0;
+        padding-left: 20px;
+    }
+    
+    .disclaimer-list li {
+        margin-bottom: 8px;
+    }
+    
+    .disclaimer-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+        color: white;
+        border: none;
+        padding: 16px 24px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    
+    .btn-primary:hover {
+        transform: scale(1.02);
+    }
+    
+    .btn-secondary {
+        background: #F3F4F6;
+        color: #6B7280;
+        border: none;
+        padding: 16px 24px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .btn-secondary:hover {
+        background: #E5E7EB;
+    }
+    
+    .source-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #DBEAFE;
+        color: #1E40AF;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 16px;
+    }
+</style>
+
+<div class="modal-overlay" id="disclaimerModal">
+    <div class="disclaimer-modal">
+        <div class="disclaimer-icon">⚕️</div>
+        <h2 class="disclaimer-title">Important Medical Notice</h2>
+        
+        <div class="disclaimer-content">
+            <p><strong>TravelHealthKit provides general health information for educational purposes only.</strong></p>
+            
+            <p>Before using this app, please understand:</p>
+            
+            <ul class="disclaimer-list">
+                <li>This is <strong>not a substitute</strong> for professional medical advice, diagnosis, or treatment</li>
+                <li>Always seek the advice of your physician or qualified health provider with questions about medical conditions</li>
+                <li>Never disregard professional medical advice because of information you read in this app</li>
+                <li>In case of emergency, call your local emergency number immediately (911, 112, etc.)</li>
+                <li>Medication dosages are general guidelines only - your doctor will prescribe the correct amount for you</li>
+            </ul>
+            
+            <p>By continuing, you acknowledge that you understand and accept these terms.</p>
+            
+            <div class="source-badge">
+                📚 Sources: CDC, WHO, Travel Medicine Guidelines
+            </div>
+        </div>
+        
+        <div class="disclaimer-buttons">
+            <button class="btn-primary" onclick="acceptDisclaimer()">
+                I Understand - Continue
+            </button>
+            <button class="btn-secondary" onclick="declineDisclaimer()">
+                Decline - Exit App
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Check if user has already accepted disclaimer
+    function checkDisclaimer() {
+        const hasAccepted = localStorage.getItem('medicalDisclaimerAccepted');
+        if (!hasAccepted) {
+            document.getElementById('disclaimerModal').classList.add('show');
+        }
+    }
+    
+    function acceptDisclaimer() {
+        localStorage.setItem('medicalDisclaimerAccepted', 'true');
+        localStorage.setItem('disclaimerAcceptedDate', new Date().toISOString());
+        document.getElementById('disclaimerModal').classList.remove('show');
+    }
+    
+    function declineDisclaimer() {
+        // Redirect to external site or show message
+        document.body.innerHTML = '<div style="padding: 40px; text-align: center; font-family: sans-serif;"><h1>Access Denied</h1><p>You must accept the medical disclaimer to use this app.</p><button onclick="location.reload()" style="padding: 12px 24px; margin-top: 20px;">Return</button></div>';
+    }
+    
+    // Show disclaimer on page load
+    document.addEventListener('DOMContentLoaded', checkDisclaimer);
+</script>
