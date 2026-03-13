@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destination Health Brief: Nepal - TravelHealthKit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Back Button */
+        .back-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            color: #6B7280;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 0;
+        }
+
+        .back-nav:hover {
+            color: #FF6B35;
+        }
+
+        /* Hero Header */
+        .hero {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            border-radius: 20px;
+            padding: 28px;
+            color: white;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '🏔️';
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            font-size: 100px;
+            opacity: 0.2;
+        }
+
+        .hero-flag {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .hero-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 15px;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            background: #FEF3F0;
+            border-left: 4px solid #FF6B35;
+            border-radius: 0 12px 12px 0;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .alert-banner.danger {
+            background: #FEE2E2;
+            border-left-color: #DC2626;
+        }
+
+        .alert-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #FF6B35;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .alert-banner.danger .alert-title {
+            color: #DC2626;
+        }
+
+        .alert-text {
+            font-size: 14px;
+            color: #374151;
+        }
+
+        .alert-date {
+            font-size: 12px;
+            color: #9CA3AF;
+            margin-top: 8px;
+        }
+
+        /* Section Headers */
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #FF6B35;
+            margin: 28px 0 16px 0;
+            text-transform: uppercase;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Risk Items */
+        .risk-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .risk-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .risk-item:first-child {
+            padding-top: 0;
+        }
+
+        .risk-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .risk-content {
+            flex: 1;
+        }
+
+        .risk-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .risk-level {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 100px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .risk-high {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .risk-moderate {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .risk-low {
+            background: #D1FAE5;
+            color: #059669;
+        }
+
+        .risk-desc {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        /* Vaccine List */
+        .vaccine-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .vaccine-item:last-child {
+            border-bottom: none;
+        }
+
+        .vaccine-status {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .vaccine-required {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .vaccine-recommended {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .vaccine-consider {
+            background: #E5E7EB;
+            color: #6B7280;
+        }
+
+        .vaccine-name {
+            flex: 1;
+            font-size: 15px;
+        }
+
+        .vaccine-tag {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 100px;
+            background: #F3F4F6;
+            color: #6B7280;
+        }
+
+        /* Facility Cards */
+        .facility-card {
+            background: #F9FAFB;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .facility-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .facility-name {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .facility-location {
+            font-size: 13px;
+            color: #6B7280;
+            margin-bottom: 8px;
+        }
+
+        .facility-phone {
+            font-size: 14px;
+            color: #FF6B35;
+            font-weight: 600;
+        }
+
+        /* Safety Tips */
+        .tip-item {
+            display: flex;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .tip-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .tip-item:first-child {
+            padding-top: 0;
+        }
+
+        .tip-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .tip-content h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .tip-content p {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        /* Emergency Numbers */
+        .emergency-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .emergency-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .emergency-item:first-child {
+            padding-top: 0;
+        }
+
+        .emergency-service {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .emergency-icon {
+            font-size: 24px;
+        }
+
+        .emergency-name {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .emergency-number {
+            font-size: 18px;
+            font-weight: 700;
+            color: #DC2626;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 32px;
+            margin-bottom: 40px;
+        }
+
+        .disclaimer-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .disclaimer-text {
+            font-size: 13px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        /* Update timestamp */
+        .last-updated {
+            text-align: center;
+            font-size: 12px;
+            color: #9CA3AF;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Navigation -->
+        <div class="back-nav" onclick="window.location.href='index.html'">
+            <span>←</span>
+            <span>Back to Home</span>
+        </div>
+
+        <!-- Hero Header -->
+        <div class="hero">
+            <div class="hero-flag">🇳🇵</div>
+            <h1 class="hero-title">Nepal</h1>
+            <p class="hero-subtitle">Destination Health Brief</p>
+        </div>
+
+        <!-- Outbreak Alerts -->
+        <div class="alert-banner danger">
+            <div class="alert-title">⚠️ Active Alert</div>
+            <div class="alert-text">
+                Dengue fever cases have increased in the Terai region (southern plains). Take extra precautions against mosquito bites in these areas.
+            </div>
+            <div class="alert-date">Updated: March 2026</div>
+        </div>
+
+        <div class="alert-banner">
+            <div class="alert-title">ℹ️ Travel Notice</div>
+            <div class="alert-text">
+                Altitude sickness is a risk for treks above 2,500m. Acclimatization days required for Everest and Annapurna circuits.
+            </div>
+            <div class="alert-date">Always in effect</div>
+        </div>
+
+        <!-- Disease Risks -->
+        <div class="section-label">Current Disease Risks</div>
+        <div class="card">
+            <div class="risk-item">
+                <span class="risk-icon">🦟</span>
+                <div class="risk-content">
+                    <div class="risk-name">Malaria</div>
+                    <span class="risk-level risk-moderate">Moderate Risk</span>
+                    <p class="risk-desc">Risk in Terai region (south) below 1,500m, especially during monsoon (June-Sept). No risk in Kathmandu or mountain areas.</p>
+                </div>
+            </div>
+            <div class="risk-item">
+                <span class="risk-icon">🦟</span>
+                <div class="risk-content">
+                    <div class="risk-name">Dengue Fever</div>
+                    <span class="risk-level risk-high">High Risk</span>
+                    <p class="risk-desc">Increasing cases in Terai region and Kathmandu Valley. Day-biting mosquitoes. No vaccine available—prevention is key.</p>
+                </div>
+            </div>
+            <div class="risk-item">
+                <span class="risk-icon">⛰️</span>
+                <div class="risk-content">
+                    <div class="risk-name">Altitude Sickness (AMS)</div>
+                    <span class="risk-level risk-high">High Risk</span>
+                    <p class="risk-desc">Risk above 2,500m. Symptoms: headache, nausea, fatigue. Can progress to life-threatening HACE/HAPE. Ascend slowly!</p>
+                </div>
+            </div>
+            <div class="risk-item">
+                <span class="risk-icon">💧</span>
+                <div class="risk-content">
+                    <div class="risk-name">Traveler's Diarrhea</div>
+                    <span class="risk-level risk-moderate">Moderate Risk</span>
+                    <p class="risk-desc">Common from contaminated food/water. Carry antibiotics (azithromycin) and oral rehydration salts.</p>
+                </div>
+            </div>
+            <div class="risk-item">
+                <span class="risk-icon">🧊</span>
+                <div class="risk-content">
+                    <div class="risk-name">Japanese Encephalitis</div>
+                    <span class="risk-level risk-low">Low Risk</span>
+                    <p class="risk-desc">Rare but serious. Risk in rural farming areas during monsoon. Consider vaccine for extended rural stays.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vaccines -->
+        <div class="section-label">Vaccinations</div>
+        <div class="card">
+            <div class="vaccine-item">
+                <span class="vaccine-status vaccine-required">!</span>
+                <span class="vaccine-name">Yellow Fever</span>
+                <span class="vaccine-tag">Required if arriving from endemic area</span>
+            </div>
+            <div class="vaccine-item">
+                <span class="vaccine-status vaccine-recommended">★</span>
+                <span class="vaccine-name">Hepatitis A</span>
+                <span class="vaccine-tag">Recommended</span>
+            </div>
+            <div class="vaccine-item">
+                <span class="vaccine-status vaccine-recommended">★</span>
+                <span class="vaccine-name">Typhoid</span>
+                <span class="vaccine-tag">Recommended</span>
+            </div>
+            <div class="vaccine-item">
+                <span class="vaccine-status vaccine-recommended">★</span>
+                <span class="vaccine-name">Hepatitis B</span>
+                <span class="vaccine-tag">Recommended</span>
+            </div>
+            <div class="vaccine-item">
+                <span class="vaccine-status vaccine-recommended">★</span>
+                <span class="vaccine-name">Rabies</span>
+                <span class="vaccine-tag">Recommended for trekkers</span>
+            </div>
+            <div class="vaccine-item">
+                <span class="vaccine-status vaccine-consider">○</span>
+                <span class="vaccine-name">Japanese Encephalitis</span>
+                <span class="vaccine-tag">Consider if rural stay</span>
+            </div>
+            <div class="vaccine-item">
+                <span class="vaccine-status vaccine-recommended">★</span>
+                <span class="vaccine-name">COVID-19</span>
+                <span class="vaccine-tag">Recommended</span>
+            </div>
+        </div>
+
+        <!-- Medical Facilities -->
+        <div class="section-label">Medical Facilities</div>
+        <div class="card">
+            <div class="facility-card">
+                <div class="facility-name">CIWEC Clinic Travel Medicine Center</div>
+                <div class="facility-location">📍 Kathmandu (Lazimpat)</div>
+                <div class="facility-phone">📞 +977 1-4424111</div>
+            </div>
+            <div class="facility-card">
+                <div class="facility-name">Nepal International Clinic</div>
+                <div class="facility-location">📍 Kathmandu (Thamel)</div>
+                <div class="facility-phone">📞 +977 1-4434642</div>
+            </div>
+            <div class="facility-card">
+                <div class="facility-name">Himalayan Rescue Association</div>
+                <div class="facility-location">📍 Pheriche (Everest region), Manang (Annapurna)</div>
+                <div class="facility-phone">📞 Altitude clinics for trekkers</div>
+            </div>
+            <div class="facility-card">
+                <div class="facility-name">CIWEC Pokhara</div>
+                <div class="facility-location">📍 Pokhara (Lakeside)</div>
+                <div class="facility-phone">📞 +977 61-466576</div>
+            </div>
+        </div>
+
+        <!-- Water & Food Safety -->
+        <div class="section-label">Water & Food Safety</div>
+        <div class="card">
+            <div class="tip-item">
+                <span class="tip-icon">💧</span>
+                <div class="tip-content">
+                    <h4>Drink Only Safe Water</h4>
+                    <p>Bottled, boiled, or purified water only. Use purification tablets or filters for trekking. Avoid ice cubes.</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <span class="tip-icon">🍽️</span>
+                <div class="tip-content">
+                    <h4>Eat Cooked Foods</h4>
+                    <p>"Boil it, cook it, peel it, or forget it." Avoid raw vegetables, salads, and unpeeled fruits.</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <span class="tip-icon">🥛</span>
+                <div class="tip-content">
+                    <h4>Avoid Dairy</h4>
+                    <p>Unpasteurized milk and dairy products are risky. Only consume if from trusted sources.</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <span class="tip-icon">🌶️</span>
+                <div class="tip-content">
+                    <h4>Spicy Food Caution</h4>
+                    <p>Nepali food can be very spicy. Try mild versions first if you have a sensitive stomach.</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <span class="tip-icon">🍵</span>
+                <div class="tip-content">
+                    <h4>Dal Bhat Power</h4>
+                    <p>The traditional meal (rice, lentils, vegetables) is generally safe and provides good energy for trekking.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Numbers -->
+        <div class="section-label">Emergency Contacts</div>
+        <div class="card">
+            <div class="emergency-item">
+                <div class="emergency-service">
+                    <span class="emergency-icon">🚑</span>
+                    <span class="emergency-name">Ambulance</span>
+                </div>
+                <span class="emergency-number">102</span>
+            </div>
+            <div class="emergency-item">
+                <div class="emergency-service">
+                    <span class="emergency-icon">🚓</span>
+                    <span class="emergency-name">Police</span>
+                </div>
+                <span class="emergency-number">100</span>
+            </div>
+            <div class="emergency-item">
+                <div class="emergency-service">
+                    <span class="emergency-icon">🚒</span>
+                    <span class="emergency-name">Fire</span>
+                </div>
+                <span class="emergency-number">101</span>
+            </div>
+            <div class="emergency-item">
+                <div class="emergency-service">
+                    <span class="emergency-icon">🏥</span>
+                    <span class="emergency-name">Tourist Helpline</span>
+                </div>
+                <span class="emergency-number">1144</span>
+            </div>
+            <div class="emergency-item">
+                <div class="emergency-service">
+                    <span class="emergency-icon">🆘</span>
+                    <span class="emergency-name">HRA Emergency (Mountains)</span>
+                </div>
+                <span class="emergency-number">+977 1-4440292</span>
+            </div>
+        </div>
+
+        <!-- Altitude Section -->
+        <div class="section-label">Altitude Guidelines</div>
+        <div class="card">
+            <div class="card-title">⛰️ Trekking Safely</div>
+            <div class="tip-item">
+                <span class="tip-icon">📈</span>
+                <div class="tip-content">
+                    <h4>Golden Rule</h4>
+                    <p>Above 3,000m: Sleep no more than 300-500m higher per day. Include acclimatization days every 3-4 days.</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <span class="tip-icon">🌿</span>
+                <div class="tip-content">
+                    <h4>Diamox (Acetazolamide)</h4>
+                    <p>Can help prevent AMS. Discuss with your doctor before the trip. Start 1-2 days before ascent.</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <span class="tip-icon">⚠️</span>
+                <div class="tip-content">
+                    <h4>Descend Immediately If</h4>
+                    <p>Severe headache, confusion, difficulty walking, or shortness of breath at rest. AMS can be fatal.</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="last-updated">Last updated: March 2026</p>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <div class="disclaimer-title">⚕️ Medical Disclaimer</div>
+            <div class="disclaimer-text">
+                This information is for educational purposes only and may not reflect real-time conditions. Always check current CDC, WHO, and local health authority guidelines before travel. Disease risks and entry requirements change frequently. Consult a travel medicine specialist for personalized advice.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
