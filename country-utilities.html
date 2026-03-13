@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Utilities & Emergency - TravelHealthKit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Back Button */
+        .back-nav {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            cursor: pointer;
+            padding: 8px 0;
+            color: #6B7280;
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .back-nav:hover {
+            color: #FF6B35;
+        }
+
+        .back-nav span {
+            margin-left: 8px;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 24px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #6B7280;
+        }
+
+        /* Country Selector */
+        .selector-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .selector-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #9CA3AF;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .country-select {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            background: white;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 20px;
+            padding-right: 48px;
+        }
+
+        .country-select:focus {
+            outline: none;
+            border-color: #FF6B35;
+        }
+
+        /* Country Info Card */
+        .country-info {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .country-info.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .country-header {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 16px;
+            color: white;
+            text-align: center;
+        }
+
+        .country-flag {
+            font-size: 64px;
+            margin-bottom: 8px;
+        }
+
+        .country-name {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        /* Info Sections */
+        .info-section {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .section-header {
+            background: #F9FAFB;
+            padding: 16px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .section-content {
+            padding: 20px;
+        }
+
+        /* Power Section */
+        .power-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .power-item {
+            background: #F9FAFB;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .power-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .power-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1A1A1A;
+        }
+
+        /* Plug Types */
+        .plug-section {
+            margin-bottom: 20px;
+        }
+
+        .plug-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+
+        .plug-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .plug-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #F9FAFB;
+            padding: 12px;
+            border-radius: 12px;
+            min-width: 70px;
+        }
+
+        .plug-letter {
+            font-size: 20px;
+            font-weight: 800;
+            color: #FF6B35;
+            margin-bottom: 4px;
+        }
+
+        .plug-diagram {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Adapter Recommendation */
+        .adapter-box {
+            background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+
+        .adapter-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1E40AF;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .adapter-text {
+            font-size: 14px;
+            color: #1E40AF;
+            line-height: 1.5;
+        }
+
+        /* Converter Explanation */
+        .converter-box {
+            background: #FEF3C7;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+            border-left: 4px solid #F59E0B;
+        }
+
+        .converter-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #92400E;
+            margin-bottom: 8px;
+        }
+
+        .converter-text {
+            font-size: 13px;
+            color: #92400E;
+            line-height: 1.5;
+        }
+
+        .converter-yes {
+            color: #DC2626;
+            font-weight: 700;
+        }
+
+        .converter-no {
+            color: #059669;
+            font-weight: 700;
+        }
+
+        /* Emergency Numbers */
+        .emergency-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .emergency-item {
+            display: flex;
+            align-items: center;
+            background: #F9FAFB;
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .emergency-icon {
+            font-size: 28px;
+            margin-right: 16px;
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .emergency-info {
+            flex: 1;
+        }
+
+        .emergency-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .emergency-number {
+            font-size: 22px;
+            font-weight: 800;
+            color: #DC2626;
+        }
+
+        .emergency-number.general {
+            color: #1A1A1A;
+        }
+
+        .universal-emergency {
+            background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+            border: 2px solid #DC2626;
+        }
+
+        .universal-emergency .emergency-icon {
+            background: #DC2626;
+        }
+
+        /* Embassy Section */
+        .embassy-item {
+            padding: 16px;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .embassy-item:last-child {
+            border-bottom: none;
+        }
+
+        .embassy-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .embassy-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .embassy-note {
+            font-size: 13px;
+            color: #6B7280;
+        }
+
+        .embassy-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #2563EB;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            margin-top: 8px;
+        }
+
+        .embassy-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Add Your Country Box */
+        .add-country-box {
+            background: #F3F4F6;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+
+        .add-country-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .add-country-text {
+            font-size: 13px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        /* Bottom spacer */
+        .bottom-spacer {
+            height: 40px;
+        }
+
+        /* Helper text */
+        .helper-text {
+            font-size: 12px;
+            color: #9CA3AF;
+            text-align: center;
+            margin-top: 8px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Navigation -->
+        <div class="back-nav" onclick="window.location.href='index.html'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Back to Home</span>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Country Utilities & Emergency</h1>
+            <p class="subtitle">Power, plugs, and who to call</p>
+        </div>
+
+        <!-- Country Selector -->
+        <div class="selector-card">
+            <div class="selector-label">Select Destination</div>
+            <select class="country-select" id="countrySelect" onchange="showCountryInfo(this.value)">
+                <option value="">Choose a country...</option>
+                <option value="us">🇺🇸 United States</option>
+                <option value="uk">🇬🇧 United Kingdom</option>
+                <option value="ca">🇨🇦 Canada</option>
+                <option value="au">🇦🇺 Australia</option>
+                <option value="fr">🇫🇷 France</option>
+                <option value="de">🇩🇪 Germany</option>
+                <option value="it">🇮🇹 Italy</option>
+                <option value="es">🇪🇸 Spain</option>
+                <option value="jp">🇯🇵 Japan</option>
+                <option value="cn">🇨🇳 China</option>
+                <option value="th">🇹🇭 Thailand</option>
+                <option value="in">🇮🇳 India</option>
+                <option value="br">🇧🇷 Brazil</option>
+                <option value="mx">🇲🇽 Mexico</option>
+                <option value="cr">🇨🇷 Costa Rica</option>
+                <option value="za">🇿🇦 South Africa</option>
+                <option value="ke">🇰🇪 Kenya</option>
+                <option value="ma">🇲🇦 Morocco</option>
+                <option value="ae">🇦🇪 UAE</option>
+                <option value="il">🇮🇱 Israel</option>
+                <option value="tr">🇹🇷 Turkey</option>
+                <option value="np">🇳🇵 Nepal</option>
+                <option value="pe">🇵🇪 Peru</option>
+                <option value="nz">🇳🇿 New Zealand</option>
+            </select>
+        </div>
+
+        <!-- Country Information Display -->
+        <div id="countryInfoContainer">
+            <!-- Country info will be dynamically inserted here -->
+        </div>
+
+        <!-- Default State -->
+        <div id="defaultState" class="helper-text">
+            Select a country above to view power, emergency, and embassy information
+        </div>
+
+        <div class="bottom-spacer"></div>
+    </div>
+
+    <script>
+        // Country Data
+        const countryData = {
+            us: {
+                flag: '🇺🇸',
+                name: 'United States',
+                plugTypes: ['A', 'B'],
+                voltage: '120V',
+                frequency: '60Hz',
+                needsConverter: 'no',
+                adapterRec: 'Type A/B (US standard)',
+                police: '911',
+                ambulance: '911',
+                fire: '911',
+                touristPolice: null,
+                universal: '911',
+                usEmbassy: '+1-202-501-4444 (Main)',
+                embassyNote: 'For US citizens abroad - this is your home country'
+            },
+            uk: {
+                flag: '🇬🇧',
+                name: 'United Kingdom',
+                plugTypes: ['G'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type G (3-pin UK)',
+                police: '999 or 112',
+                ambulance: '999 or 112',
+                fire: '999 or 112',
+                touristPolice: '101 (Non-emergency)',
+                universal: '112',
+                usEmbassy: '+44-20-7499-9000',
+                embassyNote: '24/7 Emergency: +44-20-7499-9000'
+            },
+            ca: {
+                flag: '🇨🇦',
+                name: 'Canada',
+                plugTypes: ['A', 'B'],
+                voltage: '120V',
+                frequency: '60Hz',
+                needsConverter: 'no',
+                adapterRec: 'Type A/B (Same as US)',
+                police: '911',
+                ambulance: '911',
+                fire: '911',
+                touristPolice: null,
+                universal: '911',
+                usEmbassy: '+1-613-688-5335',
+                embassyNote: 'Ottawa - Consular Emergency: +1-613-238-5335'
+            },
+            au: {
+                flag: '🇦🇺',
+                name: 'Australia',
+                plugTypes: ['I'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type I (3-pin angled)',
+                police: '000',
+                ambulance: '000',
+                fire: '000',
+                touristPolice: '131 444 (Non-emergency)',
+                universal: '112 (Mobile)',
+                usEmbassy: '+61-2-6214-5600',
+                embassyNote: 'Canberra - After hours: +61-2-4420-4900'
+            },
+            fr: {
+                flag: '🇫🇷',
+                name: 'France',
+                plugTypes: ['C', 'E'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type C/E (Europlug)',
+                police: '17',
+                ambulance: '15',
+                fire: '18',
+                touristPolice: null,
+                universal: '112',
+                usEmbassy: '+33-1-43-12-22-22',
+                embassyNote: 'Paris - Emergency: +33-1-43-12-22-22'
+            },
+            de: {
+                flag: '🇩🇪',
+                name: 'Germany',
+                plugTypes: ['C', 'F'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type C/F (Schuko)',
+                police: '110',
+                ambulance: '112',
+                fire: '112',
+                touristPolice: null,
+                universal: '112',
+                usEmbassy: '+49-30-8305-0',
+                embassyNote: 'Berlin - Emergency: +49-30-8305-0'
+            },
+            it: {
+                flag: '🇮🇹',
+                name: 'Italy',
+                plugTypes: ['C', 'L'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type C/L (Italian 3-pin)',
+                police: '113',
+                ambulance: '118',
+                fire: '115',
+                touristPolice: null,
+                universal: '112',
+                usEmbassy: '+39-06-46741',
+                embassyNote: 'Rome - Emergency: +39-06-46741'
+            },
+            es: {
+                flag: '🇪🇸',
+                name: 'Spain',
+                plugTypes: ['C', 'F'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type C/F (Euro/Schuko)',
+                police: '091 (National) / 092 (Local)',
+                ambulance: '112',
+                fire: '112',
+                touristPolice: null,
+                universal: '112',
+                usEmbassy: '+34-91-587-2200',
+                embassyNote: 'Madrid - Emergency: +34-91-587-2200'
+            },
+            jp: {
+                flag: '🇯🇵',
+                name: 'Japan',
+                plugTypes: ['A', 'B'],
+                voltage: '100V',
+                frequency: '50Hz (E) / 60Hz (W)',
+                needsConverter: 'yes',
+                adapterRec: 'Type A/B (2-pin flat)',
+                police: '110',
+                ambulance: '119',
+                fire: '119',
+                touristPolice: '03-3501-0110 (English)',
+                universal: null,
+                usEmbassy: '+81-3-3224-5000',
+                embassyNote: 'Tokyo - ACS Emergency: +81-3-3224-5000'
+            },
+            cn: {
+                flag: '🇨🇳',
+                name: 'China',
+                plugTypes: ['A', 'C', 'I'],
+                voltage: '220V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Multi-adapter recommended',
+                police: '110',
+                ambulance: '120',
+                fire: '119',
+                touristPolice: null,
+                universal: null,
+                usEmbassy: '+86-10-8531-4000',
+                embassyNote: 'Beijing - Emergency: +86-10-8531-4000'
+            },
+            th: {
+                flag: '🇹🇭',
+                name: 'Thailand',
+                plugTypes: ['A', 'C', 'O'],
+                voltage: '220V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type A/C/O (mixed)',
+                police: '191',
+                ambulance: '1669',
+                fire: '199',
+                touristPolice: '1155 (English)',
+                universal: null,
+                usEmbassy: '+66-2-205-4000',
+                embassyNote: 'Bangkok - ACS: +66-2-205-4000'
+            },
+            in: {
+                flag: '🇮🇳',
+                name: 'India',
+                plugTypes: ['C', 'D', 'M'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type D/M (3-pin round)',
+                police: '100',
+                ambulance: '102 / 108',
+                fire: '101',
+                touristPolice: null,
+                universal: '112',
+                usEmbassy: '+91-11-2419-8000',
+                embassyNote: 'New Delhi - Emergency: +91-11-2419-8000'
+            },
+            br: {
+                flag: '🇧🇷',
+                name: 'Brazil',
+                plugTypes: ['C', 'N'],
+                voltage: '127V / 220V*',
+                frequency: '60Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type N (3-pin round) or C',
+                police: '190',
+                ambulance: '192',
+                fire: '193',
+                touristPolice: null,
+                universal: null,
+                usEmbassy: '+55-61-3312-7000',
+                embassyNote: 'Brasília - ACS: +55-61-3312-7000'
+            },
+            mx: {
+                flag: '🇲🇽',
+                name: 'Mexico',
+                plugTypes: ['A', 'B'],
+                voltage: '127V',
+                frequency: '60Hz',
+                needsConverter: 'no',
+                adapterRec: 'Type A/B (Same as US)',
+                police: '911',
+                ambulance: '911',
+                fire: '911',
+                touristPolice: '078',
+                universal: '911',
+                usEmbassy: '+52-55-5080-2000',
+                embassyNote: 'Mexico City - Emergency: +52-55-5080-2000'
+            },
+            cr: {
+                flag: '🇨🇷',
+                name: 'Costa Rica',
+                plugTypes: ['A', 'B'],
+                voltage: '120V',
+                frequency: '60Hz',
+                needsConverter: 'no',
+                adapterRec: 'Type A/B (Same as US)',
+                police: '911',
+                ambulance: '911',
+                fire: '911',
+                touristPolice: null,
+                universal: '911',
+                usEmbassy: '+506-2519-2000',
+                embassyNote: 'San José - ACS: +506-2519-2000'
+            },
+            za: {
+                flag: '🇿🇦',
+                name: 'South Africa',
+                plugTypes: ['C', 'D', 'M', 'N'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type M (3-pin large round)',
+                police: '10111',
+                ambulance: '10177',
+                fire: '10177',
+                touristPolice: null,
+                universal: '112',
+                usEmbassy: '+27-12-431-4000',
+                embassyNote: 'Pretoria - Emergency: +27-12-431-4000'
+            },
+            ke: {
+                flag: '🇰🇪',
+                name: 'Kenya',
+                plugTypes: ['G'],
+                voltage: '240V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type G (UK style)',
+                police: '999 / 112',
+                ambulance: '999 / 112',
+                fire: '999 / 112',
+                touristPolice: null,
+                universal: '112',
+                usEmbassy: '+254-20-363-6000',
+                embassyNote: 'Nairobi - ACS: +254-20-363-6000'
+            },
+            ma: {
+                flag: '🇲🇦',
+                name: 'Morocco',
+                plugTypes: ['C', 'E'],
+                voltage: '220V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type C/E (Europlug)',
+                police: '190',
+                ambulance: '150',
+                fire: '15',
+                touristPolice: null,
+                universal: '112',
+                usEmbassy: '+212-537-637-200',
+                embassyNote: 'Rabat - Emergency: +212-537-637-200'
+            },
+            ae: {
+                flag: '🇦🇪',
+                name: 'United Arab Emirates',
+                plugTypes: ['G'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type G (UK style)',
+                police: '999',
+                ambulance: '998',
+                fire: '997',
+                touristPolice: '901 (Tourist Security)',
+                universal: null,
+                usEmbassy: '+971-2-414-2200',
+                embassyNote: 'Abu Dhabi - ACS: +971-2-414-2200'
+            },
+            il: {
+                flag: '🇮🇱',
+                name: 'Israel',
+                plugTypes: ['C', 'H', 'M'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type H (Israeli 3-pin)',
+                police: '100',
+                ambulance: '101',
+                fire: '102',
+                touristPolice: null,
+                universal: null,
+                usEmbassy: '+972-3-519-7575',
+                embassyNote: 'Jerusalem - Emergency: +972-3-519-7575'
+            },
+            tr: {
+                flag: '🇹🇷',
+                name: 'Turkey',
+                plugTypes: ['C', 'F'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type C/F (Euro/Schuko)',
+                police: '155',
+                ambulance: '112',
+                fire: '110',
+                touristPolice: '153 (Tourism Hotline)',
+                universal: '112',
+                usEmbassy: '+90-212-335-9000',
+                embassyNote: 'Ankara - ACS: +90-212-335-9000'
+            },
+            np: {
+                flag: '🇳🇵',
+                name: 'Nepal',
+                plugTypes: ['C', 'D', 'M'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type D/M (3-pin round)',
+                police: '100',
+                ambulance: '102',
+                fire: '101',
+                touristPolice: '1144',
+                universal: null,
+                usEmbassy: '+977-1-423-4000',
+                embassyNote: 'Kathmandu - ACS: +977-1-423-4000'
+            },
+            pe: {
+                flag: '🇵🇪',
+                name: 'Peru',
+                plugTypes: ['A', 'C'],
+                voltage: '220V',
+                frequency: '60Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type A/C (mixed)',
+                police: '105',
+                ambulance: '116',
+                fire: '116',
+                touristPolice: '0800-42500 (iPeru)',
+                universal: null,
+                usEmbassy: '+51-1-618-2000',
+                embassyNote: 'Lima - Emergency: +51-1-618-2000'
+            },
+            nz: {
+                flag: '🇳🇿',
+                name: 'New Zealand',
+                plugTypes: ['I'],
+                voltage: '230V',
+                frequency: '50Hz',
+                needsConverter: 'check',
+                adapterRec: 'Type I (3-pin angled)',
+                police: '111',
+                ambulance: '111',
+                fire: '111',
+                touristPolice: null,
+                universal: '112',
+                usEmbassy: '+64-4-462-6000',
+                embassyNote: 'Wellington - Emergency: +64-4-462-6000'
+            }
+        };
+
+        // Plug SVG diagrams
+        const plugSVGs = {
+            A: `<svg viewBox="0 0 40 40" class="plug-diagram"><rect x="8" y="12" width="24" height="16" rx="2" fill="none" stroke="#374151" stroke-width="2"/><rect x="14" y="8" width="4" height="8" fill="#374151"/><rect x="22" y="8" width="4" height="8" fill="#374151"/></svg>`,
+            B: `<svg viewBox="0 0 40 40" class="plug-diagram"><rect x="8" y="12" width="24" height="16" rx="2" fill="none" stroke="#374151" stroke-width="2"/><rect x="14" y="8" width="4" height="8" fill="#374151"/><rect x="22" y="8" width="4" height="8" fill="#374151"/><circle cx="20" cy="28" r="2" fill="#374151"/></svg>`,
+            C: `<svg viewBox="0 0 40 40" class="plug-diagram"><circle cx="20" cy="20" r="12" fill="none" stroke="#374151" stroke-width="2"/><rect x="12" y="10" width="4" height="10" rx="2" fill="#374151"/><rect x="24" y="10" width="4" height="10" rx="2" fill="#374151"/></svg>`,
+            D: `<svg viewBox="0 0 40 40" class="plug-diagram"><circle cx="20" cy="20" r="14" fill="none" stroke="#374151" stroke-width="2"/><circle cx="14" cy="16" r="3" fill="#374151"/><circle cx="26" cy="16" r="3" fill="#374151"/><circle cx="20" cy="26" r="3" fill="#374151"/></svg>`,
+            E: `<svg viewBox="0 0 40 40" class="plug-diagram"><circle cx="20" cy="20" r="12" fill="none" stroke="#374151" stroke-width="2"/><rect x="12" y="10" width="4" height="10" rx="2" fill="#374151"/><rect x="24" y="10" width="4" height="10" rx="2" fill="#374151"/><rect x="18" y="24" width="4" height="6" fill="#374151"/></svg>`,
+            F: `<svg viewBox="0 0 40 40" class="plug-diagram"><circle cx="20" cy="20" r="12" fill="none" stroke="#374151" stroke-width="2"/><rect x="11" y="10" width="4" height="10" rx="2" fill="#374151"/><rect x="25" y="10" width="4" height="10" rx="2" fill="#374151"/><rect x="9" y="18" width="4" height="4" fill="#374151"/><rect x="27" y="18" width="4" height="4" fill="#374151"/></svg>`,
+            G: `<svg viewBox="0 0 40 40" class="plug-diagram"><rect x="6" y="10" width="28" height="20" rx="3" fill="none" stroke="#374151" stroke-width="2"/><rect x="12" y="6" width="4" height="10" rx="2" fill="#374151"/><rect x="20" y="6" width="4" height="10" rx="2" fill="#374151"/><rect x="28" y="6" width="4" height="10" rx="2" fill="#374151"/><rect x="8" y="26" width="8" height="4" fill="#374151"/></svg>`,
+            H: `<svg viewBox="0 0 40 40" class="plug-diagram"><rect x="10" y="8" width="20" height="24" rx="2" fill="none" stroke="#374151" stroke-width="2"/><rect x="14" y="6" width="4" height="10" rx="2" fill="#374151"/><rect x="26" y="12" width="4" height="10" rx="2" fill="#374151"/><rect x="14" y="24" width="4" height="10" rx="2" fill="#374151"/></svg>`,
+            I: `<svg viewBox="0 0 40 40" class="plug-diagram"><rect x="10" y="10" width="20" height="20" rx="3" fill="none" stroke="#374151" stroke-width="2"/><rect x="14" y="6" width="4" height="10" rx="2" fill="#374151" transform="rotate(45 16 11)"/><rect x="26" y="18" width="4" height="10" rx="2" fill="#374151" transform="rotate(45 28 23)"/><rect x="6" y="22" width="4" height="10" rx="2" fill="#374151" transform="rotate(45 8 27)"/></svg>`,
+            J: `<svg viewBox="0 0 40 40" class="plug-diagram"><rect x="10" y="12" width="20" height="16" rx="2" fill="none" stroke="#374151" stroke-width="2"/><rect x="14" y="6" width="4" height="10" rx="2" fill="#374151"/><rect x="26" y="6" width="4" height="10" rx="2" fill="#374151"/><circle cx="14" cy="28" r="2" fill="#374151"/></svg>`,
+            K: `<svg viewBox="0 0 40 40" class="plug-diagram"><circle cx="20" cy="20" r="12" fill="none" stroke="#374151" stroke-width="2"/><rect x="10" y="12" width="4" height="12" rx="2" fill="#374151" transform="rotate(-30 12 18)"/><rect x="18" y="8" width="4" height="12" rx="2" fill="#374151"/><rect x="28" y="12" width="4" height="12" rx="2" fill="#374151" transform="rotate(30 30 18)"/></svg>`,
+            L: `<svg viewBox="0 0 40 40" class="plug-diagram"><rect x="8" y="10" width="24" height="20" rx="3" fill="none" stroke="#374151" stroke-width="2"/><rect x="12" y="6" width="4" height="10" rx="2" fill="#374151"/><rect x="20" y="6" width="4" height="10" rx="2" fill="#374151"/><rect x="28" y="6" width="4" height="10" rx="2" fill="#374151"/></svg>`,
+            M: `<svg viewBox="0 0 40 40" class="plug-diagram"><circle cx="20" cy="20" r="14" fill="none" stroke="#374151" stroke-width="2"/><circle cx="14" cy="16" r="3.5" fill="#374151"/><circle cx="26" cy="16" r="3.5" fill="#374151"/><circle cx="20" cy="26" r="3.5" fill="#374151"/></svg>`,
+            N: `<svg viewBox="0 0 40 40" class="plug-diagram"><circle cx="20" cy="20" r="12" fill="none" stroke="#374151" stroke-width="2"/><rect x="11" y="10" width="4" height="10" rx="2" fill="#374151"/><rect x="25" y="10" width="4" height="10" rx="2" fill="#374151"/><rect x="9" y="18" width="4" height="4" fill="#374151"/><rect x="27" y="18" width="4" height="4" fill="#374151"/></svg>`,
+            O: `<svg viewBox="0 0 40 40" class="plug-diagram"><rect x="8" y="12" width="24" height="16" rx="2" fill="none" stroke="#374151" stroke-width="2"/><rect x="14" y="8" width="3" height="8" rx="1.5" fill="#374151"/><rect x="23" y="8" width="3" height="8" rx="1.5" fill="#374151"/></svg>`
+        };
+
+        function showCountryInfo(countryCode) {
+            const container = document.getElementById('countryInfoContainer');
+            const defaultState = document.getElementById('defaultState');
+            
+            if (!countryCode) {
+                container.innerHTML = '';
+                defaultState.style.display = 'block';
+                return;
+            }
+            
+            defaultState.style.display = 'none';
+            const data = countryData[countryCode];
+            
+            // Generate plug type HTML
+            const plugHTML = data.plugTypes.map(type => `
+                <div class="plug-item">
+                    <div class="plug-letter">${type}</div>
+                    ${plugSVGs[type] || ''}
+                </div>
+            `).join('');
+            
+            // Generate converter text
+            let converterHTML = '';
+            if (data.needsConverter === 'yes') {
+                converterHTML = `
+                    <div class="converter-box">
+                        <div class="converter-title">⚠️ Voltage Warning</div>
+                        <div class="converter-text">
+                            <span class="converter-yes">YES - You likely need a converter!</span><br>
+                            ${data.name} uses ${data.voltage} while US devices are 120V. 
+                            Check your device label - if it says "100-240V" you're fine with just an adapter. 
+                            Otherwise, you'll need a voltage converter.
+                        </div>
+                    </div>
+                `;
+            } else if (data.needsConverter === 'check') {
+                converterHTML = `
+                    <div class="converter-box">
+                        <div class="converter-title">ℹ️ Adapter Only (Probably)</div>
+                        <div class="converter-text">
+                            <span class="converter-no">Likely NO converter needed.</span><br>
+                            Most modern chargers and electronics accept 100-240V. 
+                            Check your device label - if it says "100-240V" or "110-240V", 
+                            you only need an adapter. Hair dryers and curling irons usually need converters.
+                        </div>
+                    </div>
+                `;
+            } else {
+                converterHTML = `
+                    <div class="converter-box">
+                        <div class="converter-title">✅ Same as Home</div>
+                        <div class="converter-text">
+                            <span class="converter-no">NO converter needed!</span><br>
+                            ${data.name} uses the same voltage and plug types as the US. 
+                            Your devices will work normally.
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Generate emergency HTML
+            const touristPoliceHTML = data.touristPolice ? `
+                <div class="emergency-item">
+                    <div class="emergency-icon">🛡️</div>
+                    <div class="emergency-info">
+                        <div class="emergency-label">Tourist Police</div>
+                        <div class="emergency-number">${data.touristPolice}</div>
+                    </div>
+                </div>
+            ` : '';
+            
+            const universalHTML = data.universal ? `
+                <div class="emergency-item universal-emergency">
+                    <div class="emergency-icon">🌍</div>
+                    <div class="emergency-info">
+                        <div class="emergency-label">Universal Emergency</div>
+                        <div class="emergency-number general">${data.universal}</div>
+                    </div>
+                </div>
+            ` : '';
+            
+            container.innerHTML = `
+                <div class="country-info active">
+                    <!-- Country Header -->
+                    <div class="country-header">
+                        <div class="country-flag">${data.flag}</div>
+                        <div class="country-name">${data.name}</div>
+                    </div>
+                    
+                    <!-- Power & Adapters -->
+                    <div class="info-section">
+                        <div class="section-header">⚡ Power & Adapters</div>
+                        <div class="section-content">
+                            <div class="power-grid">
+                                <div class="power-item">
+                                    <div class="power-label">Voltage</div>
+                                    <div class="power-value">${data.voltage}</div>
+                                </div>
+                                <div class="power-item">
+                                    <div class="power-label">Frequency</div>
+                                    <div class="power-value">${data.frequency}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="plug-section">
+                                <div class="plug-title">Plug Types Used</div>
+                                <div class="plug-grid">${plugHTML}</div>
+                            </div>
+                            
+                            <div class="adapter-box">
+                                <div class="adapter-title">🔌 Recommended Adapter</div>
+                                <div class="adapter-text">${data.adapterRec}</div>
+                            </div>
+                            
+                            ${converterHTML}
+                        </div>
+                    </div>
+                    
+                    <!-- Emergency Numbers -->
+                    <div class="info-section">
+                        <div class="section-header">🚨 Emergency Numbers</div>
+                        <div class="section-content">
+                            <div class="emergency-grid">
+                                ${universalHTML}
+                                <div class="emergency-item">
+                                    <div class="emergency-icon">👮</div>
+                                    <div class="emergency-info">
+                                        <div class="emergency-label">Police</div>
+                                        <div class="emergency-number">${data.police}</div>
+                                    </div>
+                                </div>
+                                <div class="emergency-item">
+                                    <div class="emergency-icon">🚑</div>
+                                    <div class="emergency-info">
+                                        <div class="emergency-label">Medical / Ambulance</div>
+                                        <div class="emergency-number">${data.ambulance}</div>
+                                    </div>
+                                </div>
+                                <div class="emergency-item">
+                                    <div class="emergency-icon">🔥</div>
+                                    <div class="emergency-info">
+                                        <div class="emergency-label">Fire Department</div>
+                                        <div class="emergency-number">${data.fire}</div>
+                                    </div>
+                                </div>
+                                ${touristPoliceHTML}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Embassy Info -->
+                    <div class="info-section">
+                        <div class="section-header">🏛️ Embassy / Consulate</div>
+                        <div class="section-content">
+                            <div class="embassy-item">
+                                <div class="embassy-label">US Embassy</div>
+                                <div class="embassy-value">${data.usEmbassy}</div>
+                                <div class="embassy-note">${data.embassyNote}</div>
+                            </div>
+                            
+                            <div class="add-country-box">
+                                <div class="add-country-title">🌍 Not a US citizen?</div>
+                                <div class="add-country-text">
+                                    Add your country's embassy contact information here before your trip.
+                                    Find your embassy at:<br><br>
+                                    <a href="https://www.embassy-worldwide.com/" target="_blank" class="embassy-link">
+                                        🌐 Embassy Worldwide
+                                    </a><br>
+                                    <a href="https://www.gov.uk/government/collections/lists-of-foreign-embassies-in-the-uk" target="_blank" class="embassy-link" style="margin-top: 4px;">
+                                        🇬🇧 UK Foreign Embassies
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
