@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Allergy Translation Cards - TravelHealthKit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            margin: -20px -20px 24px -20px;
+            padding: 24px 20px;
+            color: white;
+            position: relative;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+
+        .back-button:hover {
+            color: white;
+            transform: translateX(-4px);
+        }
+
+        .back-arrow {
+            font-size: 18px;
+        }
+
+        .header-title {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            min-width: 140px;
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .toggle-btn:hover {
+            border-color: #FF6B35;
+            color: #FF6B35;
+        }
+
+        .toggle-btn.active {
+            background: #FF6B35;
+            border-color: #FF6B35;
+            color: white;
+        }
+
+        .print-btn {
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .print-btn:hover {
+            border-color: #10B981;
+            color: #10B981;
+        }
+
+        /* Allergy Cards */
+        .allergy-card {
+            background: white;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .allergy-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .allergy-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .allergy-header:hover {
+            background: #FAFAFA;
+        }
+
+        .allergy-icon {
+            font-size: 48px;
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .allergy-info {
+            flex: 1;
+        }
+
+        .allergy-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+
+        .allergy-hint {
+            font-size: 13px;
+            color: #9CA3AF;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .expand-icon {
+            font-size: 24px;
+            color: #D1D5DB;
+            transition: transform 0.3s;
+        }
+
+        .allergy-card.expanded .expand-icon {
+            transform: rotate(180deg);
+            color: #FF6B35;
+        }
+
+        /* Translations Section */
+        .translations {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: #F9FAFB;
+        }
+
+        .allergy-card.expanded .translations {
+            max-height: 800px;
+        }
+
+        .translations-content {
+            padding: 20px;
+        }
+
+        .translation-item {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid #FF6B35;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .translation-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .translation-item.rtl {
+            border-left: none;
+            border-right: 4px solid #FF6B35;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .lang-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #FF6B35;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .translation-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            line-height: 1.5;
+        }
+
+        .translation-pronounce {
+            font-size: 13px;
+            color: #6B7280;
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: #FEF3C7;
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .disclaimer-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .disclaimer-text {
+            font-size: 13px;
+            color: #92400E;
+            line-height: 1.5;
+        }
+
+        .disclaimer-text strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #78350F;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 10px;
+            }
+            
+            .header {
+                margin: 0 0 20px 0;
+                border-radius: 12px;
+                page-break-inside: avoid;
+            }
+            
+            .controls {
+                display: none;
+            }
+            
+            .allergy-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+                margin-bottom: 12px;
+                border: 1px solid #E5E7EB;
+            }
+            
+            .translations {
+                max-height: none !important;
+                display: block !important;
+            }
+            
+            .allergy-hint {
+                display: none;
+            }
+            
+            .expand-icon {
+                display: none;
+            }
+            
+            .disclaimer {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Bottom spacer */
+        .spacer {
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="index.html" class="back-button">
+                <span class="back-arrow">←</span>
+                <span>Back</span>
+            </a>
+            <h1 class="header-title">Allergy Translation Cards</h1>
+            <p class="header-subtitle">Show these cards to restaurant staff, hotel staff, or medical providers when traveling</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="toggle-btn" id="expandAllBtn" onclick="toggleAll()">
+                <span>🌐</span>
+                <span id="expandText">Show All Languages</span>
+            </button>
+            <button class="print-btn" onclick="printCards()">
+                <span>🖨️</span>
+                <span>Print Cards</span>
+            </button>
+        </div>
+
+        <!-- Allergy Cards -->
+        <div id="allergyCards">
+            <!-- Peanuts -->
+            <div class="allergy-card" data-allergy="peanuts">
+                <div class="allergy-header" onclick="toggleCard(this)">
+                    <div class="allergy-icon">🥜</div>
+                    <div class="allergy-info">
+                        <div class="allergy-name">Peanuts</div>
+                        <div class="allergy-hint">
+                            <span>Tap to show translations</span>
+                            <span>🔽</span>
+                        </div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="translations">
+                    <div class="translations-content">
+                        <div class="translation-item">
+                            <div class="lang-label">🇪🇸 Spanish</div>
+                            <div class="translation-text">Tengo alergia a los cacahuetes. ¿Contiene esto cacahuetes?</div>
+                            <div class="translation-pronounce">TEN-go ah-LER-hee-ah ah los ka-ka-WA-tes. ¿Kon-TEE-neh ES-to ka-ka-WA-tes?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇫🇷 French</div>
+                            <div class="translation-text">Je suis allergique aux arachides. Est-ce que ceci contient des arachides ?</div>
+                            <div class="translation-pronounce">Zher swee za-lair-ZHEEK ohz ah-rah-SHEED. Es-ker ser-see kon-tee-AN day ah-rah-SHEED?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇩🇪 German</div>
+                            <div class="translation-text">Ich bin allergisch gegen Erdnüsse. Enthält dies Erdnüsse?</div>
+                            <div class="translation-pronounce">Ikh bin ah-LAIR-gish GAY-gen AIRD-noo-suh. En-THELT dees AIRD-noo-suh?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇯🇵 Japanese</div>
+                            <div class="translation-text">ピーナッツアレルギーです。この料理にピーナッツは入っていますか？</div>
+                            <div class="translation-pronounce">Pee-nattsu ah-reru-gee desu. Koh-no ryoh-ree nee pee-nattsu wa hai-tteh ee-mahs kah?</div>
+                        </div>
+                        <div class="translation-item rtl">
+                            <div class="lang-label">🇦🇪 Arabic</div>
+                            <div class="translation-text">أعاني من حساسية الفول السوداني. هل يحتوي هذا على الفول السوداني؟</div>
+                            <div class="translation-pronounce">Aa-na-nee min has-sa-see-yat al-ful as-saw-da-nee. Hal yahtawee ha-tha ala al-ful as-saw-da-nee?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tree Nuts -->
+            <div class="allergy-card" data-allergy="treenuts">
+                <div class="allergy-header" onclick="toggleCard(this)">
+                    <div class="allergy-icon">🌰</div>
+                    <div class="allergy-info">
+                        <div class="allergy-name">Tree Nuts</div>
+                        <div class="allergy-hint">
+                            <span>Tap to show translations</span>
+                            <span>🔽</span>
+                        </div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="translations">
+                    <div class="translations-content">
+                        <div class="translation-item">
+                            <div class="lang-label">🇪🇸 Spanish</div>
+                            <div class="translation-text">Tengo alergia a los frutos secos/nueces de árbol.</div>
+                            <div class="translation-pronounce">TEN-go ah-LER-hee-ah ah los FROO-tos SEH-kos/NWAY-ses deh AR-bol.</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇫🇷 French</div>
+                            <div class="translation-text">Je suis allergique aux fruits à coque.</div>
+                            <div class="translation-pronounce">Zher swee za-lair-ZHEEK ohz frwee ah KOK.</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇩🇪 German</div>
+                            <div class="translation-text">Ich bin allergisch gegen Baumnüsse/Schalenfrüchte.</div>
+                            <div class="translation-pronounce">Ikh bin ah-LAIR-gish GAY-gen BOWM-noo-suh/SHA-len-frookh-tuh.</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇯🇵 Japanese</div>
+                            <div class="translation-text">木の実アレルギーです。この料理に木の実は入っていますか？</div>
+                            <div class="translation-pronounce">Kee no mee ah-reru-gee desu. Koh-no ryoh-ree nee kee no mee wa hai-tteh ee-mahs kah?</div>
+                        </div>
+                        <div class="translation-item rtl">
+                            <div class="lang-label">🇦🇪 Arabic</div>
+                            <div class="translation-text">أعاني من حساسية المكسرات. هل يحتوي هذا على المكسرات؟</div>
+                            <div class="translation-pronounce">Aa-na-nee min has-sa-see-yat al-muk-sa-raat. Hal yahtawee ha-tha ala al-muk-sa-raat?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shellfish -->
+            <div class="allergy-card" data-allergy="shellfish">
+                <div class="allergy-header" onclick="toggleCard(this)">
+                    <div class="allergy-icon">🦐</div>
+                    <div class="allergy-info">
+                        <div class="allergy-name">Shellfish</div>
+                        <div class="allergy-hint">
+                            <span>Tap to show translations</span>
+                            <span>🔽</span>
+                        </div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="translations">
+                    <div class="translations-content">
+                        <div class="translation-item">
+                            <div class="lang-label">🇪🇸 Spanish</div>
+                            <div class="translation-text">Tengo alergia a los mariscos. ¿Contiene esto mariscos?</div>
+                            <div class="translation-pronounce">TEN-go ah-LER-hee-ah ah los mah-REE-skos. ¿Kon-TEE-neh ES-to mah-REE-skos?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇫🇷 French</div>
+                            <div class="translation-text">Je suis allergique aux fruits de mer et aux crustacés.</div>
+                            <div class="translation-pronounce">Zher swee za-lair-ZHEEK ohz frwee der mair ay ohz kroos-tah-SAY.</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇩🇪 German</div>
+                            <div class="translation-text">Ich bin allergisch gegen Schalentiere/Krustentiere.</div>
+                            <div class="translation-pronounce">Ikh bin ah-LAIR-gish GAY-gen SHA-len-tee-ruh/KROOS-ten-tee-ruh.</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇯🇵 Japanese</div>
+                            <div class="translation-text">貝アレルギーです。この料理に貝は入っていますか？</div>
+                            <div class="translation-pronounce">Kah-ee ah-reru-gee desu. Koh-no ryoh-ree nee kah-ee wa hai-tteh ee-mahs kah?</div>
+                        </div>
+                        <div class="translation-item rtl">
+                            <div class="lang-label">🇦🇪 Arabic</div>
+                            <div class="translation-text">أعاني من حساسية المحار والقشريات. هل يحتوي هذا على المحار؟</div>
+                            <div class="translation-pronounce">Aa-na-nee min has-sa-see-yat al-mu-har wal-kash-ree-yat. Hal yahtawee ha-tha ala al-mu-har?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fish -->
+            <div class="allergy-card" data-allergy="fish">
+                <div class="allergy-header" onclick="toggleCard(this)">
+                    <div class="allergy-icon">🐟</div>
+                    <div class="allergy-info">
+                        <div class="allergy-name">Fish</div>
+                        <div class="allergy-hint">
+                            <span>Tap to show translations</span>
+                            <span>🔽</span>
+                        </div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="translations">
+                    <div class="translations-content">
+                        <div class="translation-item">
+                            <div class="lang-label">🇪🇸 Spanish</div>
+                            <div class="translation-text">Tengo alergia al pescado. ¿Contiene esto pescado?</div>
+                            <div class="translation-pronounce">TEN-go ah-LER-hee-ah al pes-KAH-doh. ¿Kon-TEE-neh ES-to pes-KAH-doh?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇫🇷 French</div>
+                            <div class="translation-text">Je suis allergique au poisson. Est-ce que ceci contient du poisson ?</div>
+                            <div class="translation-pronounce">Zher swee za-lair-ZHEEK oh pwah-SOHN. Es-ker ser-see kon-tee-AN dew pwah-SOHN?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇩🇪 German</div>
+                            <div class="translation-text">Ich bin allergisch gegen Fisch. Enthält dies Fisch?</div>
+                            <div class="translation-pronounce">Ikh bin ah-LAIR-gish GAY-gen fish. En-THELT dees fish?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇯🇵 Japanese</div>
+                            <div class="translation-text">魚アレルギーです。この料理に魚は入っていますか？</div>
+                            <div class="translation-pronounce">Sah-kah-nah ah-reru-gee desu. Koh-no ryoh-ree nee sah-kah-nah wa hai-tteh ee-mahs kah?</div>
+                        </div>
+                        <div class="translation-item rtl">
+                            <div class="lang-label">🇦🇪 Arabic</div>
+                            <div class="translation-text">أعاني من حساسية السمك. هل يحتوي هذا على السمك؟</div>
+                            <div class="translation-pronounce">Aa-na-nee min has-sa-see-yat as-samak. Hal yahtawee ha-tha ala as-samak?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Eggs -->
+            <div class="allergy-card" data-allergy="eggs">
+                <div class="allergy-header" onclick="toggleCard(this)">
+                    <div class="allergy-icon">🥚</div>
+                    <div class="allergy-info">
+                        <div class="allergy-name">Eggs</div>
+                        <div class="allergy-hint">
+                            <span>Tap to show translations</span>
+                            <span>🔽</span>
+                        </div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="translations">
+                    <div class="translations-content">
+                        <div class="translation-item">
+                            <div class="lang-label">🇪🇸 Spanish</div>
+                            <div class="translation-text">Tengo alergia a los huevos. ¿Contiene esto huevos?</div>
+                            <div class="translation-pronounce">TEN-go ah-LER-hee-ah ah los WAY-vos. ¿Kon-TEE-neh ES-to WAY-vos?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇫🇷 French</div>
+                            <div class="translation-text">Je suis allergique aux œufs. Est-ce que ceci contient des œufs ?</div>
+                            <div class="translation-pronounce">Zher swee za-lair-ZHEEK ohz OOF. Es-ker ser-see kon-tee-AN dayz OOF?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇩🇪 German</div>
+                            <div class="translation-text">Ich bin allergisch gegen Eier. Enthält dies Eier?</div>
+                            <div class="translation-pronounce">Ikh bin ah-LAIR-gish GAY-gen EYE-er. En-THELT dees EYE-er?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇯🇵 Japanese</div>
+                            <div class="translation-text">卵アレルギーです。この料理に卵は入っていますか？</div>
+                            <div class="translation-pronounce">Tah-mah-go ah-reru-gee desu. Koh-no ryoh-ree nee tah-mah-go wa hai-tteh ee-mahs kah?</div>
+                        </div>
+                        <div class="translation-item rtl">
+                            <div class="lang-label">🇦🇪 Arabic</div>
+                            <div class="translation-text">أعاني من حساسية البيض. هل يحتوي هذا على البيض؟</div>
+                            <div class="translation-pronounce">Aa-na-nee min has-sa-see-yat al-bayd. Hal yahtawee ha-tha ala al-bayd?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dairy/Milk -->
+            <div class="allergy-card" data-allergy="dairy">
+                <div class="allergy-header" onclick="toggleCard(this)">
+                    <div class="allergy-icon">🥛</div>
+                    <div class="allergy-info">
+                        <div class="allergy-name">Dairy / Milk</div>
+                        <div class="allergy-hint">
+                            <span>Tap to show translations</span>
+                            <span>🔽</span>
+                        </div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="translations">
+                    <div class="translations-content">
+                        <div class="translation-item">
+                            <div class="lang-label">🇪🇸 Spanish</div>
+                            <div class="translation-text">Tengo alergia a la leche/lácteos. ¿Contiene esto leche?</div>
+                            <div class="translation-pronounce">TEN-go ah-LER-hee-ah ah lah LEH-cheh/LAK-teh-ohs. ¿Kon-TEE-neh ES-to LEH-cheh?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇫🇷 French</div>
+                            <div class="translation-text">Je suis allergique au lait/produits laitiers. Est-ce que ceci contient du lait ?</div>
+                            <div class="translation-pronounce">Zher swee za-lair-ZHEEK oh lay/pro-dwee lay-tee-AY. Es-ker ser-see kon-tee-AN dew lay?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇩🇪 German</div>
+                            <div class="translation-text">Ich bin allergisch gegen Milch/Milchprodukte. Enthält dies Milch?</div>
+                            <div class="translation-pronounce">Ikh bin ah-LAIR-gish GAY-gen milkh/MILKH-pro-dook-tuh. En-THELT dees milkh?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇯🇵 Japanese</div>
+                            <div class="translation-text">乳製品アレルギーです。この料理に乳製品は入っていますか？</div>
+                            <div class="translation-pronounce">Nyoo-seh-heen ah-reru-gee desu. Koh-no ryoh-ree nee nyoo-seh-heen wa hai-tteh ee-mahs kah?</div>
+                        </div>
+                        <div class="translation-item rtl">
+                            <div class="lang-label">🇦🇪 Arabic</div>
+                            <div class="translation-text">أعاني من حساسية الألبان/الحليب. هل يحتوي هذا على الألبان؟</div>
+                            <div class="translation-pronounce">Aa-na-nee min has-sa-see-yat al-al-bahn/al-ha-leeb. Hal yahtawee ha-tha ala al-al-bahn?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wheat/Gluten -->
+            <div class="allergy-card" data-allergy="gluten">
+                <div class="allergy-header" onclick="toggleCard(this)">
+                    <div class="allergy-icon">🌾</div>
+                    <div class="allergy-info">
+                        <div class="allergy-name">Wheat / Gluten</div>
+                        <div class="allergy-hint">
+                            <span>Tap to show translations</span>
+                            <span>🔽</span>
+                        </div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="translations">
+                    <div class="translations-content">
+                        <div class="translation-item">
+                            <div class="lang-label">🇪🇸 Spanish</div>
+                            <div class="translation-text">Tengo alergia al trigo/gluten. ¿Contiene esto trigo o gluten?</div>
+                            <div class="translation-pronounce">TEN-go ah-LER-hee-ah al TREE-goh/GLOO-ten. ¿Kon-TEE-neh ES-to TREE-goh oh GLOO-ten?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇫🇷 French</div>
+                            <div class="translation-text">Je suis allergique au blé/gluten. Est-ce que ceci contient du blé ?</div>
+                            <div class="translation-pronounce">Zher swee za-lair-ZHEEK oh blay/GLOO-tan. Es-ker ser-see kon-tee-AN dew blay?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇩🇪 German</div>
+                            <div class="translation-text">Ich bin allergisch gegen Weizen/Gluten. Enthält dies Weizen?</div>
+                            <div class="translation-pronounce">Ikh bin ah-LAIR-gish GAY-gen VY-tsen/GLOO-ten. En-THELT dees VY-tsen?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇯🇵 Japanese</div>
+                            <div class="translation-text">小麦/グルテンアレルギーです。この料理に小麦は入っていますか？</div>
+                            <div class="translation-pronounce">Koh-moo-gee/goo-roo-ten ah-reru-gee desu. Koh-no ryoh-ree nee koh-moo-gee wa hai-tteh ee-mahs kah?</div>
+                        </div>
+                        <div class="translation-item rtl">
+                            <div class="lang-label">🇦🇪 Arabic</div>
+                            <div class="translation-text">أعاني من حساسية القمح/الغلوتين. هل يحتوي هذا على القمح؟</div>
+                            <div class="translation-pronounce">Aa-na-nee min has-sa-see-yat al-qamh/al-ghloo-teen. Hal yahtawee ha-tha ala al-qamh?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soy -->
+            <div class="allergy-card" data-allergy="soy">
+                <div class="allergy-header" onclick="toggleCard(this)">
+                    <div class="allergy-icon">🫘</div>
+                    <div class="allergy-info">
+                        <div class="allergy-name">Soy</div>
+                        <div class="allergy-hint">
+                            <span>Tap to show translations</span>
+                            <span>🔽</span>
+                        </div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="translations">
+                    <div class="translations-content">
+                        <div class="translation-item">
+                            <div class="lang-label">🇪🇸 Spanish</div>
+                            <div class="translation-text">Tengo alergia a la soja. ¿Contiene esto soja?</div>
+                            <div class="translation-pronounce">TEN-go ah-LER-hee-ah ah lah SOH-hah. ¿Kon-TEE-neh ES-to SOH-hah?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇫🇷 French</div>
+                            <div class="translation-text">Je suis allergique au soja. Est-ce que ceci contient du soja ?</div>
+                            <div class="translation-pronounce">Zher swee za-lair-ZHEEK oh soh-ZHAH. Es-ker ser-see kon-tee-AN dew soh-ZHAH?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇩🇪 German</div>
+                            <div class="translation-text">Ich bin allergisch gegen Soja. Enthält dies Soja?</div>
+                            <div class="translation-pronounce">Ikh bin ah-LAIR-gish GAY-gen ZOH-yah. En-THELT dees ZOH-yah?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇯🇵 Japanese</div>
+                            <div class="translation-text">大豆アレルギーです。この料理に大豆は入っていますか？</div>
+                            <div class="translation-pronounce">Dah-ee-zoo ah-reru-gee desu. Koh-no ryoh-ree nee dah-ee-zoo wa hai-tteh ee-mahs kah?</div>
+                        </div>
+                        <div class="translation-item rtl">
+                            <div class="lang-label">🇦🇪 Arabic</div>
+                            <div class="translation-text">أعاني من حساسية فول الصويا. هل يحتوي هذا على فول الصويا؟</div>
+                            <div class="translation-pronounce">Aa-na-nee min has-sa-see-yat fool as-soy-yah. Hal yahtawee ha-tha ala fool as-soy-yah?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sesame -->
+            <div class="allergy-card" data-allergy="sesame">
+                <div class="allergy-header" onclick="toggleCard(this)">
+                    <div class="allergy-icon">🍞</div>
+                    <div class="allergy-info">
+                        <div class="allergy-name">Sesame</div>
+                        <div class="allergy-hint">
+                            <span>Tap to show translations</span>
+                            <span>🔽</span>
+                        </div>
+                    </div>
+                    <div class="expand-icon">▼</div>
+                </div>
+                <div class="translations">
+                    <div class="translations-content">
+                        <div class="translation-item">
+                            <div class="lang-label">🇪🇸 Spanish</div>
+                            <div class="translation-text">Tengo alergia al sésamo. ¿Contiene esto sésamo?</div>
+                            <div class="translation-pronounce">TEN-go ah-LER-hee-ah al SEH-sah-moh. ¿Kon-TEE-neh ES-to SEH-sah-moh?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇫🇷 French</div>
+                            <div class="translation-text">Je suis allergique au sésame. Est-ce que ceci contient du sésame ?</div>
+                            <div class="translation-pronounce">Zher swee za-lair-ZHEEK oh say-ZAM. Es-ker ser-see kon-tee-AN dew say-ZAM?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇩🇪 German</div>
+                            <div class="translation-text">Ich bin allergisch gegen Sesam. Enthält dies Sesam?</div>
+                            <div class="translation-pronounce">Ikh bin ah-LAIR-gish GAY-gen ZAY-zam. En-THELT dees ZAY-zam?</div>
+                        </div>
+                        <div class="translation-item">
+                            <div class="lang-label">🇯🇵 Japanese</div>
+                            <div class="translation-text">ごまアレルギーです。この料理にごまは入っていますか？</div>
+                            <div class="translation-pronounce">Goh-mah ah-reru-gee desu. Koh-no ryoh-ree nee goh-mah wa hai-tteh ee-mahs kah?</div>
+                        </div>
+                        <div class="translation-item rtl">
+                            <div class="lang-label">🇦🇪 Arabic</div>
+                            <div class="translation-text">أعاني من حساسية السمسم. هل يحتوي هذا على السمسم؟</div>
+                            <div class="translation-pronounce">Aa-na-nee min has-sa-see-yat as-sam-sum. Hal yahtawee ha-tha ala as-sam-sum?</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <span class="disclaimer-icon">⚠️</span>
+            <div class="disclaimer-text">
+                <strong>Important Disclaimer</strong>
+                Translations are provided for reference only and may not be 100% accurate. Always verify with a native speaker when possible. Carry an epinephrine auto-injector if prescribed, and seek immediate medical attention for severe allergic reactions.
+            </div>
+        </div>
+
+        <div class="spacer"></div>
+    </div>
+
+    <script>
+        let allExpanded = false;
+
+        function toggleCard(header) {
+            const card = header.parentElement;
+            card.classList.toggle('expanded');
+            
+            // Update hint text
+            const hint = header.querySelector('.allergy-hint span:first-child');
+            if (card.classList.contains('expanded')) {
+                hint.textContent = 'Tap to hide translations';
+            } else {
+                hint.textContent = 'Tap to show translations';
+            }
+            
+            updateExpandButton();
+        }
+
+        function toggleAll() {
+            const cards = document.querySelectorAll('.allergy-card');
+            const btn = document.getElementById('expandAllBtn');
+            const btnText = document.getElementById('expandText');
+            
+            allExpanded = !allExpanded;
+            
+            cards.forEach(card => {
+                if (allExpanded) {
+                    card.classList.add('expanded');
+                    card.querySelector('.allergy-hint span:first-child').textContent = 'Tap to hide translations';
+                } else {
+                    card.classList.remove('expanded');
+                    card.querySelector('.allergy-hint span:first-child').textContent = 'Tap to show translations';
+                }
+            });
+            
+            if (allExpanded) {
+                btn.classList.add('active');
+                btnText.textContent = 'Hide All Languages';
+            } else {
+                btn.classList.remove('active');
+                btnText.textContent = 'Show All Languages';
+            }
+        }
+
+        function updateExpandButton() {
+            const cards = document.querySelectorAll('.allergy-card');
+            const expandedCards = document.querySelectorAll('.allergy-card.expanded');
+            const btn = document.getElementById('expandAllBtn');
+            const btnText = document.getElementById('expandText');
+            
+            if (expandedCards.length === cards.length) {
+                allExpanded = true;
+                btn.classList.add('active');
+                btnText.textContent = 'Hide All Languages';
+            } else if (expandedCards.length === 0) {
+                allExpanded = false;
+                btn.classList.remove('active');
+                btnText.textContent = 'Show All Languages';
+            }
+        }
+
+        function printCards() {
+            window.print();
+        }
+    </script>
+</body>
+</html>
