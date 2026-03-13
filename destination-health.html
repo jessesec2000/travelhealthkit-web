@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Destination Health Brief - TravelHealthKit</title>
+    <link rel="stylesheet" href="shared-nav.css">
     <style>
         * {
             margin: 0;
@@ -553,8 +554,12 @@
         }
     </style>
 </head>
-<body>
+<body class="has-bottom-nav">
     <div class="container">
+        <div class="medical-disclaimer">
+            <strong>⚠️ Medical Disclaimer</strong>
+            This information is for educational purposes only. Always consult a healthcare professional for medical advice.
+        </div>
         <!-- Back Navigation -->
         <div class="back-nav" onclick="window.location.href='index.html'">
             <span>←</span>
@@ -1966,5 +1971,11 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
+<nav class="bottom-nav">
+        <a href="index.html" class="bottom-nav-item"><span class="bottom-nav-icon">🏠</span><span>Home</span></a>
+        <a href="search.html" class="bottom-nav-item"><span class="bottom-nav-icon">🔍</span><span>Search</span></a>
+        <a href="adventure-levels.html" class="bottom-nav-item"><span class="bottom-nav-icon">🎯</span><span>Levels</span></a>
+        <a href="emergency-protocols.html" class="bottom-nav-item emergency"><span class="bottom-nav-icon">🆘</span><span>Emergency</span></a>
+    </nav>
 </body>
 </html>
