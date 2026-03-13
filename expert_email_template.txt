@@ -1,0 +1,41 @@
+Subject: TravelHealthKit Expert Panel - Re-Review Request (Major Updates)
+
+Dear [Expert Name],
+
+Thank you for your valuable feedback on the first version of TravelHealthKit. Based on your input, we've made significant expansions and need your expert eyes on the updated app.
+
+WHAT'S NEW (19 pages total):
+
+HEALTH CONTENT:
+• Infectious Disease Guide - Malaria, dengue, Zika, altitude illness + prevention
+• Environmental Risks - HAPE/HACE, heat stroke, hypothermia, wildlife
+• Food & Water Safety - Travelers diarrhea treatment, "boil/cook/peel" rule
+• Pre-Travel Consultation - Vaccination timeline, doctor visit checklist
+• Destination Health Briefs - Nepal, Thailand, Peru, Tanzania, Costa Rica, India
+• Pediatric Travel Medicine - Age-specific guidance for kids
+
+TOOLS:
+• Allergy Translation Cards - 9 allergies, 5 languages
+• Satellite Communicator Guide - Garmin, Spot, Zoleo, ACR comparison
+• Country Utilities - 24 countries, plug types, emergency numbers, embassies
+
+ADVENTURE LEVELS (10 activities each):
+• Level 1: Extreme (8000m peaks, BASE jumping, polar expeditions)
+• Level 2: Challenging (trekking, diving, climbing)
+• Level 3: Casual (hiking, safaris, bike tours)
+• Level 4: Family (Disney, cruises, resorts)
+
+APP: https://travelhealthkit.onrender.com
+
+REVIEW FOCUS FOR YOU:
+[Customize based on expert - see attached document]
+
+Please review by March 20th. Your feedback will shape our beta launch.
+
+Specific questions attached.
+
+Thank you!
+Jesse
+
+---
+ATTACHMENT: Expert_Panel_Review_Questions.pdf
