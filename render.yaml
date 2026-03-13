@@ -1,9 +1,4 @@
 services:
   - type: static
     name: travelhealthkit
-    env: static
-    buildCommand: "yarn install && yarn build"
-    staticPublishPath: .
-    envVars:
-      - key: NODE_VERSION
-        value: 18
+    staticPublishPath: ./
