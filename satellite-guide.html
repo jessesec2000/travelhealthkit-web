@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satellite Communicator Guide - TravelHealthKit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            color: white;
+            padding: 24px 20px 32px 20px;
+            position: relative;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.9);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 20px;
+            padding: 8px 0;
+        }
+
+        .back-button:hover {
+            color: white;
+        }
+
+        .header-title {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Content */
+        .content {
+            padding: 24px 20px;
+        }
+
+        /* Section Styles */
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1A1A1A;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            font-size: 24px;
+        }
+
+        .section-desc {
+            font-size: 14px;
+            color: #6B7280;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        /* Device Cards */
+        .device-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 4px solid #FF6B35;
+        }
+
+        .device-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .device-icon {
+            font-size: 40px;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .device-info {
+            flex: 1;
+        }
+
+        .device-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #1A1A1A;
+        }
+
+        .device-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: #FF6B35;
+            margin-bottom: 4px;
+        }
+
+        .device-sub {
+            font-size: 13px;
+            color: #6B7280;
+        }
+
+        .device-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .feature-tag {
+            font-size: 12px;
+            background: #F3F4F6;
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: #374151;
+        }
+
+        .feature-tag.highlight {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            color: white;
+        }
+
+        .device-bestfor {
+            font-size: 13px;
+            color: #6B7280;
+            padding: 10px;
+            background: #F9FAFB;
+            border-radius: 8px;
+        }
+
+        .device-bestfor strong {
+            color: #1A1A1A;
+        }
+
+        /* Decision Helper */
+        .decision-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .decision-question {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1A1A1A;
+        }
+
+        .decision-answer {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .decision-answer strong {
+            color: #FF6B35;
+        }
+
+        /* How They Work */
+        .step-card {
+            display: flex;
+            gap: 16px;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .step-desc {
+            font-size: 14px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+
+        /* SOS Section */
+        .sos-header {
+            background: #DC2626;
+            color: white;
+            padding: 20px;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sos-icon {
+            font-size: 32px;
+        }
+
+        .sos-title {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .sos-content {
+            background: white;
+            border-radius: 0 0 16px 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .sos-timeline {
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .sos-timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #E5E7EB;
+        }
+
+        .sos-step {
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .sos-step:last-child {
+            padding-bottom: 0;
+        }
+
+        .sos-step::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            background: #DC2626;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 0 2px #DC2626;
+        }
+
+        .sos-step-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .sos-step-desc {
+            font-size: 13px;
+            color: #6B7280;
+        }
+
+        /* Limitations */
+        .warning-box {
+            background: #FEF3C7;
+            border-left: 4px solid #F59E0B;
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+        }
+
+        .warning-box.danger {
+            background: #FEE2E2;
+            border-left-color: #DC2626;
+        }
+
+        .warning-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #92400E;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning-box.danger .warning-title {
+            color: #991B1B;
+        }
+
+        .warning-text {
+            font-size: 14px;
+            color: #78350F;
+            line-height: 1.5;
+        }
+
+        .warning-box.danger .warning-text {
+            color: #7F1D1D;
+        }
+
+        /* Affiliate Disclaimer */
+        .disclaimer {
+            background: #F3F4F6;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 12px;
+            color: #6B7280;
+            line-height: 1.5;
+            margin-top: 32px;
+        }
+
+        .disclaimer strong {
+            color: #374151;
+        }
+
+        /* Bottom spacer */
+        .spacer {
+            height: 40px;
+        }
+
+        /* Quick Summary Box */
+        .summary-box {
+            background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .summary-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1E40AF;
+            margin-bottom: 12px;
+        }
+
+        .summary-item {
+            font-size: 14px;
+            color: #1E40AF;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .summary-item::before {
+            content: '•';
+            position: absolute;
+            left: 6px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <a href="index.html" class="back-button">
+                ← Back to Home
+            </a>
+            <h1 class="header-title">Satellite Communicator Guide</h1>
+            <p class="header-subtitle">Stay connected in remote locations</p>
+        </div>
+
+        <div class="content">
+            <!-- Quick Summary -->
+            <div class="summary-box">
+                <div class="summary-title">📡 Why You Need One</div>
+                <div class="summary-item">Cell phones don't work in wilderness areas</div>
+                <div class="summary-item">SOS feature contacts emergency responders directly</div>
+                <div class="summary-item">Send messages to family even without cell service</div>
+                <div class="summary-item">Get weather updates in remote locations</div>
+            </div>
+
+            <!-- Device Comparison Section -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">📱</span>
+                    Device Comparison
+                </h2>
+                <p class="section-desc">Compare the top satellite communicators for outdoor adventures. All prices are approximate and subject to change.</p>
+
+                <!-- Garmin inReach Mini 2 -->
+                <div class="device-card">
+                    <div class="device-header">
+                        <div class="device-icon">📟</div>
+                        <div class="device-info">
+                            <div class="device-name">Garmin inReach Mini 2</div>
+                            <div class="device-price">$399 - $449</div>
+                            <div class="device-sub">Subscription: $14.95 - $64.95/month</div>
+                        </div>
+                    </div>
+                    <div class="device-features">
+                        <span class="feature-tag highlight">2-Way Messaging</span>
+                        <span class="feature-tag highlight">SOS</span>
+                        <span class="feature-tag">Weather</span>
+                        <span class="feature-tag">Tracking</span>
+                        <span class="feature-tag">Bluetooth</span>
+                    </div>
+                    <div class="device-bestfor">
+                        <strong>Best for:</strong> Backpackers, trail runners, and ultralight adventurers who need a compact, reliable device that pairs with their phone.
+                    </div>
+                </div>
+
+                <!-- Garmin inReach Messenger -->
+                <div class="device-card">
+                    <div class="device-header">
+                        <div class="device-icon">💬</div>
+                        <div class="device-info">
+                            <div class="device-name">Garmin inReach Messenger</div>
+                            <div class="device-price">$299 - $349</div>
+                            <div class="device-sub">Subscription: $14.95 - $64.95/month</div>
+                        </div>
+                    </div>
+                    <div class="device-features">
+                        <span class="feature-tag highlight">2-Way Messaging</span>
+                        <span class="feature-tag highlight">SOS</span>
+                        <span class="feature-tag">Group Messaging</span>
+                        <span class="feature-tag">Reverse Charging</span>
+                        <span class="feature-tag">Long Battery</span>
+                    </div>
+                    <div class="device-bestfor">
+                        <strong>Best for:</strong> Group travelers, families, and those who prioritize messaging over GPS navigation features.
+                    </div>
+                </div>
+
+                <!-- Spot X -->
+                <div class="device-card">
+                    <div class="device-header">
+                        <div class="device-icon">📡</div>
+                        <div class="device-info">
+                            <div class="device-name">Spot X</div>
+                            <div class="device-price">$249 - $299</div>
+                            <div class="device-sub">Subscription: $11.95 - $39.95/month</div>
+                        </div>
+                    </div>
+                    <div class="device-features">
+                        <span class="feature-tag highlight">2-Way Messaging</span>
+                        <span class="feature-tag highlight">SOS</span>
+                        <span class="feature-tag">Keyboard</span>
+                        <span class="feature-tag">Tracking</span>
+                        <span class="feature-tag">SOS Insurance</span>
+                    </div>
+                    <div class="device-bestfor">
+                        <strong>Best for:</strong> Budget-conscious adventurers who want 2-way messaging without a premium price tag.
+                    </div>
+                </div>
+
+                <!-- Zoleo Satellite Communicator -->
+                <div class="device-card">
+                    <div class="device-header">
+                        <div class="device-icon">🌍</div>
+                        <div class="device-info">
+                            <div class="device-name">Zoleo Satellite Communicator</div>
+                            <div class="device-price">$199 - $249</div>
+                            <div class="device-sub">Subscription: $20 - $80/month</div>
+                        </div>
+                    </div>
+                    <div class="device-features">
+                        <span class="feature-tag highlight">2-Way Messaging</span>
+                        <span class="feature-tag highlight">SOS</span>
+                        <span class="feature-tag">Location Share</span>
+                        <span class="feature-tag">Weather</span>
+                        <span class="feature-tag">App-Based</span>
+                    </div>
+                    <div class="device-bestfor">
+                        <strong>Best for:</strong> International travelers who need seamless messaging across cellular, WiFi, and satellite networks.
+                    </div>
+                </div>
+
+                <!-- ACR ResQLink PLB -->
+                <div class="device-card">
+                    <div class="device-header">
+                        <div class="device-icon">🚨</div>
+                        <div class="device-info">
+                            <div class="device-name">ACR ResQLink PLB</div>
+                            <div class="device-price">$275 - $375</div>
+                            <div class="device-sub">Subscription: No monthly fees</div>
+                        </div>
+                    </div>
+                    <div class="device-features">
+                        <span class="feature-tag highlight">SOS Only</span>
+                        <span class="feature-tag">No Fees</span>
+                        <span class="feature-tag">Strobe Light</span>
+                        <span class="feature-tag">Global Coverage</span>
+                        <span class="feature-tag">24hr Battery</span>
+                    </div>
+                    <div class="device-bestfor">
+                        <strong>Best for:</strong> Serious adventurers who only need emergency rescue and don't want ongoing subscription costs.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Which One Should I Buy? -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🤔</span>
+                    Which One Should I Buy?
+                </h2>
+
+                <div class="decision-card">
+                    <div class="decision-question">💰 What's your budget priority?</div>
+                    <div class="decision-answer">
+                        <strong>Lowest total cost:</strong> ACR ResQLink (no monthly fees)<br>
+                        <strong>Best value with messaging:</strong> Zoleo or Spot X<br>
+                        <strong>Premium reliability:</strong> Garmin inReach series
+                    </div>
+                </div>
+
+                <div class="decision-card">
+                    <div class="decision-question">🎒 What activity will you use it for?</div>
+                    <div class="decision-answer">
+                        <strong>Backpacking/Hiking:</strong> inReach Mini 2 (lightweight)<br>
+                        <strong>Group trips:</strong> inReach Messenger (group messaging)<br>
+                        <strong>International travel:</strong> Zoleo (global network switching)<br>
+                        <strong>Maritime/Boating:</strong> ACR ResQLink (no fees, waterproof)<br>
+                        <strong>General outdoor:</strong> Spot X (balanced features)
+                    </div>
+                </div>
+
+                <div class="decision-card">
+                    <div class="decision-question">📱 How important is 2-way messaging?</div>
+                    <div class="decision-answer">
+                        <strong>Critical:</strong> Any Garmin inReach, Spot X, or Zoleo<br>
+                        <strong>Not needed:</strong> ACR ResQLink (SOS only, no messaging)<br><br>
+                        <em>Consider: Can you communicate your situation to rescuers if needed?</em>
+                    </div>
+                </div>
+
+                <div class="decision-card">
+                    <div class="decision-question">🗺️ Do you need GPS navigation?</div>
+                    <div class="decision-answer">
+                        <strong>Yes, built-in GPS:</strong> inReach Mini 2 (full navigation)<br>
+                        <strong>Phone-based GPS okay:</strong> inReach Messenger, Zoleo<br>
+                        <strong>No GPS needed:</strong> Spot X, ACR ResQLink
+                    </div>
+                </div>
+            </div>
+
+            <!-- How They Work -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">🛰️</span>
+                    How They Work
+                </h2>
+                <p class="section-desc">Understanding satellite communication helps you use your device effectively in the field.</p>
+
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Satellite Constellation</div>
+                        <div class="step-desc">These devices connect to satellites in low Earth orbit (Iridium network) or geostationary satellites. The Iridium network uses 66 satellites for global coverage including poles.</div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Message Transmission</div>
+                        <div class="step-desc">Your device sends signals to the nearest satellite, which relays it to ground stations. Messages typically send within seconds to minutes, depending on satellite visibility.</div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">Clear View Required</div>
+                        <div class="step-desc">Satellites are in space—your device needs a clear view of the sky. Dense forest canopy, deep canyons, or buildings can block signals and delay transmission.</div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-title">Global Coverage</div>
+                        <div class="step-desc">Unlike cell phones that need towers, satellite communicators work anywhere on Earth. This includes oceans, polar regions, deserts, and remote wilderness areas.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOS Button Section -->
+            <div class="section">
+                <div class="sos-header">
+                    <span class="sos-icon">🆘</span>
+                    <span class="sos-title">What Happens When You Press SOS?</span>
+                </div>
+                <div class="sos-content">
+                    <div class="sos-timeline">
+                        <div class="sos-step">
+                            <div class="sos-step-title">You Press the SOS Button</div>
+                            <div class="sos-step-desc">Most devices require holding the button for 3-5 seconds to prevent accidental activation.</div>
+                        </div>
+                        <div class="sos-step">
+                            <div class="sos-step-title">Emergency Signal Sent</div>
+                            <div class="sos-step-desc">Your device transmits your GPS location and emergency alert to the satellite network.</div>
+                        </div>
+                        <div class="sos-step">
+                            <div class="sos-step-title">24/7 Monitoring Center</div>
+                            <div class="sos-step-desc">Alert goes to a global emergency response coordination center (GEOS Alliance for most devices).</div>
+                        </div>
+                        <div class="sos-step">
+                            <div class="sos-step-title">Local Authorities Contacted</div>
+                            <div class="sos-step-desc">The monitoring center contacts the appropriate rescue service for your location (park rangers, coast guard, etc.).</div>
+                        </div>
+                        <div class="sos-step">
+                            <div class="sos-step-title">Two-Way Communication</div>
+                            <div class="sos-step-desc">If your device supports it, rescuers can message you for details: nature of emergency, number of people, injuries, etc.</div>
+                        </div>
+                        <div class="sos-step">
+                            <div class="sos-step-title">Help is Dispatched</div>
+                            <div class="sos-step-desc">Search and rescue teams are deployed to your GPS coordinates. Stay put if possible.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Limitations Section -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="section-icon">⚠️</span>
+                    Important Limitations
+                </h2>
+
+                <div class="warning-box danger">
+                    <div class="warning-title">🚨 Not 100% Reliable</div>
+                    <div class="warning-text">
+                        Satellite communication can fail. Dense tree cover, steep canyons, severe weather, or device malfunction can prevent signal transmission. Always have a backup plan and tell someone your itinerary.
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-title">🔋 Battery Life</div>
+                    <div class="warning-text">
+                        Most devices last 3-14 days depending on use. Cold weather drastically reduces battery life. Carry backup power banks and know your device's power-saving modes.
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-title">⏱️ Response Time</div>
+                    <div class="warning-text">
+                        Rescue can take hours or days depending on location, weather, and available resources. Your device calls for help—it doesn't guarantee immediate rescue.
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <div class="warning-title">💸 Subscription Required</div>
+                    <div class="warning-text">
+                        Most devices require an active subscription to function. If you cancel, you lose messaging capabilities. The ACR ResQLink is the exception—no fees, but no messaging either.
+                    </div>
+                </div>
+
+                <div class="warning-box danger">
+                    <div class="warning-title">🎯 Accuracy Limits</div>
+                    <div class="warning-text">
+                        GPS accuracy varies. In emergencies, stay visible and use signaling devices (whistle, mirror, bright clothing) to help rescuers locate you once they're in the area.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Affiliate Disclaimer -->
+            <div class="disclaimer">
+                <strong>Affiliate Disclosure:</strong> TravelHealthKit may earn a small commission if you purchase products through links on this page. This comes at no additional cost to you and helps support our mission to keep travelers safe. We only recommend products we believe in. Prices and subscription rates are subject to change—please verify current pricing with retailers before purchasing.
+            </div>
+
+            <div class="spacer"></div>
+        </div>
+    </div>
+</body>
+</html>
