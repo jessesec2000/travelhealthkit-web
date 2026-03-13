@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Environmental Risks - TravelHealthKit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #FF6B35;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            margin-bottom: 20px;
+            padding: 8px 0;
+        }
+
+        .back-button:hover {
+            color: #E55A2B;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 24px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #6B7280;
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            padding: 16px 20px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-content {
+            padding: 20px;
+        }
+
+        /* Risk Items */
+        .risk-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .risk-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .risk-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .risk-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-warning {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+
+        .badge-danger {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .badge-info {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+
+        .risk-desc {
+            font-size: 14px;
+            color: #4B5563;
+            margin-bottom: 12px;
+        }
+
+        .risk-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .risk-list li {
+            font-size: 14px;
+            color: #374151;
+            padding: 6px 0 6px 24px;
+            position: relative;
+        }
+
+        .risk-list li::before {
+            content: "•";
+            color: #FF6B35;
+            font-weight: bold;
+            position: absolute;
+            left: 8px;
+        }
+
+        /* Sub-sections */
+        .subsection {
+            margin-top: 16px;
+            padding: 16px;
+            background: #F9FAFB;
+            border-radius: 12px;
+        }
+
+        .subsection-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .subsection ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .subsection li {
+            font-size: 13px;
+            color: #4B5563;
+            padding: 4px 0;
+        }
+
+        /* Critical Alert Box */
+        .critical-alert {
+            background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin: 16px 0;
+        }
+
+        .critical-alert-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .critical-alert-text {
+            font-size: 13px;
+            line-height: 1.5;
+            opacity: 0.95;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: #FFF7ED;
+            border-left: 4px solid #F97316;
+            padding: 14px 16px;
+            border-radius: 0 12px 12px 0;
+            margin: 12px 0;
+        }
+
+        .warning-box-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #C2410C;
+            margin-bottom: 6px;
+        }
+
+        .warning-box-text {
+            font-size: 13px;
+            color: #7C2D12;
+        }
+
+        /* Comparison Table */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .comparison-box {
+            padding: 14px;
+            border-radius: 12px;
+        }
+
+        .comparison-box.warning {
+            background: #FEF3C7;
+        }
+
+        .comparison-box.danger {
+            background: #FEE2E2;
+        }
+
+        .comparison-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .comparison-box.warning .comparison-title {
+            color: #92400E;
+        }
+
+        .comparison-box.danger .comparison-title {
+            color: #991B1B;
+        }
+
+        .comparison-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .comparison-list li {
+            font-size: 12px;
+            padding: 3px 0;
+        }
+
+        .comparison-box.warning .comparison-list li {
+            color: #A16207;
+        }
+
+        .comparison-box.danger .comparison-list li {
+            color: #B91C1C;
+        }
+
+        /* Chart/Visual */
+        .visual-box {
+            background: #F0FDF4;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+        }
+
+        .visual-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #166534;
+            margin-bottom: 10px;
+        }
+
+        .layer-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 13px;
+        }
+
+        .layer-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .layer-base { background: #FECACA; }
+        .layer-insulating { background: #FED7AA; }
+        .layer-shell { background: #BFDBFE; }
+
+        /* Myth vs Fact */
+        .myth-fact {
+            margin-top: 12px;
+        }
+
+        .myth, .fact {
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .myth {
+            background: #FEE2E2;
+        }
+
+        .fact {
+            background: #DCFCE7;
+        }
+
+        .myth-label, .fact-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .myth-label { color: #991B1B; }
+        .fact-label { color: #166534; }
+
+        .myth-text, .fact-text {
+            font-size: 13px;
+        }
+
+        .myth-text { color: #7F1D1D; }
+        .fact-text { color: #14532D; }
+
+        /* Bottom spacer */
+        .bottom-spacer {
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Back Button -->
+        <a href="index.html" class="back-button">
+            ← Back to Home
+        </a>
+
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Environmental Risks</h1>
+            <p class="subtitle">Stay safe in extreme environments</p>
+        </div>
+
+        <!-- Altitude Risks -->
+        <div class="section-card">
+            <div class="section-header">
+                🏔️ Altitude Risks
+            </div>
+            <div class="section-content">
+                <!-- AMS -->
+                <div class="risk-item">
+                    <div class="risk-title">
+                        Acute Mountain Sickness (AMS)
+                        <span class="risk-badge badge-warning">Mild</span>
+                    </div>
+                    <p class="risk-desc">Most common altitude illness. Symptoms typically appear 6-12 hours after ascent.</p>
+                    <ul class="risk-list">
+                        <li>Headache</li>
+                        <li>Nausea/vomiting</li>
+                        <li>Fatigue, dizziness</li>
+                        <li>Loss of appetite</li>
+                        <li>Poor sleep</li>
+                    </ul>
+                </div>
+
+                <!-- HAPE -->
+                <div class="risk-item">
+                    <div class="risk-title">
+                        High Altitude Pulmonary Edema (HAPE)
+                        <span class="risk-badge badge-danger">Life-Threatening</span>
+                    </div>
+                    <p class="risk-desc">Fluid accumulation in the lungs. Can be fatal within hours.</p>
+                    <ul class="risk-list">
+                        <li>Shortness of breath at rest</li>
+                        <li>Tightness in chest</li>
+                        <li>Persistent cough (may produce frothy sputum)</li>
+                        <li>Extreme fatigue/weakness</li>
+                        <li>Blue lips/fingernails (cyanosis)</li>
+                    </ul>
+                </div>
+
+                <!-- HACE -->
+                <div class="risk-item">
+                    <div class="risk-title">
+                        High Altitude Cerebral Edema (HACE)
+                        <span class="risk-badge badge-danger">Life-Threatening</span>
+                    </div>
+                    <p class="risk-desc">Brain swelling from fluid leakage. Medical emergency requiring immediate descent.</p>
+                    <ul class="risk-list">
+                        <li>Severe headache (not relieved by medication)</li>
+                        <li>Confusion, altered mental state</li>
+                        <li>Difficulty walking (ataxia)</li>
+                        <li>Behavioral changes</li>
+                        <li>Loss of consciousness</li>
+                    </ul>
+                </div>
+
+                <!-- Critical Alert -->
+                <div class="critical-alert">
+                    <div class="critical-alert-title">⚠️ When to Turn Around</div>
+                    <div class="critical-alert-text">
+                        STOP ascent immediately if symptoms worsen. DESCENT is the only cure for HAPE/HACE. 
+                        <strong>Never sleep higher if symptomatic.</strong> Descend at least 500-1000m (1,500-3,000 ft).
+                    </div>
+                </div>
+
+                <!-- Prevention -->
+                <div class="subsection">
+                    <div class="subsection-title">🛡️ Prevention</div>
+                    <ul>
+                        <li><strong>Gradual ascent:</strong> Above 2,500m (8,000 ft), increase sleeping altitude by max 300-500m (1,000-1,500 ft) per day</li>
+                        <li><strong>Rest days:</strong> Take a rest day every 3-4 days or 1,000m (3,000 ft) gained</li>
+                        <li><strong>"Climb high, sleep low"</strong> when possible</li>
+                        <li><strong>Diamox (Acetazolamide):</strong> 125-250mg twice daily, starting 1 day before ascent</li>
+                        <li>Avoid alcohol and sedatives</li>
+                        <li>Stay hydrated but don't overhydrate</li>
+                    </ul>
+                </div>
+
+                <!-- Treatment -->
+                <div class="subsection">
+                    <div class="subsection-title">🚑 Treatment</div>
+                    <ul>
+                        <li><strong>Immediate descent</strong> - most important action</li>
+                        <li><strong>Supplemental oxygen</strong> if available</li>
+                        <li><strong>Dexamethasone</strong> for HACE: 4mg every 6 hours</li>
+                        <li><strong>Nifedipine</strong> for HAPE: 30mg slow-release every 12 hours</li>
+                        <li>Portable hyperbaric chamber (Gamow bag) if descent not immediately possible</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Heat & Sun -->
+        <div class="section-card">
+            <div class="section-header">
+                ☀️ Heat & Sun
+            </div>
+            <div class="section-content">
+                <!-- Heat Exhaustion vs Heat Stroke -->
+                <div class="risk-item">
+                    <div class="risk-title">Heat Exhaustion vs Heat Stroke</div>
+                    <p class="risk-desc">Know the difference - one is serious, the other is deadly.</p>
+                    
+                    <div class="comparison-grid">
+                        <div class="comparison-box warning">
+                            <div class="comparison-title">Heat Exhaustion</div>
+                            <ul class="comparison-list">
+                                <li>Heavy sweating</li>
+                                <li>Cool skin</li>
+                                <li>Muscle cramps</li>
+                                <li>Fatigue, weakness</li>
+                                <li>Nausea</li>
+                                <li>Normal mental state</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-box danger">
+                            <div class="comparison-title">Heat Stroke ⚠️</div>
+                            <ul class="comparison-list">
+                                <li>NO sweating (hot, dry skin)</li>
+                                <li>Body temp >40°C (104°F)</li>
+                                <li>Confusion, seizures</li>
+                                <li>Loss of consciousness</li>
+                                <li>Rapid pulse</li>
+                                <li><strong>MEDICAL EMERGENCY</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <div class="warning-box-title">Heat Stroke Response</div>
+                        <div class="warning-box-text">
+                            Call emergency services immediately. Cool rapidly: move to shade, remove clothing, 
+                            apply ice packs to neck/armpits/groin, immerse in cool water if possible. 
+                            <strong>Minutes matter.</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sunburn Prevention -->
+                <div class="risk-item">
+                    <div class="risk-title">
+                        Sunburn Prevention
+                        <span class="risk-badge badge-info">Prevention</span>
+                    </div>
+                    <ul class="risk-list">
+                        <li><strong>SPF 30+ minimum</strong> (SPF 50+ for extended exposure)</li>
+                        <li><strong>Reapply every 2 hours</strong> - more often if swimming/sweating</li>
+                        <li>Apply 15-30 minutes before sun exposure</li>
+                        <li>Use 1oz (shot glass) for full body coverage</li>
+                        <li>Don't forget ears, neck, feet, lips (SPF lip balm)</li>
+                        <li>Seek shade 10am-4pm when UV is strongest</li>
+                        <li>UPF-rated clothing more effective than sunscreen</li>
+                    </ul>
+                </div>
+
+                <!-- Dehydration -->
+                <div class="risk-item">
+                    <div class="risk-title">Dehydration Risks</div>
+                    <ul class="risk-list">
+                        <li>Thirst is a <strong>late</strong> indicator - drink before thirsty</li>
+                        <li>Urine should be pale yellow (not dark)</li>
+                        <li>Increase fluid intake in heat: 2-4L per day minimum</li>
+                        <li>Electrolyte replacement for heavy sweating (>1 hour activity)</li>
+                        <li>Avoid alcohol and excessive caffeine</li>
+                        <li>Children and elderly at higher risk</li>
+                    </ul>
+                </div>
+
+                <!-- UV Index -->
+                <div class="subsection">
+                    <div class="subsection-title">📊 UV Index Awareness</div>
+                    <ul>
+                        <li><strong>0-2:</strong> Low - minimal protection needed</li>
+                        <li><strong>3-5:</strong> Moderate - seek shade midday, wear sunscreen</li>
+                        <li><strong>6-7:</strong> High - protection essential, reduce sun 10am-4pm</li>
+                        <li><strong>8-10:</strong> Very High - extra protection, minimize sun exposure</li>
+                        <li><strong>11+:</strong> Extreme - avoid sun exposure, full protection mandatory</li>
+                    </ul>
+                    <p style="font-size: 12px; color: #6B7280; margin-top: 8px;">
+                        <em>UV index is higher at altitude, near equator, and near reflective surfaces (snow, water, sand).</em>
+                    </p>
+                </div>
+
+                <!-- Heat Index -->
+                <div class="subsection">
+                    <div class="subsection-title">🌡️ Heat Index Concept</div>
+                    <p style="font-size: 13px; color: #4B5563; margin-bottom: 10px;">
+                        "Feels like" temperature combining air temperature + humidity. 
+                        High humidity impairs body's ability to cool through sweating.
+                    </p>
+                    <ul>
+                        <li><strong>27-32°C (80-90°F):</strong> Caution - fatigue possible</li>
+                        <li><strong>32-41°C (90-105°F):</strong> Extreme caution - heat cramps/exhaustion possible</li>
+                        <li><strong>41-54°C (105-130°F):</strong> Danger - heat stroke likely with prolonged exposure</li>
+                        <li><strong>54°C+ (130°F+):</strong> Extreme danger - heat stroke imminent</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cold & Hypothermia -->
+        <div class="section-card">
+            <div class="section-header">
+                ❄️ Cold & Hypothermia
+            </div>
+            <div class="section-content">
+                <!-- Frostbite -->
+                <div class="risk-item">
+                    <div class="risk-title">Frostbite Stages</div>
+                    <p class="risk-desc">Freezing of skin and underlying tissues. Most common in fingers, toes, ears, nose, cheeks.</p>
+                    
+                    <div class="subsection" style="background: #FEF3C7;">
+                        <div class="subsection-title">Stage 1: Frostnip</div>
+                        <ul>
+                            <li>Numb, pale skin</li>
+                            <li>Soft to touch</li>
+                            <li>Reversible with rewarming - no permanent damage</li>
+                            <li><strong>Treatment:</strong> Gentle rewarming, warm water (37-39°C / 99-102°F)</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection" style="background: #FEE2E2;">
+                        <div class="subsection-title">Stage 2: Superficial Frostbite</div>
+                        <ul>
+                            <li>Skin feels warm (paradoxical)</li>
+                            <li>Red/white mottled appearance</li>
+                            <li>Blistering may occur after rewarming</li>
+                            <li>Medical attention recommended</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection" style="background: #FECACA;">
+                        <div class="subsection-title">Stage 3: Deep/Severe Frostbite ⚠️</div>
+                        <ul>
+                            <li>Skin white, waxy, or gray-yellow</li>
+                            <li>Feels hard, wooden to touch</li>
+                            <li>Tissue death risk - potential amputation</li>
+                            <li><strong>Medical emergency</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Hypothermia -->
+                <div class="risk-item">
+                    <div class="risk-title">
+                        Hypothermia
+                        <span class="risk-badge badge-danger">Life-Threatening</span>
+                    </div>
+                    <p class="risk-desc">Core body temperature drops below 35°C (95°F). Can occur even in mild weather with wind/wet.</p>
+
+                    <div class="warning-box">
+                        <div class="warning-box-title">Remember the "Umbles"</div>
+                        <div class="warning-box-text">
+                            <strong>Stumbles</strong> (clumsy, poor coordination)<br>
+                            <strong>Mumbles</strong> (slurred speech)<br>
+                            <strong>Fumbles</strong> (difficulty with fine motor)<br>
+                            <strong>Grumbles</strong> (confusion, personality changes)
+                        </div>
+                    </div>
+
+                    <ul class="risk-list" style="margin-top: 12px;">
+                        <li><strong>Mild:</strong> Shivering, cold hands/feet, alert</li>
+                        <li><strong>Moderate:</strong> Violent shivering, confusion, drowsy</li>
+                        <li><strong>Severe:</strong> No shivering, unconscious, rigid muscles</li>
+                    </ul>
+                </div>
+
+                <!-- Wind Chill -->
+                <div class="risk-item">
+                    <div class="risk-title">Wind Chill Factor</div>
+                    <p class="risk-desc">Wind strips away the thin layer of warm air next to skin. Danger increases dramatically with wind.</p>
+                    <ul class="risk-list">
+                        <li>Frostbite can occur in <strong>minutes</strong> at high wind chill</li>
+                        <li>30+ mph wind can make 0°F feel like -26°F</li>
+                        <li>Exposed skin at highest risk</li>
+                        <li>Check wind chill charts before exposure</li>
+                    </ul>
+                </div>
+
+                <!-- Layering System -->
+                <div class="visual-box">
+                    <div class="visual-title">Layering System</div>
+                    <div class="layer-item">
+                        <div class="layer-icon layer-base">1</div>
+                        <div><strong>Base Layer:</strong> Moisture-wicking (synthetic/merino) - NO cotton</div>
+                    </div>
+                    <div class="layer-item">
+                        <div class="layer-icon layer-insulating">2</div>
+                        <div><strong>Insulating Layer:</strong> Traps heat (fleece, down, synthetic)</div>
+                    </div>
+                    <div class="layer-item">
+                        <div class="layer-icon layer-shell">3</div>
+                        <div><strong>Shell Layer:</strong> Wind/water protection (breathable waterproof)</div>
+                    </div>
+                </div>
+
+                <!-- Stay Dry -->
+                <div class="warning-box" style="margin-top: 16px;">
+                    <div class="warning-box-title">⚠️ Stay Dry Principle</div>
+                    <div class="warning-box-text">
+                        Wet clothing loses 90% of insulating value. Sweat, rain, or snow can cause hypothermia 
+                        even in temperatures above freezing. Change out of wet clothes immediately.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Environmental Hazards -->
+        <div class="section-card">
+            <div class="section-header">
+                ⚠️ Environmental Hazards
+            </div>
+            <div class="section-content">
+                <!-- Air Pollution -->
+                <div class="risk-item">
+                    <div class="risk-title">Air Pollution (AQI)</div>
+                    <ul class="risk-list">
+                        <li><strong>0-50 (Green):</strong> Good - no precautions needed</li>
+                        <li><strong>51-100 (Yellow):</strong> Moderate - sensitive groups limit outdoor exertion</li>
+                        <li><strong>101-150 (Orange):</strong> Unhealthy for sensitive groups</li>
+                        <li><strong>151-200 (Red):</strong> Unhealthy - everyone limit prolonged exertion</li>
+                        <li><strong>201-300 (Purple):</strong> Very unhealthy - avoid outdoor exertion</li>
+                        <li><strong>301+ (Maroon):</strong> Hazardous - remain indoors</li>
+                    </ul>
+                    <div class="subsection" style="margin-top: 12px;">
+                        <div class="subsection-title">Protection</div>
+                        <ul>
+                            <li>N95 masks filter PM2.5 particles</li>
+                            <li>Exercise indoors on high AQI days</li>
+                            <li>Close windows, use air purifiers</li>
+                            <li>Check AQI apps before outdoor activities</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Altitude UV / Snow Blindness -->
+                <div class="risk-item">
+                    <div class="risk-title">Altitude UV & Snow Blindness</div>
+                    <p class="risk-desc">UV increases ~10% per 1,000m altitude. Snow reflects up to 80% of UV.</p>
+                    <ul class="risk-list">
+                        <li><strong>Snow blindness:</strong> Sunburn of the cornea (photokeratitis)</li>
+                        <li>Symptoms appear 6-12 hours after exposure</li>
+                        <li>Severe pain, gritty sensation, light sensitivity, tearing</li>
+                        <li>Usually resolves in 24-48 hours but very painful</li>
+                        <li><strong>Prevention:</strong> Glacier goggles/sunglasses with side shields (CAT 3-4)</li>
+                    </ul>
+                </div>
+
+                <!-- Natural Disasters -->
+                <div class="risk-item">
+                    <div class="risk-title">Natural Disasters</div>
+                    
+                    <div class="subsection">
+                        <div class="subsection-title">🌊 Tsunami Awareness</div>
+                        <ul>
+                            <li>Feel strong earthquake? Move to high ground immediately</li>
+                            <li>Tsunami can arrive within minutes</li>
+                            <li>Don't wait for official warning</li>
+                            <li>First wave may not be largest</li>
+                            <li>Stay away from coast for 24+ hours</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">🌋 Volcano Awareness</div>
+                        <ul>
+                            <li>Check volcanic activity before travel</li>
+                            <li>Carry N95 mask for ash (regular masks ineffective)</li>
+                            <li>Ash can damage lungs, eyes, vehicles, electronics</li>
+                            <li>Stay indoors during heavy ashfall</li>
+                            <li>Clear roof ash (can cause collapse)</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">🌍 Earthquake Safety</div>
+                        <ul>
+                            <li><strong>Drop, Cover, Hold On</strong></li>
+                            <li>Get under sturdy furniture, cover head/neck</li>
+                            <li>Stay away from windows, heavy objects</li>
+                            <li>If outdoors: move to open area away from buildings</li>
+                            <li>Know tsunami risk if near coast</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Wildlife -->
+                <div class="risk-item">
+                    <div class="risk-title">Wildlife Encounters</div>
+                    
+                    <div class="subsection">
+                        <div class="subsection-title">🐻 Bears</div>
+                        <ul>
+                            <li><strong>Black bears:</strong> Fight back if attacked</li>
+                            <li><strong>Grizzly bears:</strong> Play dead (face down, hands behind neck)</li>
+                            <li>Make noise while hiking (don't surprise them)</li>
+                            <li>Carry bear spray, know how to use it</li>
+                            <li>Store food properly (bear canisters/hangs)</li>
+                            <li>Never run - triggers chase response</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">🐍 Snakes</div>
+                        <ul>
+                            <li>Most bites occur when trying to handle/kill snake</li>
+                            <li>Watch where you step/put hands (rock crevices, wood piles)</li>
+                            <li>Wear boots and long pants in snake habitat</li>
+                            <li>If bitten: keep calm, immobilize, seek medical help</li>
+                            <li>Don't cut, suck, or apply ice/tourniquet</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">🦟 Insects</div>
+                        <ul>
+                            <li>DEET 20-30% or picaridin for mosquitoes/ticks</li>
+                            <li>Permethrin-treated clothing for tick areas</li>
+                            <li>Check for ticks daily (prompt removal reduces disease risk)</li>
+                            <li>Use mosquito nets where malaria/dengue present</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Poisonous Plants -->
+                <div class="risk-item">
+                    <div class="risk-title">Poisonous Plants</div>
+                    
+                    <div class="warning-box">
+                        <div class="warning-box-title">"Leaves of Three, Let It Be"</div>
+                        <div class="warning-box-text">
+                            Applies to poison ivy, oak, and sumac. All contain urushiol oil that causes allergic contact dermatitis.
+                        </div>
+                    </div>
+
+                    <ul class="risk-list" style="margin-top: 12px;">
+                        <li><strong>Poison Ivy:</strong> Climbing vine or shrub, pointed leaflets</li>
+                        <li><strong>Poison Oak:</strong> Shrub or vine, lobed leaves resembling oak</li>
+                        <li><strong>Poison Sumac:</strong> Woody shrub, 7-13 leaflets per stem</li>
+                        <li>Oil can remain active on clothing/pets/tools for years</li>
+                        <li>Rash appears 12-72 hours after exposure</li>
+                        <li><strong>Wash with soap and water within 15 minutes</strong> to prevent/minimize rash</li>
+                        <li>Calamine lotion, cool compresses, antihistamines for symptoms</li>
+                        <li>Seek medical care if widespread or on face/genitals</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Water Environments -->
+        <div class="section-card">
+            <div class="section-header">
+                🌊 Water Environments
+            </div>
+            <div class="section-content">
+                <!-- Rip Currents -->
+                <div class="risk-item">
+                    <div class="risk-title">
+                        Rip Currents
+                        <span class="risk-badge badge-danger">Leading Cause of Beach Rescues</span>
+                    </div>
+                    <p class="risk-desc">Strong, narrow channels of water flowing away from shore. Can exceed 8 feet/second - faster than Olympic swimmers.</p>
+
+                    <div class="critical-alert">
+                        <div class="critical-alert-title">🌊 How to Escape</div>
+                        <div class="critical-alert-text">
+                            <strong>1. DON'T PANIC</strong> - Stay calm, you will float<br>
+                            <strong>2. DON'T FIGHT DIRECTLY</strong> - Swimming straight to shore exhausts you<br>
+                            <strong>3. SWIM PARALLEL</strong> - Swim parallel to shore until out of current<br>
+                            <strong>4. THEN ANGLE IN</strong> - Once free, swim at angle back to shore<br>
+                            <strong>5. FLOAT IF TIRED</strong> - Tread water or float, signal for help
+                        </div>
+                    </div>
+
+                    <ul class="risk-list" style="margin-top: 12px;">
+                        <li>Look for: channel of churning water, line of foam/seaweed, darker water, gap in waves</li>
+                        <li>Always swim near lifeguards</li>
+                        <li>If you see someone caught: throw flotation, don't become second victim</li>
+                    </ul>
+                </div>
+
+                <!-- Jellyfish -->
+                <div class="risk-item">
+                    <div class="risk-title">Jellyfish Stings</div>
+
+                    <div class="myth-fact">
+                        <div class="myth">
+                            <div class="myth-label">❌ Myth</div>
+                            <div class="myth-text">Pee on the sting to neutralize venom</div>
+                        </div>
+                        <div class="fact">
+                            <div class="fact-label">✅ Fact</div>
+                            <div class="fact-text">Urine can actually worsen the sting. Use vinegar for box jellyfish, 
+                            or hot water (not scalding) for most other species.</div>
+                        </div>
+                    </div>
+
+                    <ul class="risk-list" style="margin-top: 12px;">
+                        <li>Rinse with seawater (NOT freshwater - triggers more stingers)</li>
+                        <li>Remove tentacles with tweezers (not fingers)</li>
+                        <li>Hot water immersion (40-45°C / 104-113°F) for 20 minutes for pain</li>
+                        <li>Box jellyfish (Australia/Indo-Pacific): vinegar first, then seek emergency care</li>
+                        <li>Portuguese man o' war: different species - hot water, not vinegar</li>
+                        <li>Seek immediate help for breathing difficulty, chest pain, or widespread sting</li>
+                    </ul>
+                </div>
+
+                <!-- Coral Cuts -->
+                <div class="risk-item">
+                    <div class="risk-title">Coral Cuts</div>
+                    <p class="risk-desc">Coral polyps leave foreign protein and calcium carbonate in wounds. High infection risk.</p>
+
+                    <ul class="risk-list">
+                        <li><strong>Immediate:</strong> Flush vigorously with clean water</li>
+                        <li><strong>Scrub gently</strong> with soap and brush to remove debris</li>
+                        <li>Rinse with half-strength hydrogen peroxide</li>
+                        <li>Apply antiseptic and cover with sterile dressing</li>
+                        <li><strong>Monitor for infection:</strong> increasing redness, warmth, pus, red streaks</li>
+                        <li>Seek medical care - may need antibiotics or foreign body removal</li>
+                        <li>Watch for coral poisoning (coral dermatitis): red, itchy, blistering rash</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <div class="warning-box-title">⚠️ Don't Touch Coral</div>
+                        <div class="warning-box-text">
+                            Coral cuts take weeks to heal, easily infected, and damage fragile ecosystems. 
+                            Look but don't touch.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Marine Animals -->
+                <div class="risk-item">
+                    <div class="risk-title">Marine Animal Hazards</div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">🐡 Venomous Fish</div>
+                        <ul>
+                            <li><strong>Stonefish, scorpionfish, lionfish:</strong> venomous spines</li>
+                            <li>Hot water immersion (as hot as tolerable) denatures venom</li>
+                            <li>Seek medical care - antivenom exists for stonefish</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">🐠 Stingrays</div>
+                        <ul>
+                            <li>Shuffle feet when wading to avoid stepping on them</li>
+                            <li>If stung: hot water immersion, seek medical care</li>
+                            <li>Barb can break off - may need surgical removal</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">🦈 Sharks</div>
+                        <ul>
+                            <li>Shark attacks rare (more deaths from vending machines)</li>
+                            <li>Avoid dawn/dusk swimming, murky water, areas with seals/bait fish</li>
+                            <li>Don't wear shiny jewelry, don't splash excessively</li>
+                            <li>If attacked: target eyes and gills aggressively</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">🐙 Blue-Ringed Octopus & Cone Snails</div>
+                        <ul>
+                            <li>Highly venomous - found Indo-Pacific region</li>
+                            <li>No antivenom available</li>
+                            <li><strong>Any bite = medical emergency</strong> - may need CPR/ventilation support</li>
+                            <li>Don't pick up shells or touch small octopuses</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-spacer"></div>
+    </div>
+</body>
+</html>
