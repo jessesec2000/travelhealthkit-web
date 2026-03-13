@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Levels - TravelHealthKit</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+        .container { max-width: 480px; margin: 0 auto; padding: 20px; }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #6B7280;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+        
+        .header {
+            margin-bottom: 24px;
+        }
+        
+        .title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-size: 15px;
+            color: #6B7280;
+        }
+        
+        .level-card {
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 16px;
+            color: white;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .level-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .level-1 { background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%); }
+        .level-2 { background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%); }
+        .level-3 { background: linear-gradient(135deg, #00D4AA 0%, #00B894 100%); }
+        .level-4 { background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%); }
+        
+        .level-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.25);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+        
+        .level-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .level-icon {
+            font-size: 40px;
+            margin-right: 16px;
+        }
+        
+        .level-title {
+            font-size: 24px;
+            font-weight: 800;
+        }
+        
+        .level-subtitle {
+            font-size: 14px;
+            opacity: 0.85;
+        }
+        
+        .level-desc {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+        
+        .examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .example-chip {
+            background: rgba(255,255,255,0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+        
+        .arrow {
+            position: absolute;
+            right: 24px;
+            bottom: 24px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">← Back to Home</a>
+        
+        <div class="header">
+            <h1 class="title">Adventure Levels</h1>
+            <p class="subtitle">Find the perfect adventure for your comfort zone</p>
+        </div>
+        
+        <!-- Level 1 -->
+        <div class="level-card level-1" onclick="location.href='level-1-detail.html'">
+            <div class="level-badge">LEVEL 1</div>
+            <div class="level-header">
+                <div class="level-icon">🔥</div>
+                <div>
+                    <div class="level-title">Adventure Seekers</div>
+                    <div class="level-subtitle">Extreme & High-Risk</div>
+                </div>
+            </div>
+            <p class="level-desc">For adrenaline junkies who push limits. High physical demands, remote locations, significant risks.</p>
+            <div class="examples">
+                <span class="example-chip">🏔️ 8000m peaks</span>
+                <span class="example-chip">🪂 BASE jumping</span>
+                <span class="example-chip">🧊 Polar expeditions</span>
+            </div>
+            <div class="arrow">→</div>
+        </div>
+        
+        <!-- Level 2 -->
+        <div class="level-card level-2" onclick="location.href='level-2-detail.html'">
+            <div class="level-badge">LEVEL 2</div>
+            <div class="level-header">
+                <div class="level-icon">⚡</div>
+                <div>
+                    <div class="level-title">Active Travelers</div>
+                    <div class="level-subtitle">Challenging Adventures</div>
+                </div>
+            </div>
+            <p class="level-desc">For fit travelers seeking real adventure. Moderate risks, physical challenges.</p>
+            <div class="examples">
+                <span class="example-chip">🏔️ High altitude trekking</span>
+                <span class="example-chip">🤿 Technical diving</span>
+                <span class="example-chip">🧗 Rock climbing</span>
+            </div>
+            <div class="arrow">→</div>
+        </div>
+        
+        <!-- Level 3 -->
+        <div class="level-card level-3" onclick="location.href='level-3-detail.html'">
+            <div class="level-badge">LEVEL 3</div>
+            <div class="level-header">
+                <div class="level-icon">🌟</div>
+                <div>
+                    <div class="level-title">Casual Explorers</div>
+                    <div class="level-subtitle">Moderate Adventure</div>
+                </div>
+            </div>
+            <p class="level-desc">For travelers wanting authentic experiences without extreme risks.</p>
+            <div class="examples">
+                <span class="example-chip">🥾 Day hikes</span>
+                <span class="example-chip">🤿 Resort diving</span>
+                <span class="example-chip">🦓 Safari tours</span>
+            </div>
+            <div class="arrow">→</div>
+        </div>
+        
+        <!-- Level 4 -->
+        <div class="level-card level-4" onclick="location.href='level-4-detail.html'">
+            <div class="level-badge">LEVEL 4</div>
+            <div class="level-header">
+                <div class="level-icon">💎</div>
+                <div>
+                    <div class="level-title">Family & Resort</div>
+                    <div class="level-subtitle">Relaxed & Accessible</div>
+                </div>
+            </div>
+            <p class="level-desc">For families, luxury travelers, or those seeking relaxation. Low risk, high comfort.</p>
+            <div class="examples">
+                <span class="example-chip">🏰 Disney/Theme parks</span>
+                <span class="example-chip">🚢 Cruise vacations</span>
+                <span class="example-chip">🏖️ Beach resorts</span>
+            </div>
+            <div class="arrow">→</div>
+        </div>
+    </div>
+</body>
+</html>

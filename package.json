@@ -1,0 +1,15 @@
+{
+  "name": "travelhealthkit-web",
+  "version": "1.0.0",
+  "description": "Travel Health Planner & Medical Kit Organizer",
+  "scripts": {
+    "start": "npx serve -s . -l $PORT",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "dependencies": {
+    "serve": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

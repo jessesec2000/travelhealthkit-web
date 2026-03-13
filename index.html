@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelHealthKit - Organized Navigation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            margin-bottom: 24px;
+        }
+
+        .greeting {
+            font-size: 14px;
+            color: #9CA3AF;
+            margin-bottom: 4px;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        /* Section Labels */
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #9CA3AF;
+            margin: 32px 0 16px 0;
+            text-transform: uppercase;
+        }
+
+        .section-label:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Primary Actions - Only 3-4 items */
+        .primary-card {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .primary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-color: #FF6B35;
+        }
+
+        .primary-icon {
+            font-size: 40px;
+            margin-right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8E53 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .primary-content {
+            flex: 1;
+        }
+
+        .primary-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .primary-desc {
+            font-size: 14px;
+            color: #6B7280;
+        }
+
+        .primary-arrow {
+            font-size: 24px;
+            color: #9CA3AF;
+        }
+
+        /* Secondary Actions - Grouped by category */
+        .category-card {
+            background: white;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .category-header {
+            background: #F9FAFB;
+            padding: 16px 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-item {
+            padding: 16px 20px;
+            border-top: 1px solid #F3F4F6;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .category-item:hover {
+            background: #FAFAFA;
+        }
+
+        .category-icon {
+            font-size: 24px;
+            margin-right: 16px;
+            width: 40px;
+            height: 40px;
+            background: #F3F4F6;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-text {
+            flex: 1;
+        }
+
+        .category-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .category-desc {
+            font-size: 13px;
+            color: #9CA3AF;
+        }
+
+        /* Emergency Button - Always visible but subtle */
+        .emergency-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #DC2626;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 4px 16px rgba(220,38,38,0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .emergency-float:hover {
+            transform: scale(1.05);
+        }
+
+        /* Contextual Features - These appear based on user actions */
+        .context-banner {
+            background: linear-gradient(135deg, #DBEAFE 0%, #BFDBFE 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 24px 0;
+            display: none; /* Hidden by default, shown contextually */
+        }
+
+        .context-banner.show {
+            display: block;
+        }
+
+        .context-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1E40AF;
+            margin-bottom: 8px;
+        }
+
+        .context-text {
+            font-size: 14px;
+            color: #1E40AF;
+            margin-bottom: 12px;
+        }
+
+        .context-button {
+            background: #2563EB;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        /* Show More/Less toggle */
+        .toggle-section {
+            text-align: center;
+            margin: 24px 0;
+        }
+
+        .toggle-button {
+            color: #6B7280;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 12px 24px;
+            border: 2px solid #E5E7EB;
+            border-radius: 100px;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .toggle-button:hover {
+            border-color: #FF6B35;
+            color: #FF6B35;
+        }
+
+        /* Hidden content */
+        .hidden-content {
+            display: none;
+        }
+
+        .hidden-content.show {
+            display: block;
+        }
+
+        /* Info tooltip */
+        .tooltip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: #E5E7EB;
+            border-radius: 50%;
+            font-size: 12px;
+            color: #6B7280;
+            margin-left: 8px;
+            cursor: help;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="greeting">Ready for adventure?</div>
+            <h1 class="title">Where to next?</h1>
+        </div>
+
+        <!-- PRIMARY ACTIONS (Always Visible - Max 4 items) -->
+        <div class="section-label">Start Here</div>
+        
+        <div class="primary-card" onclick="selectAdventureLevel()">
+            <div class="primary-icon">🎯</div>
+            <div class="primary-content">
+                <div class="primary-title">Find Your Adventure Level</div>
+                <div class="primary-desc">4 levels from extreme to family-friendly</div>
+            </div>
+            <div class="primary-arrow">›</div>
+        </div>
+
+        <div class="primary-card" onclick="planTrip()">
+            <div class="primary-icon">✈️</div>
+            <div class="primary-content">
+                <div class="primary-title">Plan a Trip</div>
+                <div class="primary-desc">Build your personalized health kit</div>
+            </div>
+            <div class="primary-arrow">›</div>
+        </div>
+
+        <div class="primary-card" onclick="buildKit()">
+            <div class="primary-icon">🎒</div>
+            <div class="primary-content">
+                <div class="primary-title">Build Your Kit</div>
+                <div class="primary-desc">View and customize your packing list</div>
+            </div>
+            <div class="primary-arrow">›</div>
+        </div>
+
+        <!-- CONTEXTUAL BANNER - Appears after user selects adventure level -->
+        <div class="context-banner" id="contextBanner">
+            <div class="context-title">Going on an extreme adventure?</div>
+            <div class="context-text">Don't forget satellite communicator and specialized rescue insurance.</div>
+            <div class="context-button" onclick="showSatelliteComms()">Learn More</div>
+        </div>
+
+        <!-- SECONDARY ACTIONS - Grouped by category -->
+        <div class="section-label">Health Preparation</div>
+        
+        <div class="category-card">
+            <div class="category-header">
+                📋 Before Your Trip
+            </div>
+            <div class="category-item" onclick="showPreTravel()">
+                <div class="category-icon">🏥</div>
+                <div class="category-text">
+                    <div class="category-title">Pre-Travel Doctor Visit</div>
+                    <div class="category-desc">Checklist for your appointment</div>
+                </div>
+            </div>
+            <div class="category-item" onclick="showDrugChecker()">
+                <div class="category-icon">💊</div>
+                <div class="category-text">
+                    <div class="category-title">Drug Interaction Checker</div>
+                    <div class="category-desc">Check medications before travel</div>
+                </div>
+            </div>
+            <div class="category-item" onclick="showAllergyCards()">
+                <div class="category-icon">🚨</div>
+                <div class="category-text">
+                    <div class="category-title">Allergy Translation Cards</div>
+                    <div class="category-desc">For restaurants abroad</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Family & Special Groups -->
+        <div class="category-card">
+            <div class="category-header">
+                👨‍👩‍👧‍👦 Family & Special Groups
+            </div>
+            <div class="category-item" onclick="showPediatric()">
+                <div class="category-icon">👶</div>
+                <div class="category-text">
+                    <div class="category-title">Traveling with Children</div>
+                    <div class="category-desc">Age-specific health guidance</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPANDABLE SECTION - More Tools -->
+        <div class="toggle-section">
+            <button class="toggle-button" onclick="toggleMore()">
+                <span id="toggleText">Show More Tools</span>
+            </button>
+        </div>
+
+        <div class="hidden-content" id="moreTools">
+            <div class="section-label">Advanced Tools</div>
+            
+            <div class="category-card">
+                <div class="category-header">
+                    🧭 Remote & Extreme
+                </div>
+                <div class="category-item" onclick="showSatelliteComms()">
+                    <div class="category-icon">📡</div>
+                    <div class="category-text">
+                        <div class="category-title">Satellite Communicators</div>
+                        <div class="category-desc">Essential for remote adventures</div>
+                    </div>
+                </div>
+                <div class="category-item" onclick="showDetailedKit()">
+                    <div class="category-icon">🧰</div>
+                    <div class="category-text">
+                        <div class="category-title">Detailed First Aid Kit</div>
+                        <div class="category-desc">Specific items with quantities</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="category-card">
+                <div class="category-header">
+                    🚨 Emergency
+                </div>
+                <div class="category-item" onclick="showEmergencyProtocols()">
+                    <div class="category-icon">⚕️</div>
+                    <div class="category-text">
+                        <div class="category-title">Emergency Protocols</div>
+                        <div class="category-desc">Step-by-step emergency guidance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom spacer for emergency button -->
+        <div style="height: 100px;"></div>
+    </div>
+
+    <!-- Emergency Button - Always accessible -->
+    <div class="emergency-float" onclick="showEmergency()">
+        🆘 Emergency
+    </div>
+
+    <script>
+        function selectAdventureLevel() {
+            alert('Opens Adventure Levels (Level 1-4 selection)');
+            // After user selects Level 1 or 2, show contextual banner
+            document.getElementById('contextBanner').classList.add('show');
+        }
+
+        function planTrip() {
+            alert('Opens Trip Planner - destination, dates, activities');
+        }
+
+        function buildKit() {
+            alert('Opens Kit Builder - personalized packing list');
+        }
+
+        function toggleMore() {
+            const moreTools = document.getElementById('moreTools');
+            const toggleText = document.getElementById('toggleText');
+            
+            if (moreTools.classList.contains('show')) {
+                moreTools.classList.remove('show');
+                toggleText.textContent = 'Show More Tools';
+            } else {
+                moreTools.classList.add('show');
+                toggleText.textContent = 'Show Less';
+            }
+        }
+
+        // Individual tool functions
+        function showPreTravel() {
+            alert('Opens Pre-Travel Consultation checklist');
+        }
+
+        function showDrugChecker() {
+            alert('Opens Drug Interaction Checker');
+        }
+
+        function showAllergyCards() {
+            alert('Opens Allergy Translation Cards');
+        }
+
+        function showPediatric() {
+            alert('Opens Pediatric Travel Medicine');
+        }
+
+        function showSatelliteComms() {
+            alert('Opens Satellite Communicator Guide');
+        }
+
+        function showDetailedKit() {
+            alert('Opens Detailed First Aid Kit');
+        }
+
+        function showEmergencyProtocols() {
+            alert('Opens Emergency Protocols');
+        }
+
+        function showEmergency() {
+            alert('🚨 Opens Emergency Protocols immediately');
+        }
+    </script>
+</body>
+</html>
